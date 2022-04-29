@@ -1,0 +1,71 @@
+---
+slug: "map-function-javascript"
+date: "2017-11-09"
+title: "The Map Function - Functional Programming in JavaScript"
+description: "Check out the first episode in this series of screencasts on functional programming in JavaScript. In this episode, we'll look at the Map function."
+banner: "/images/map.jpg"
+tags: ["javascript", "tools", "screencast", "code"]
+published: true
+---
+
+import Video from 'components/Video'
+
+Today I am pleased to bring you what will be the first episode in a series of videos on Functional Programming in JavaScript. This episode covers the map function. To see more of my videos, check out my other screencasts
+
+The map function is part of the array object. It is used for transforming elements in an array. Map is also a pure function meaning that it does not change the original array, instead, it returns a new array.
+
+## How it's used
+
+An example of how map might be used is to double every number in an array.
+
+```javascript
+const array = [1, 2, 3];
+
+const newArray = array.map((value) => value * 2); // 2, 4, 6
+```
+
+---
+
+## The Map function - Functional Programming in JavaScript
+
+<Video url="https://www.youtube.com/watch?v=gazsGHcj7AE" />
+
+---
+
+## Video Transcript
+
+Hello and welcome to my first episode of functional programming in JavaScript. Today we're gonna have a look at the map function, which is a function on the array object.
+
+Okay, let's get started. In this example we're gonna have a look at how the map function can be used to transform this users array into an array that just contains the user's name in a string.
+
+Before we start using the map function we're going to do exactly the same thing except we'll use a "for loop" so that we can compare how they differ.
+
+I've written this for-loop earlier, I'll just paste it and now. This is what it looks like. So first of all, we define a names array. We loop over each of the items in the users array and we push the name into it.
+
+So if we run this code it should do exactly what we want it to. It does. As you can see, it creates a new array with each of the user's names in it.
+
+Now let's have a look at how we can do this with the map function. I'm going to comment this out. We'll create a new variable to hold the names in and we will call in users.
+
+Now, the map function is a function on the on the array object, which means that anything that's an array you can call map on. Map itself, is a higher-order function and what that means is that it expects a function as an argument. So let's do that.
+
+This is an ES6 error function. The way map works is that it will call this secondary function for each item that there is in the array. The secondary function will receive a single argument which is the item in the array that it's currently looking at.
+
+So in this case, we'll call the user because each item in the users array is a user.
+
+Whatever this function returns will be what is placed in the new names variable that we just created. Let's start by returning the user's name.
+
+Now, if I have not made any typos this should work. Let's try that again. Perfect. Okay. So, there's nothing particularly crazy happening here and in fact, we can make it a little bit simpler with ES6 arrow function.
+
+If the body of your function fits on a single line then we can shorten this up a little bit. Let's have a look at how that's done.
+
+Okay, because of the fact that it does fit on one line we can omit the curly braces and the return statement. Whatever's on the right-hand side of this arrow is implicitly returned.
+
+In this case, this does exactly the same thing as it used to. Let's run that just to prove. Cool, okay. If you compare these two functions, you can see that the second function on line 13 using map is a hell of a lot shorter.
+
+This function is actually 89 characters, whereas the same thing using map is 43. So that is half as long as the original function.
+
+Less code means less bugs.
+
+That wraps up this short tutorial on how to use the map function. In the next episode, we're going to take a look at the filter function, which is fairly similar except instead of transforming elements in the array, it allows us to filter them out. I'll see you next time.
+
+This video is also available on YouTube

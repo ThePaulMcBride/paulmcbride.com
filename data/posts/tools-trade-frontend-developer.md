@@ -1,0 +1,85 @@
+---
+slug: "tools-trade-frontend-developer"
+date: "2017-08-31"
+title: "Tools of the Trade - Front End Developer"
+description: "The number of tools used by front end developers has exploded over the past few years. Let's looks at a few of the most popular."
+banner: "/images/front-end-development-tools.jpg"
+tags: ["tools", "javascript"]
+published: true
+---
+
+The work of a front-end developer is complicated. There is a lot of compiling and minifying code, moving assets around and installing dependencies! Let's not forget actually writing the code too.
+
+In today's article, I'm going to talk about some of the tools often used by front-end developers to make life easier.
+
+## Code Editor or IDE for Front End Development
+
+The most important tool for writing code is probably your editor. For front-end development, which mostly involves HTML, CSS and JavaScript, there are plenty of options. I'll mention three of the more popular choices.
+
+### Sublime Text
+
+Sublime text has been around for nearly 10 years. It is incredibly popular and has a huge ecosystem of plugins and themes etc. Sublime Text requires a licence which costs \$70, however, it can be evaluated for free. The free trial has no expiry time.
+
+### Atom
+
+Atom is a free and open source editor built by GitHub. It is built using web technologies like Node.js. This means it's easy to hack and customise. As Atom is so easy to customise, it also has a large number of available plugins to extend its functionality.
+
+Check out my article on [Atom Plugins](/6-essential-plugins-packages-for-atom-editor/).
+
+### Visual Studio Code
+
+VS Code is built by Microsoft and is available for free. Again, there are plenty of plugins available. Visual Studio Code is a great choice if you plan on working with Microsoft Technologies such as the .NET framework.
+
+## Task Runners
+
+Task runners have been around for ages, but have become more popular with the release of JavaScript task runners. They are used to automate repetitive tasks like compiling Sass to CSS or minifying your JavaScript. They can also be used for much more complicated work.
+
+If you're just getting started learning to code, you probably don't need to worry too much about task runners. Instead, focusing on understanding the languages you use. When you find yourself doing the same thing over and over, think about setting up one of the following...
+
+### Grunt
+
+Grunt is the first task runner I ever used. All configuration of you grunt tasks would be done in a `Gruntfile.js`, usually in the root directory of your project.
+
+Grunt, like the other task runners I'll mention runs on a plugin based setup. Each plugin gives grunt new abilities, such as image compression.
+
+To get started with Grunt, visit [gruntjs.com](https://gruntjs.com/)
+
+### Gulp
+
+Gulp was released sometime after Grunt with the promise of being code over configuration. The idea was that your `gulpfile.js` would contain actual JavaScript instead of a harder to read configuration block used by Grunt.
+
+Gulp is almost always faster than Grunt when performing the same task as it is built using Node's streaming API. The drawback of this is that you will need to a little more familiar with JavaScript and Node to get the most out of Gulp.
+
+Check it out at [gulpjs.com](https://gulpjs.com/)
+
+### Webpack
+
+Webpack is the new kid on the block. It is described as a "module bundler". What this means is that it can take multiple JavaScript files and bundle them together using the CommonJS pattern. Webpack also supports plugins known as loaders.
+
+Webpack is probably the most difficult to learn than the other task runners. In fact, Webpack isn't really a task runner. It's a more specific tool that can be used, with a few plugins, to transpile JavaScript using cutting-edge features into JavaScript that will work in all modern browsers.
+
+Webpack may not be the best task runner for getting started, but if you plan on building modern JavaScript apps, it may be the tool for you.
+
+Learn more at [webpack.js.org](https://webpack.js.org/)
+
+## Chrome Developer Tools
+
+The chrome developer tools are amazing. If you work as a front-end developer and don't use Google Chrome as your main browser, you might be crazy!
+
+The list of useful features is pretty much endless. To read more about them, visit [developer.chrome.com/devtools](https://developer.chrome.com/devtools).
+
+## Front end Frameworks
+
+Why write code when you don't have to? It may be worth checking out some of the main front-end frameworks. These frameworks usually come with a CSS framework which can give you a basic layout grid, have default styles for things like buttons and forms and also include responsive styles.
+
+Most of them come with JavaScript helpers too. These can include features like hiding and showing modals etc.
+
+My two favourite frameworks are [BootStrap](https://getbootstrap.com/) and [Foundation](http://foundation.zurb.com/)
+
+## Codepen
+
+Codepen is a great tool for testing out new ideas. It allows you to write code in the browser and see how it updates in real time. Even if you don't plan on using it yourself, you should sign up for their newsletter to see what other amazing things people are building.
+
+## Conclusion
+
+There are more tools for front-end developers than you can possibly imagine. These tools can help make your day to day work easier and more efficient. If you use a tool regularly and I've not mentioned it, get in touch with me and I'll update this article.
