@@ -1,11 +1,9 @@
 ---
-slug: "dev-ops-introduction-aws-lambda"
 date: "2017-10-26"
 title: "Dev Ops - An Introduction to AWS Lambda"
 description: "Deploying code to the cloud has never been easier. Let's learn how AWS Lambda can help you run fast scalable app around the globe."
 banner: "/images/cloud-computing-aws-lambda.jpg"
 tags: ["devops"]
-published: true
 ---
 
 If you've ever looked into AWS (Amazon Web Services), you'll know how overwhelming it can be. There are close to 100 different products and services with countless possible applications. If AWS wasn't confusing enough, the services have cryptic names making near impossible to guess what they do.

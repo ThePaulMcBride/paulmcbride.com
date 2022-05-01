@@ -1,14 +1,12 @@
 ---
-slug: "javascript-fetch-api"
 date: "2017-09-14"
 title: "JavaScript Fetch API"
 description: "The fetch API is used for making network requests in the browser. In this article we'll learn how it works"
 banner: "/images/fetch-api.jpg"
 tags: ["code", "javascript"]
-published: true
 ---
 
-The Javascript Fetch API replaces XMLHttpRequest for making network requests from client side apps. One of the main differences is that XMLHttpRequest uses callback functions to handle the response where as Fetch uses promises.
+The JavaScript Fetch API replaces XMLHttpRequest for making network requests from client side apps. One of the main differences is that XMLHttpRequest uses callback functions to handle the response where as Fetch uses promises.
 
 Let's look at an example of each. We'll make a request to an API and parse the JSON response.
 

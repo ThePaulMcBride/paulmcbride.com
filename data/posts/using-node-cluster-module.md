@@ -1,11 +1,9 @@
 ---
-slug: 'using-node-cluster-module'
-date: '2017-09-28'
-title: 'Using the Node.js Cluster Module'
-description: 'Using the Node.js Cluster module is an easy way to achieve significant performance gains for your app. Find out how to use it in this article.'
-banner: '/images/node-cluster-module.jpg'
-tags: ['javascript', 'code']
-published: true
+date: "2017-09-28"
+title: "Using the Node.js Cluster Module"
+description: "Using the Node.js Cluster module is an easy way to achieve significant performance gains for your app. Find out how to use it in this article."
+banner: "/images/node-cluster-module.jpg"
+tags: ["javascript", "code"]
 ---
 
 As we know, Node.js is a single threaded JavaScript runtime. A node process can only use a maximum of 1 CPU core and around 1.5GB of RAM. In this article, I will show you how we can use the Node.js cluster module to node processes to allow your app to take full advantage of the resources available.
@@ -17,21 +15,21 @@ The cluster module is a Node.js core module that, among other things, allows you
 Let's look at an example of how to use it. In this example, assume that `app` is an express.js app.
 
 ```javascript
-const cluster = require('cluster')
-const os = require('os')
-const app = require('./app')
+const cluster = require("cluster");
+const os = require("os");
+const app = require("./app");
 
-const cpuCount = os.cpus().length
+const cpuCount = os.cpus().length;
 
 if (cluster.isMaster) {
   for (var i = 0; i < cpuCount; i++) {
-    cluster.fork()
+    cluster.fork();
   }
 }
 if (cluster.isWorker) {
   app.listen(8000, () => {
-    console.log('Server listening on port 8000')
-  })
+    console.log("Server listening on port 8000");
+  });
 }
 ```
 

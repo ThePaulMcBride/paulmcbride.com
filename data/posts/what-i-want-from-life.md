@@ -1,11 +1,9 @@
 ---
-slug: "what-i-want-from-life"
 date: "2020-05-18"
 title: "What I want from life"
 description: "Success looks different to each person. This is what success looks like for me and what I want to get out of my time on earth."
 tags: ["life"]
 banner: "/images/stack.jpg"
-published: true
 ---
 
 What success looks like will be different for each person. What someone wants out of life will depend on what they have now, how they grew up, and what stage of life they are at.

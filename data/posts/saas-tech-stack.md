@@ -1,11 +1,9 @@
 ---
-slug: "saas-tech-stack"
 date: "2020-06-17"
 title: "My SaaS Tech Stack"
 description: "A look into the tech choices I made when building the job boards, WeCode NI and WeCode Remote."
 tags: ["tech", "javascript"]
 banner: "/images/success.jpg"
-published: true
 ---
 
 Building software involves a lot of compromise. Everything has pros and cons. In this article I’d like to share what I used to build [WeCode NI](https://wecodeni.com) and [weCode Remote](https://wecoderemote.com). Both job boards are essentially the same and use very similar tech.

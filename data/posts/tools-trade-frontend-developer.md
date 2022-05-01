@@ -1,11 +1,9 @@
 ---
-slug: "tools-trade-frontend-developer"
 date: "2017-08-31"
 title: "Tools of the Trade - Front End Developer"
 description: "The number of tools used by front end developers has exploded over the past few years. Let's looks at a few of the most popular."
 banner: "/images/front-end-development-tools.jpg"
 tags: ["tools", "javascript"]
-published: true
 ---
 
 The work of a front-end developer is complicated. There is a lot of compiling and minifying code, moving assets around and installing dependencies! Let's not forget actually writing the code too.

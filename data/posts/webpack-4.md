@@ -1,11 +1,9 @@
 ---
-slug: "webpack-4"
 date: "2018-03-04"
 title: "Up and Running with Webpack 4"
 description: "Webpack 4 has finally been released and it is pretty great! If you are looking for zero config JavaScript bundling, then Webpack 4 is the tool for you!"
 banner: "/images/webpack-4.jpg"
 tags: ["tools"]
-published: true
 ---
 
 After much anticipation, Webpack 4 has finally been released and it is pretty great! If you are looking for zero config JavaScript bundling, then Webpack 4 is the tool for you. In this article, we’ll talk about the changes made from version 3 and how to get up and running with Webpack 4.

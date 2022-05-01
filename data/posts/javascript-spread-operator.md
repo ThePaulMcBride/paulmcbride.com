@@ -1,11 +1,9 @@
 ---
-slug: "javascript-spread-operator"
 date: "2017-08-10"
 title: "JavaScript Spread Operator"
 description: "The keywords let and const are now part of Javascript. Let's explore what they do and how they differ from the var keyword."
 banner: "/images/spread-operator.png"
 tags: ["javascript", "code"]
-published: true
 ---
 
 The Javascript spread operator is something I use on a daily basis. If you use Redux, or need to write any kind of functional JavaScript then you need to know how to use the spread operator.

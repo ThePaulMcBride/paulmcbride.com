@@ -1,11 +1,9 @@
 ---
-slug: "rubber-duck-debugging"
 date: "2017-08-24"
 title: "Rubber Duck Debugging"
 description: "Rubber duck debugging is the name given to the technique or explaing what your code does to a rubber duck. I use it all the time! Let's find out more."
 banner: "/images/rubber-duck-debugging.jpg"
 tags: ["tools"]
-published: true
 ---
 
 It sounds crazy, right? A rubber duck is the perfect debugging partner. It has no arms or legs and sure as hell can't read or write code. So how can our little yellow friend help us write better code? Today we're going to learn about Rubber Duck Debugging.

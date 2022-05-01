@@ -1,11 +1,9 @@
 ---
-slug: "things-i-dont-know-2019"
 date: "2019-01-20"
 title: "Things I don't know at the start of 2019"
 description: "Life as a developer is a life of constant learning. I've taken stock of some of the things I don't know at the beginning of 2019"
 banner: "/images/things-i-dont-know.jpg"
 tags: ["tools", "javascript"]
-published: true
 ---
 
 I recently read an article by [Dan Abramov](https://overreacted.io/things-i-dont-know-as-of-2018/) where he listed all of the technologies he wasn't familiar with. Dan is someone I look up to and seeing this kind of honesty from him only added to my respect.

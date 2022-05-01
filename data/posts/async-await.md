@@ -1,11 +1,9 @@
 ---
-slug: "async-await"
 date: "2017-09-07"
 title: "Async/Await – Wait, What?"
 description: "JavaScript and promises go hand in hand. Find out how async/await can help make your asynchronous code easier to read and understand."
 banner: "/images/async-await.jpg"
 tags: ["code", "javascript"]
-published: true
 ---
 
 With the release of the Async/Await syntax in JavaScript we now have a succinct and highly legible way of writing asynchronous code. In this article, I'll cover how to use Async/Await functions and why they are better than promises.

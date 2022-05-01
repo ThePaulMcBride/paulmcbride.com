@@ -1,11 +1,9 @@
 ---
-slug: "map-function-javascript"
 date: "2017-11-09"
 title: "The Map Function - Functional Programming in JavaScript"
 description: "Check out the first episode in this series of screencasts on functional programming in JavaScript. In this episode, we'll look at the Map function."
 banner: "/images/map.jpg"
 tags: ["javascript", "tools", "screencast", "code"]
-published: true
 ---
 
 import Video from 'components/Video'

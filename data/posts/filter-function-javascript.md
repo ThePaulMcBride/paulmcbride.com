@@ -1,11 +1,9 @@
 ---
-slug: "filter-function-javascript"
 date: "2017-11-16"
 title: "The Filter Function - Functional Programming in JavaScript"
 description: "The filter function is used for plucking elements from an array that match a predicate function in JavaScript. Check it out!"
 banner: "/images/filter-function.jpg"
 tags: ["javascript", "tools", "screencast", "code"]
-published: true
 ---
 
 import Video from 'components/Video'

@@ -1,11 +1,9 @@
 ---
-slug: "5-reasons-to-learn-react"
 date: "2017-10-19"
 title: "5 Reasons to Learn React"
 description: "React is a big buzzword word right now. In fact, it has been a big buzz word for a few years now. Today I'll discuss 5 reasons to learn React."
 banner: "/images/5-reasons-to-learn-react.png"
 tags: ["javascript", "tools"]
-published: true
 ---
 
 React is a big buzzword word right now. In fact, it has been a big buzz word for a few years now and with good reason. React has shot to meteoric success since its release in May 2013. Today I'll discuss 5 reasons to learn React.

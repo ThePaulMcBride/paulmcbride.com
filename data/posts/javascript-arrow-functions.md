@@ -1,11 +1,9 @@
 ---
-slug: "javascript-arrow-functions"
 date: "2017-07-24"
 title: "JavaScript Arrow Functions"
 description: "Do you want to write beautiful JavaScript? Learn about JavaScript Arrow functions and how to use them."
 banner: "/images/javascript-arrow-functions.png"
 tags: ["javascript", "code"]
-published: true
 ---
 
 With the release of EcmaScript2015/ES6, JavaScript has undergone [major changes](/javascript-spread-operator/). Amongst these major changes is the addition of javascript arrow functions. In this article , am going to explain what an arrow function is and how to use it.

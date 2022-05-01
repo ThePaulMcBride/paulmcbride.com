@@ -1,48 +1,43 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import fs from "fs";
-import matter from "gray-matter";
-import Image from "next/image";
-import Link from "next/link";
+import Video from "components/Video";
+import { allPosts, Post } from "contentlayer/generated";
+import { useMDXComponent } from "next-contentlayer/hooks";
 
 export const getStaticPaths: GetStaticPaths = () => {
-  const files = fs.readdirSync("data/posts");
-
-  const posts = files.map((fileName) => {
-    return fileName.replace(/\.md(x)?$/, "");
-  });
-
+  const paths: string[] = allPosts.map((post) => post.slug);
   return {
-    paths: posts.map((slug) => ({
-      params: {
-        slug,
-      },
-    })),
+    paths,
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps = ({ params }) => {
-  const slug = params?.slug as string;
-
-  if (!slug) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const extension = fs.existsSync(`data/posts/${slug}.md`) ? "md" : "mdx";
-  const readFile = fs.readFileSync(`data/posts/${slug}.${extension}`, "utf-8");
-  const { data } = matter(readFile);
+export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+  const post: Post = allPosts.find((post) => {
+    return post._raw.flattenedPath.replace("posts/", "") === params.slug;
+  }) as Post;
 
   return {
     props: {
-      data,
+      post,
     },
   };
 };
 
+const components = { Video };
+
 const Post: NextPage = (props: any) => {
-  return <h1>{props.data.title}</h1>;
+  console.log(props);
+
+  const Component = useMDXComponent(props.post.body.code);
+
+  return (
+    <main>
+      <article className="prose lg:prose-xl mx-auto">
+        <h1>{props.post.title}</h1>
+        <Component components={components} />
+      </article>
+    </main>
+  );
 };
 
 export default Post;

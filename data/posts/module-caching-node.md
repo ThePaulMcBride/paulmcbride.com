@@ -1,11 +1,9 @@
 ---
-slug: "module-caching-node"
 date: "2017-10-12"
 title: "Module Caching in Node"
 description: "In Node.js we use the CommonJS module pattern for sharing code between files. In this article, I'll explain what module caching is and how it works."
 banner: "/images/module-caching-in-node.jpg"
 tags: ["javascript", "tools"]
-published: true
 ---
 
 In Node.js we use the CommonJS module pattern for sharing code between files. In this article, I'll explain how to use the `require` keyword and how it's related to module caching in Node.
