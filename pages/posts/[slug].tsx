@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import Video from "components/Video";
 import { allPosts, Post } from "contentlayer/generated";
 import { useMDXComponent } from "next-contentlayer/hooks";
+import MDXComponents from "components/MDXComponents";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const paths: string[] = allPosts.map((post) => post.slug);
@@ -23,11 +23,9 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
   };
 };
 
-const components = { Video };
+const components = MDXComponents;
 
 const Post: NextPage = (props: any) => {
-  console.log(props);
-
   const Component = useMDXComponent(props.post.body.code);
 
   return (

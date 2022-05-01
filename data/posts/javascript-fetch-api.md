@@ -86,4 +86,4 @@ Another possible issue with the fetch API is that is reasonably new, so although
 
 ## Conclusion
 
-Fetch is a welcome new API for making requests. It is easier to read and serves the purpose that XMLHttpRequest always tried to. If you are not using it yet, you are missing out on a simple, concise way of making HTTP requests from the browser. If you are interested in learning about how to use the fetch with Async/Await, check out my previous article. - [Asycn/Await Javascript Functions](/async-await/).
+Fetch is a welcome new API for making requests. It is easier to read and serves the purpose that XMLHttpRequest always tried to. If you are not using it yet, you are missing out on a simple, concise way of making HTTP requests from the browser. If you are interested in learning about how to use the fetch with Async/Await, check out my previous article. - [Asycn/Await Javascript Functions](/posts/async-await/).

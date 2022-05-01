@@ -6,7 +6,7 @@ banner: "/images/map.jpg"
 tags: ["javascript", "tools", "screencast", "code"]
 ---
 
-import Video from 'components/Video'
+import Youtube from 'components/Youtube'
 
 Today I am pleased to bring you what will be the first episode in a series of videos on Functional Programming in JavaScript. This episode covers the map function. To see more of my videos, check out my other screencasts
 
@@ -26,7 +26,7 @@ const newArray = array.map((value) => value * 2); // 2, 4, 6
 
 ## The Map function - Functional Programming in JavaScript
 
-<Video url="https://www.youtube.com/watch?v=gazsGHcj7AE" />
+<Youtube code="gazsGHcj7AE" title="The Map function - Functional Programming in JavaScript" />
 
 ---
 
