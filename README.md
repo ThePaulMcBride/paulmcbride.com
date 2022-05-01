@@ -1,5 +1,7 @@
 # paulmcbride.com
+
 My personal website
+
 ## Getting Started
 
 First, run the development server:

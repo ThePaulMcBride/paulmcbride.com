@@ -26,9 +26,16 @@ const computedFields: ComputedFields = {
   },
 };
 
+export const HomePage = defineDocumentType(() => ({
+  name: "HomePage",
+  filePathPattern: `homepage/about.md`,
+  isSingleton: true,
+  fields: [],
+}));
+
 export const Post = defineDocumentType(() => ({
   name: "Post",
-  filePathPattern: `posts/*.md*`,
+  filePathPattern: `posts/*.mdx`,
   contentType: "mdx",
   fields: {
     title: {
@@ -65,7 +72,7 @@ export const Post = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "data",
-  documentTypes: [Post],
+  documentTypes: [Post, HomePage],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

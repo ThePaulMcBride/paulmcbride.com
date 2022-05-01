@@ -1,12 +1,22 @@
-import type { NextPage } from "next";
-import fs from "fs";
-import matter from "gray-matter";
+import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { allPosts, Post } from "contentlayer/generated";
+import Container from "components/Container";
+import BlogPost from "components/BlogPost";
+import { allPosts, homePage, Post } from ".contentlayer/generated";
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const homePageContent = homePage;
+
   const posts = allPosts
+    .filter((post) =>
+      [
+        "/posts/var-let-const",
+        "/posts/dont-trust-the-cascade",
+        "/posts/what-programming-language-should-i-learn-first",
+        "/posts/what-i-want-from-life",
+      ].includes(post.slug)
+    )
     .sort((a, b) => {
       return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
     })
@@ -14,60 +24,89 @@ export async function getStaticProps() {
       slug: post.slug,
       title: post.title,
       banner: post.banner,
+      description: post.description,
+      readingTime: post.readingTime.text,
     }));
-
-  // const files = fs.readdirSync("data/posts");
-
-  // const posts = files
-  //   .map((fileName) => {
-  //     const readFile = fs.readFileSync(`data/posts/${fileName}`, "utf-8");
-  //     const { data: frontmatter } = matter(readFile);
-
-  //     return {
-  //       slug: frontmatter.slug,
-  //       frontmatter,
-  //     };
-  //   })
-  //   .sort((a, b) => {
-  //     return a.frontmatter.date > b.frontmatter.date
-  //       ? -1
-  //       : a.frontmatter.date < b.frontmatter.date
-  //       ? 1
-  //       : 0;
-  //   });
 
   return {
     props: {
       posts,
+      homePageContent: homePageContent.body.html,
     },
   };
-}
+};
 
-const Home: NextPage = ({ posts }: any) => {
+type ClientPost = Pick<Post, "slug" | "title" | "description" | "readingTime">;
+
+const Home: NextPage = ({ posts, homePageContent }: any) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-0">
-      {posts.map(({ slug, title, banner }: any) => (
-        <div
-          key={slug}
-          className="border border-gray-200 m-2 rounded-xl shadow-lg overflow-hidden flex flex-col"
-        >
-          <Link href={`${slug}`}>
-            <a>
-              <div className="relative aspect-[16/9]">
-                <Image
-                  alt={title}
-                  src={banner}
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-
-              <h1 className="p-4">{title}</h1>
-            </a>
-          </Link>
+    <Container>
+      <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pb-16">
+        <div className="flex flex-col-reverse sm:flex-row items-start">
+          <div className="flex flex-col pr-8 md:max-w-[80%]">
+            <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-black dark:text-white">
+              Paul McBride
+            </h1>
+            <h2 className="text-gray-700 dark:text-gray-200 mb-4">
+              Senior JavaScript Developer
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-16">
+              Hey, I'm Paul McBride. I make things with code and help others do
+              the same!
+            </p>
+          </div>
+          <div className="w-[80px] sm:w-[176px] relative mb-8 sm:mb-0 mr-auto">
+            <Image
+              alt="Paul McBride"
+              height={176}
+              width={176}
+              src="/avatar.jpeg"
+              className="rounded-full"
+            />
+          </div>
         </div>
-      ))}
-    </div>
+        <h3 className="font-bold text-2xl md:text-4xl tracking-tight  text-black dark:text-white">
+          About
+        </h3>
+        <div
+          className="w-full prose dark:prose-dark max-w-none mb-16"
+          dangerouslySetInnerHTML={{ __html: homePageContent }}
+        />
+        <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-6 text-black dark:text-white">
+          Featured Posts
+        </h3>
+        <div className="flex gap-6 flex-col">
+          {posts.map((post: any) => (
+            <BlogPost
+              key={post.slug}
+              title={post.title}
+              slug={post.slug}
+              description={post.description}
+              readingTime={post.readingTime}
+            />
+          ))}
+        </div>
+        <Link href="/posts">
+          <a className="flex mt-8 text-emerald-500 dark:text-emerald-400 leading-7 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-600 transition-all h-6 flex items-center">
+            Read all posts
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="h-6 w-6 ml-1"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17.5 12h-15m11.667-4l3.333 4-3.333-4zm3.333 4l-3.333 4 3.333-4z"
+              />
+            </svg>
+          </a>
+        </Link>
+      </div>
+    </Container>
   );
 };
 

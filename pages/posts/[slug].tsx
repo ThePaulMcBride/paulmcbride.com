@@ -2,6 +2,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { allPosts, Post } from "contentlayer/generated";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import MDXComponents from "components/MDXComponents";
+import PostLayout from "layouts/Post";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const paths: string[] = allPosts.map((post) => post.slug);
@@ -29,12 +30,9 @@ const Post: NextPage = (props: any) => {
   const Component = useMDXComponent(props.post.body.code);
 
   return (
-    <main>
-      <article className="prose lg:prose-xl mx-auto">
-        <h1>{props.post.title}</h1>
-        <Component components={components} />
-      </article>
-    </main>
+    <PostLayout post={props.post}>
+      <Component components={components} />
+    </PostLayout>
   );
 };
 

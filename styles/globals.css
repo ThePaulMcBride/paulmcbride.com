@@ -1,6 +1,14 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.skip-nav {
+  @apply absolute px-4 py-3 transition-transform duration-200 transform -translate-y-12 -left-1/4 focus:top-4 focus:translate-y-3 -top-8;
+}
+
+#skip {
+  scroll-margin-top: 1.125rem;
+}
 
 .prose pre {
   @apply border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-900;
@@ -76,8 +84,8 @@
   @apply text-yellow-500;
 }
 
-code[class*='language-'],
-pre[class*='language-'] {
+code[class*="language-"],
+pre[class*="language-"] {
   @apply text-gray-800 dark:text-gray-50;
 }
 
@@ -99,7 +107,7 @@ pre {
 }
 
 .code-line {
-	@apply bg-gray-50 dark:bg-gray-900
+  @apply bg-gray-50 dark:bg-gray-900;
 }
 
 .highlight-line {
