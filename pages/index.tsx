@@ -26,6 +26,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       banner: post.banner,
       description: post.description,
       readingTime: post.readingTime.text,
+      teaser: post.teaser,
     }));
 
   return {
@@ -72,10 +73,10 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
           className="w-full prose dark:prose-dark max-w-none mb-16"
           dangerouslySetInnerHTML={{ __html: homePageContent }}
         />
-        <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-6 text-black dark:text-white">
+        <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-black dark:text-white">
           Featured Posts
         </h3>
-        <div className="flex gap-6 flex-col">
+        <div className="flex flex-col">
           {posts.map((post: any) => (
             <BlogPost
               key={post.slug}
@@ -83,6 +84,7 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
               slug={post.slug}
               description={post.description}
               readingTime={post.readingTime}
+              teaser={post.teaser}
             />
           ))}
         </div>

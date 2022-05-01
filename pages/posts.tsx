@@ -1,8 +1,4 @@
 import type { NextPage } from "next";
-import fs from "fs";
-import matter from "gray-matter";
-import Image from "next/image";
-import Link from "next/link";
 import { allPosts, Post } from "contentlayer/generated";
 import Container from "components/Container";
 import { useState } from "react";
@@ -19,6 +15,7 @@ export async function getStaticProps() {
       banner: post.banner,
       description: post.description,
       readingTime: post.readingTime.text,
+      teaser: post.teaser,
     }));
 
   return {
@@ -40,7 +37,7 @@ const Posts: NextPage = ({ posts }: any) => {
       description="Thoughts on the software industry, programming, tech, videography, music, and my personal life."
     >
       <div className="flex flex-col items-start justify-center max-w-2xl mx-auto mb-16">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
+        <h1 className="mb-8 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
           Blog
         </h1>
         <p className="mb-4 text-gray-600 dark:text-gray-400">
@@ -71,7 +68,7 @@ const Posts: NextPage = ({ posts }: any) => {
             />
           </svg>
         </div>
-        <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
+        <h3 className="mt-8 mb-8 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
           All Posts
         </h3>
         {!filteredBlogPosts.length && (

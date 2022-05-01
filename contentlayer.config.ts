@@ -3,13 +3,13 @@ import {
   makeSource,
   ComputedFields,
 } from "contentlayer/source-files";
-
 import readingTime from "reading-time";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeCodeTitles from "rehype-code-titles";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrism from "rehype-prism-plus";
+import removeMd from "remove-markdown";
 
 const computedFields: ComputedFields = {
   readingTime: {
@@ -23,6 +23,23 @@ const computedFields: ComputedFields = {
   slug: {
     type: "string",
     resolve: (doc: any) => `/${doc._raw.flattenedPath}`,
+  },
+  teaser: {
+    type: "string",
+    resolve: (doc: any) => {
+      const length = 260;
+      let contentText = removeMd(doc.body.raw);
+      // Trim and normalize whitespace in content text
+      contentText = contentText.trim().replace(/\s+/g, " ").trim();
+
+      const excerpt = contentText.slice(0, length);
+
+      if (contentText.length > length) {
+        return excerpt.trim() + "...";
+      }
+
+      return excerpt;
+    },
   },
 };
 
