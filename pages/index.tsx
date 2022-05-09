@@ -4,6 +4,8 @@ import Link from "next/link";
 import Container from "components/Container";
 import BlogPost from "components/BlogPost";
 import { allPosts, homePage, Post } from ".contentlayer/generated";
+import { useMDXComponent } from "next-contentlayer/hooks";
+import MDXComponents from "components/MDXComponents";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const homePageContent = homePage;
@@ -32,14 +34,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       posts,
-      homePageContent: homePageContent.body.html,
+      homePageContent: homePageContent.body.code,
     },
   };
 };
 
-type ClientPost = Pick<Post, "slug" | "title" | "description" | "readingTime">;
+const components = MDXComponents;
 
 const Home: NextPage = ({ posts, homePageContent }: any) => {
+  const Component = useMDXComponent(homePageContent);
+
   return (
     <Container>
       <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pb-16">
@@ -52,8 +56,8 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
               Senior JavaScript Developer
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-16">
-              Hey, I'm Paul McBride. I make things with code and help others do
-              the same!
+              Hey, I&apos;m Paul McBride. I make things with code and help
+              others do the same!
             </p>
           </div>
           <div className="w-[80px] sm:w-[176px] relative mb-8 sm:mb-0 mr-auto">
@@ -69,10 +73,9 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight  text-black dark:text-white">
           About
         </h3>
-        <div
-          className="w-full prose dark:prose-dark max-w-none mb-16"
-          dangerouslySetInnerHTML={{ __html: homePageContent }}
-        />
+        <div className="w-full prose dark:prose-dark max-w-none">
+          <Component components={components} />
+        </div>
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-black dark:text-white">
           Featured Posts
         </h3>

@@ -45,7 +45,8 @@ const computedFields: ComputedFields = {
 
 export const HomePage = defineDocumentType(() => ({
   name: "HomePage",
-  filePathPattern: `homepage/about.md`,
+  filePathPattern: `homepage/about.mdx`,
+  contentType: "mdx",
   isSingleton: true,
   fields: [],
 }));

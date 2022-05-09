@@ -12,6 +12,21 @@ function NavItem({ href, text }: { href: string; text: string }) {
   const router = useRouter();
   const isActive = router.asPath === href;
 
+  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
+
+  if (!isInternalLink) {
+    return (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={href}
+        className="font-normal text-gray-600 dark:text-gray-400 hidden md:inline-block p-1 sm:px-3 sm:py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-all"
+      >
+        <span className="capsize">{text}</span>
+      </a>
+    );
+  }
+
   return (
     <NextLink href={href}>
       <a
