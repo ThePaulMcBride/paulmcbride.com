@@ -5,6 +5,14 @@ const { withPlausibleProxy } = require("next-plausible");
 const nextConfig = withPlausibleProxy()(
   withContentlayer({
     reactStrictMode: true,
+    rewrites() {
+      return [
+        {
+          source: "/feed",
+          destination: "/api/feed/rss",
+        },
+      ];
+    },
   })
 );
 
