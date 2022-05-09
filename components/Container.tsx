@@ -55,7 +55,7 @@ export default function Container(props: any) {
   const meta = {
     title: "Paul McBride – Developer, nerd, tech enthusiast.",
     description: `Hey, I'm Paul McBride. I make things with code and help others do the same!`,
-    image: "https://paulmcbride.com/static/images/banner.png",
+    image: "https://paulmcbride.com/images/banner.jpeg",
     type: "website",
     ...customMeta,
   };
