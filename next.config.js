@@ -1,8 +1,11 @@
 const { withContentlayer } = require("next-contentlayer");
+const { withPlausibleProxy } = require("next-plausible");
 
 /** @type {import('next').NextConfig} */
-const nextConfig = withContentlayer({
-  reactStrictMode: true,
-});
+const nextConfig = withPlausibleProxy()(
+  withContentlayer({
+    reactStrictMode: true,
+  })
+);
 
 module.exports = nextConfig;
