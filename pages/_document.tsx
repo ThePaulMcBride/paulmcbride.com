@@ -20,6 +20,13 @@ export default function Document() {
         />
         <meta content="#ffffff" name="theme-color" />
         <meta content="#ffffff" name="msapplication-TileColor" />
+        <link
+          key="rss-feed"
+          rel="alternative"
+          type="application/rss+xml"
+          title="RSS feed for paulmcbride.com"
+          href="/feed"
+        />
       </Head>
       <body className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
         <Main />
