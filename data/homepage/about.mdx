@@ -1,0 +1,11 @@
+I'm a software developer, instructor, and tech nerd currently living in Belfast, Northern Ireland.
+
+I bootstrapped [WeCode NI](https://wecodeni.com), a job board for developers in Northern Ireland, I'm an [egghead instructor](https://egghead.io/instructors/paul-mcbride?af=auhexg), and currently I work at [Niice](https://niice.co).
+
+This is my personal website where I will share what I'm working on, what I'm learning, and my thoughts and feelings on software and life. I'll be treating this site as my "digtal garden". That means as articles become old and out of date, they'll either be pruned or updated. All content on this site should be up-to-date and hopefully useful.
+
+If you want to check out some of my work, my code is on [Github](https://github.com/ThePaulMcBride), I stream on [Twitch](https://twitch.tv/ThePaulMcBride) and I share my thoughts on [Twitter](https://twitter.com/ThePaulMcBride).
+
+You can get in touch by shooting me an email at [hello@paulmcbride.net](mailto:hello@paulmcbride.net). 📬
+
+If you enjoy anything you read here or find it useful, I'd really appreciate you sharing it, or signing up to my newsletter where you can hear more about what I'm working on.

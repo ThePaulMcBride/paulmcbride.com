@@ -1,0 +1,68 @@
+---
+date: "2017-11-23"
+title: "Reduce – Functional Programming in JavaScript"
+description: "In this episode, we look at the reduce function and how to use it. We will use it to transform an array into an object and use it to recreate the filter."
+banner: "/images/reduce-function.jpg"
+tags: ["javascript", "tools", "screencast", "code"]
+---
+
+import Youtube from "components/Youtube";
+
+In this episode, we look at the reduce function and how to use it. Reduce is a massively flexible function. In this video, we use it to transform an array of data into an object and use it to recreate the filter function.
+
+## How it's used
+
+An example of how the `reduce` function can be used to total all values in an array of objects.
+
+```javascript
+const array = [{ value: 1 }, { value: 3 }, { value: 2 }, { value: 1 }];
+
+const total = array.reduce((total, object) => {
+  return total + object.value;
+}, 0);
+
+console.log(total); // 7
+```
+
+---
+
+## Reduce - Functional Programming in JavaScript
+
+<Youtube
+  code="iT8qyI3ZOuo"
+  title="## Reduce - Functional Programming in JavaScript"
+/>
+
+---
+
+## Video Transcript
+
+Hello and welcome back to this series of functional programming in JavaScript. If you've not seen any of the previous episodes I'll put a link up here and you can check those out. In today's episode, we're gonna have a look at the reduce function.
+
+Before we get started looking at some code, let's talk about what reduce actually does. Now, if you've never used reduce before you're probably gonna have your mind blown. In a lot of ways reduce is just like map or filter. It's part of the array object and it's used for transforming data in an array. There's one key difference though and that is that reduce doesn't have to return an array. It can return any kind of data structure.
+
+One of the other cool things about reduce is that it can actually be used to implement the other functions used on the array. For example, you can use reduce to write a map and we're gonna have a look at that today in this example.
+
+Now let's have a look at some code. In this example we're using exactly the same data we have for the past two. We're going to use reduce to transform this array of users into an object of users where the key for each item in that object is the users ID and the value will be the user. Let's see how we would do that using reduce.
+
+We'll get started by creating a new variable to hold this users object. Now, reduce is a little bit like map and filter in that it takes a callback function as its first argument. That callback function then takes two arguments and this is where it differs a little bit from map and filter.
+
+The first argument is the accumulator so we'll just call it accumulator for now, and the second argument is the actual item that we're iterating over so we'll call that user in this case. Reduce actually takes a second argument which is required and that argument will be what is passed into the accumulator on the first loop over.
+
+So, in this case, we want it to be an empty object literal. Because the data ultimately we're gonna be returning is an object so it makes sense to start there. Now that we've got the boilerplate written let's get started on actually creating this users object.
+
+So, the first thing we're going to do is use this accumulator, which to begin with is an empty object and we're going to create a new value and the key will be the current users ID. The value is going to be an object which contains the user so we'll pass in name, age, which will be user dot age. Now, let's fix our indentation here. Then finally we've got to return the accumulator as well.
+
+The reason we do that is because the accumulator then becomes the first argument on the next iteration of this function. Now what I'm going to do is log out the result of this user object and see what we get. Alright, let's run that through node and see what we get.
+
+That's exactly what we want so here we've got an object with four keys each one of those keys is a user ID and the value of that would then be the user. This can be a really useful exercise in real-life programming because it's far quicker to access data out of an object than it is out of an array. Instead of having to loop over and find them, if you know the ID you can go straight to it.
+
+At the start of this video I mentioned that you can use reduce to write functionality which is very similar to map or filter, so let's look at how we can do that. What we'll do is use reduce to filter the users array and we're going to remove any user if their name doesn't contain the letter e.
+
+Okay, to get started then we're going to create a variable to hold these filtered users in. This will look very similar to the function we have above the one difference being that the second argument to reduce will be an empty array. The reason we do that is because this whole function is going to be working with array data and we want it to return an array.
+
+So next thing we want to do then is check if the user's name contains the letter e. We're going to use the includes function. So if the the users name does include the letter e. What we're going to do is push them into this accumulator array like so. Then we also need to return the accumulator.
+
+Okay, let's log that out and see what happens. Okay, if we run that we should see that Andy has been removed from the array and he has. So as you can see we've used reduce to recreate the functionality of filter. This isn't something you typically do but it gives you an idea of how you could use reduce to create any of that kind of functionality if it doesn't already exist on the array object.
+
+So that wraps up this episode hopefully you've enjoyed what you've seen and you've learned a little bit more about reduce. If you have, please consider subscribing to the channel and you can also check out my website to learn a little bit more, which can be found at [paulmcbride.net](/) I'll see you in the next episode!

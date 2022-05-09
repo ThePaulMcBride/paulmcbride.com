@@ -1,0 +1,22 @@
+{
+"forwardPorts": [
+	3000
+],
+"build": {
+	"dockerfile": "Dockerfile",
+	"args": {
+		"VARIANT": "16"
+	}
+},
+"extensions": [
+	"dbaeumer.vscode-eslint",
+	"dkneeland.yarn-task-provider",
+	"mgmcdermott.vscode-language-babel",
+	"GitHub.copilot",
+	"eamodio.gitlens",
+	"wix.vscode-import-cost",
+	"esbenp.prettier-vscode",
+	"bradlc.vscode-tailwindcss"
+],
+"remoteUser": "node"
+}
