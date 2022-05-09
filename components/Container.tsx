@@ -38,8 +38,8 @@ export default function Container(props: any) {
   const { children, ...customMeta } = props;
   const router = useRouter();
   const meta = {
-    title: "Paul McBride – Developer, writer, creator.",
-    description: `Front-end developer, JavaScript enthusiast, and course creator.`,
+    title: "Paul McBride – Developer, nerd, tech enthusiast.",
+    description: `Hey, I'm Paul McBride. I make things with code and help others do the same!`,
     image: "https://paulmcbride.com/static/images/banner.png",
     type: "website",
     ...customMeta,
