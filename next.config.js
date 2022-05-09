@@ -9,7 +9,7 @@ const nextConfig = withPlausibleProxy()(
       return [
         {
           source: "/feed",
-          destination: "/api/feed/rss",
+          destination: "/api/feed",
         },
       ];
     },
