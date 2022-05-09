@@ -9,7 +9,8 @@ import rehypeSlug from "rehype-slug";
 import rehypeCodeTitles from "rehype-code-titles";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrism from "rehype-prism-plus";
-import removeMd from "remove-markdown";
+import { remark } from "remark";
+import strip from "remark-mdx-to-plain-text";
 
 const computedFields: ComputedFields = {
   readingTime: {
@@ -26,16 +27,19 @@ const computedFields: ComputedFields = {
   },
   teaser: {
     type: "string",
-    resolve: (doc: any) => {
+    resolve: async (doc: any) => {
       const length = 260;
-      let contentText = removeMd(doc.body.raw);
-      // Trim and normalize whitespace in content text
-      contentText = contentText.trim().replace(/\s+/g, " ").trim();
+
+      const res = await remark().use(strip).process(doc.body.raw);
+      let contentText = (res.value as string)
+        .trim()
+        .replace(/\s+/g, " ")
+        .trim();
 
       const excerpt = contentText.slice(0, length);
 
       if (contentText.length > length) {
-        return excerpt.trim() + "...";
+        return excerpt.trim() + "…";
       }
 
       return excerpt;
