@@ -19,7 +19,7 @@ function generateschemaOrgJSONLD(post: Post) {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    image: [`https://paulmcnride.com${post.banner}`],
+    image: [`https://paulmcbride.com${post.banner}`],
     datePublished: post.date,
     dateModified: post.date,
     author: [
