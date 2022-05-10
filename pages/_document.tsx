@@ -20,9 +20,9 @@ const schemaOrgJSONLD = [
     nationality: ["Irish", "British"],
     url: "https://paulmcbride.com",
     sameAs: [
-      "http://twitter.com/thepaulmcbride",
-      "http://github.com/thepaulmcbride",
-      "https://www.linkedin.com/thepaulmcbride",
+      "https://twitter.com/thepaulmcbride",
+      "https://github.com/thepaulmcbride",
+      "https://www.linkedin.com/in/thepaulmcbride/",
     ],
   },
 ];
