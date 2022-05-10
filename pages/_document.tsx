@@ -1,14 +1,11 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
-const schemaOrgJSONLD = [
-  {
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    url: "https://paulmcbride.com",
-    name: "Paul McBride – Developer, nerd, tech enthusiast.",
-  },
-];
-
+const schemaOrgJSONLD = {
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  url: "https://paulmcbride.com",
+  name: "Paul McBride – Developer, nerd, tech enthusiast.",
+};
 export default function Document() {
   return (
     <Html lang="en-GB">

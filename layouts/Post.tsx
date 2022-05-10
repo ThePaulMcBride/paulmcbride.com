@@ -25,7 +25,7 @@ function generateschemaOrgJSONLD(post: Post) {
     author: [
       {
         "@type": "Person",
-        name: "Jane Doe",
+        name: "Paul McBride",
         sameAs: [
           "https://twitter.com/thepaulmcbride",
           "https://github.com/thepaulmcbride",
