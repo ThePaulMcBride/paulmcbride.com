@@ -1,11 +1,32 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
-const schemaOrgJSONLD = {
-  "@context": "http://schema.org",
-  "@type": "WebSite",
-  url: "https://paulmcbride.com",
-  name: "Paul McBride – Developer, nerd, tech enthusiast.",
-};
+const schemaOrgJSONLD = [
+  {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    url: "https://paulmcbride.com",
+    name: "Paul McBride – Developer, nerd, tech enthusiast.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    email: "hello@paulmcbride.net",
+    image: "https://paulmcbride.com/avatar.jpeg",
+    jobTitle: "Senior Software Engineer",
+    name: "Paul McBride",
+    birthPlace: "Newtownards, Northern Ireland",
+    birthDate: "1991-12-24",
+    gender: "male",
+    nationality: ["Irish", "British"],
+    url: "https://paulmcbride.com",
+    sameAs: [
+      "http://twitter.com/thepaulmcbride",
+      "http://github.com/thepaulmcbride",
+      "https://www.linkedin.com/thepaulmcbride",
+    ],
+  },
+];
+
 export default function Document() {
   return (
     <Html lang="en-GB">
