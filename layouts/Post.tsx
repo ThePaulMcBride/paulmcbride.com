@@ -14,6 +14,28 @@ const discussUrl = (slug: string) =>
     `https://paulmcbride.com${slug}`
   )}`;
 
+function generateschemaOrgJSONLD(post: Post) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    image: [`https://paulmcnride.com${post.banner}`],
+    datePublished: post.date,
+    dateModified: post.date,
+    author: [
+      {
+        "@type": "Person",
+        name: "Jane Doe",
+        sameAs: [
+          "https://twitter.com/thepaulmcbride",
+          "https://github.com/thepaulmcbride",
+          "https://paulmcbride.com",
+        ],
+      },
+    ],
+  };
+}
+
 export default function BlogLayout({
   children,
   post,
@@ -21,6 +43,8 @@ export default function BlogLayout({
   const image = post.banner
     ? `https://paulmcbride.com${post.banner}`
     : undefined;
+
+  const schemaOrgJSONLD = generateschemaOrgJSONLD(post);
 
   return (
     <Container
@@ -84,6 +108,12 @@ export default function BlogLayout({
           </a>
         </div>
       </article>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: `${JSON.stringify(schemaOrgJSONLD)}`,
+        }}
+      />
     </Container>
   );
 }
