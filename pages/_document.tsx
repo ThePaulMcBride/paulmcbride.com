@@ -1,5 +1,14 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
+const schemaOrgJSONLD = [
+  {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    url: "https://paulmcbride.com",
+    name: "Paul McBride – Developer, nerd, tech enthusiast.",
+  },
+];
+
 export default function Document() {
   return (
     <Html lang="en-GB">
@@ -26,6 +35,12 @@ export default function Document() {
           type="application/rss+xml"
           title="RSS feed for paulmcbride.com"
           href="/feed"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: `${JSON.stringify(schemaOrgJSONLD)}`,
+          }}
         />
       </Head>
       <body className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
