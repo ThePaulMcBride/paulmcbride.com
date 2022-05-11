@@ -60,6 +60,14 @@ export default function Document() {
             __html: `${JSON.stringify(schemaOrgJSONLD)}`,
           }}
         />
+        <link
+          rel="webmention"
+          href="https://webmention.io/paulmcbride.com/webmention"
+        />
+        <link
+          rel="pingback"
+          href="https://webmention.io/paulmcbride.com/xmlrpc"
+        />
       </Head>
       <body className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
         <Main />
