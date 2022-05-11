@@ -6,6 +6,7 @@ import BlogPost from "components/BlogPost";
 import { allPosts, homePage, Post } from ".contentlayer/generated";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import MDXComponents from "components/MDXComponents";
+import Subscribe from "components/Subscribe";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const homePageContent = homePage;
@@ -92,7 +93,7 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
           ))}
         </div>
         <Link href="/posts">
-          <a className="flex mt-8 text-emerald-500 dark:text-emerald-400 leading-7 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-600 transition-all h-6 flex items-center">
+          <a className="flex my-8 text-emerald-500 dark:text-emerald-400 leading-7 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-600 transition-all h-6 items-center">
             Read all posts
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -110,6 +111,8 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
             </svg>
           </a>
         </Link>
+
+        <Subscribe />
       </div>
     </Container>
   );

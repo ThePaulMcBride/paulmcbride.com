@@ -6,6 +6,7 @@ import Container from "components/Container";
 // import ViewCounter from "components/ViewCounter";
 import type { PropsWithChildren } from "react";
 import type { Post } from "contentlayer/generated";
+import Subscribe from "components/Subscribe";
 
 const editUrl = (slug: string) =>
   `https://github.com/ThePaulMcBride/paulmcbride.com/edit/main/data${slug}.mdx`;
@@ -89,7 +90,9 @@ export default function BlogLayout({
         <div className="w-full prose dark:prose-dark max-w-none">
           {children}
         </div>
-        <div className="mt-8">{/* <Subscribe /> */}</div>
+        <div className="mt-8">
+          <Subscribe />
+        </div>
         <div className="text-sm text-gray-700 dark:text-gray-300">
           <a
             href={discussUrl(post.slug)}
