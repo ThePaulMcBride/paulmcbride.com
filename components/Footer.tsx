@@ -3,7 +3,7 @@ const Twitter = () => {
     <a
       href="https://twitter.com/thepaulmcbride"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener noreferrer me"
       aria-label="Visit my Twitter"
     >
       <svg
@@ -27,7 +27,7 @@ export const GitHub = () => {
     <a
       href="https://github.com/thepaulmcbride"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener noreferrer me"
       aria-label="Visit my GitHub"
     >
       <svg
@@ -51,7 +51,7 @@ export const Twitch = () => {
     <a
       href="https://twitch.tv/thepaulmcbride"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener noreferrer me"
       aria-label="Visit my Twitch channel"
     >
       <svg
