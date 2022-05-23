@@ -25,18 +25,20 @@ export const buildFeed = async () => {
     author,
   });
 
-  allPosts.forEach((post) => {
-    feed.addItem({
-      title: post.title,
-      id: post.slug,
-      link: `https://paulmcbride.com${post.slug}`,
-      description: post.description,
-      content: `<p>${post.teaser}</p><div style="margin-top: 50px; font-style: italic;"> <strong><a href="https://paulmcbride.com${post.slug}">Keep reading</a>.</strong> </div> <br /> <br />`,
-      author: [author],
-      date: parseISO(post.date),
-      image: `https://paulmcbride.com${post.banner}`,
+  allPosts
+    .filter((post) => !post.draft)
+    .forEach((post) => {
+      feed.addItem({
+        title: post.title,
+        id: post.slug,
+        link: `https://paulmcbride.com${post.slug}`,
+        description: post.description,
+        content: `<p>${post.teaser}</p><div style="margin-top: 50px; font-style: italic;"> <strong><a href="https://paulmcbride.com${post.slug}">Keep reading</a>.</strong> </div> <br /> <br />`,
+        author: [author],
+        date: parseISO(post.date),
+        image: `https://paulmcbride.com${post.banner}`,
+      });
     });
-  });
 
   feed.addContributor(author);
 

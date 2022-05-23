@@ -88,6 +88,12 @@ export const Post = defineDocumentType(() => ({
         type: "string",
       },
     },
+    draft: {
+      type: "boolean",
+      description: "Whether the post is a draft",
+      default: false,
+      required: false,
+    },
   },
   computedFields,
 }));

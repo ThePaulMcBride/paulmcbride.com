@@ -6,6 +6,7 @@ import BlogPost from "components/BlogPost";
 
 export async function getStaticProps() {
   const posts = allPosts
+    .filter((post) => !post.draft)
     .sort((a, b) => {
       return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
     })

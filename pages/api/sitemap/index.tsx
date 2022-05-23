@@ -36,7 +36,7 @@ async function load() {
 
   const posts = allPosts;
 
-  posts.forEach((post: Post) => {
+  posts.filter(post => !post.draft).forEach((post: Post) => {
     config.map[post.slug] = [];
     config.route[post.slug] = {
       lastmod: format(parse(post.date), "yyyy-MM-dd"),
