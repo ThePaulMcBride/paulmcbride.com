@@ -16,7 +16,8 @@
 	"eamodio.gitlens",
 	"wix.vscode-import-cost",
 	"esbenp.prettier-vscode",
-	"bradlc.vscode-tailwindcss"
+	"bradlc.vscode-tailwindcss",
+	"streetsidesoftware.code-spell-checker"
 ],
 "remoteUser": "node"
 }
