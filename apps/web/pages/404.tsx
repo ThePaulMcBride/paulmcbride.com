@@ -13,10 +13,11 @@ export default function NotFound() {
           The page you are looking for does not exist. It&apos;s possible that
           the page has been moved, or you&apos;ve typed the url in wrong.
         </p>
-        <Link href="/">
-          <a className="p-1 sm:p-4 w-64 font-bold mx-auto bg-gray-200 dark:bg-gray-800 text-center rounded-md text-black dark:text-white">
-            Return Home
-          </a>
+        <Link
+          href="/"
+          className="p-1 sm:p-4 w-64 font-bold mx-auto bg-gray-200 dark:bg-gray-800 text-center rounded-md text-black dark:text-white"
+        >
+          Return Home
         </Link>
       </div>
     </Container>

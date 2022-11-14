@@ -92,24 +92,25 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
             />
           ))}
         </div>
-        <Link href="/posts">
-          <a className="flex my-8 text-emerald-500 dark:text-emerald-400 leading-7 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-600 transition-all h-6 items-center">
-            Read all posts
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="h-6 w-6 ml-1"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17.5 12h-15m11.667-4l3.333 4-3.333-4zm3.333 4l-3.333 4 3.333-4z"
-              />
-            </svg>
-          </a>
+        <Link
+          href="/posts"
+          className="flex my-8 text-emerald-500 dark:text-emerald-400 leading-7 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-600 transition-all h-6 items-center"
+        >
+          Read all posts
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            className="h-6 w-6 ml-1"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17.5 12h-15m11.667-4l3.333 4-3.333-4zm3.333 4l-3.333 4 3.333-4z"
+            />
+          </svg>
         </Link>
 
         <Subscribe />
