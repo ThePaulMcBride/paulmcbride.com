@@ -8,9 +8,12 @@
 # testing
 /coverage
 
+# next.js
+/.next/
+/out/
 
 # production
-/.turbo
+/build
 
 # misc
 .DS_Store
@@ -30,3 +33,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+
+# Contentlayer
+.contentlayer
