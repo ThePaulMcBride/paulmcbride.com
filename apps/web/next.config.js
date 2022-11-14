@@ -5,6 +5,9 @@ const { withPlausibleProxy } = require("next-plausible");
 const nextConfig = withPlausibleProxy()(
   withContentlayer({
     reactStrictMode: true,
+    images: {
+      domains: ["cdn.sanity.io"],
+    },
     rewrites() {
       return [
         {

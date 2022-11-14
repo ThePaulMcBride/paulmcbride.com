@@ -15,14 +15,14 @@ const discussUrl = (slug: string) =>
     `https://paulmcbride.com${slug}`
   )}`;
 
-function generateschemaOrgJSONLD(post: Post) {
+function generateschemaOrgJSONLD(post: any) {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    image: [`https://paulmcbride.com${post.banner}`],
-    datePublished: post.date,
-    dateModified: post.date,
+    image: [post.banner.url],
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
     author: [
       {
         "@type": "Person",
@@ -40,19 +40,19 @@ function generateschemaOrgJSONLD(post: Post) {
 export default function BlogLayout({
   children,
   post,
-}: PropsWithChildren<{ post: Post }>) {
-  const image = post.banner
-    ? `https://paulmcbride.com${post.banner}`
-    : undefined;
+}: PropsWithChildren<{ post: any }>) {
+  const image = post.banner ? post.banner.url : undefined;
 
   const schemaOrgJSONLD = generateschemaOrgJSONLD(post);
+
+  console.log(post);
 
   return (
     <Container
       title={`${post.title} – Paul McBride`}
       description={post.description}
       image={image}
-      date={new Date(post.date).toISOString()}
+      date={new Date(post.publishedAt).toISOString()}
       type="article"
     >
       <article className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
@@ -70,20 +70,22 @@ export default function BlogLayout({
             />
             <p className="ml-2 text-sm text-gray-700 dark:text-gray-300">
               {"Paul McBride / "}
-              {format(parseISO(post.date), "do MMMM yyyy")}
+              {format(parseISO(post.publishedAt), "do MMMM yyyy")}
             </p>
           </div>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
-            {post.readingTime.text}
+            {post.estimatedReadingTime} min read
           </p>
         </div>
         {post.banner && (
           <div className="flex flex-col items-start justify-center w-full mt-8 mb-4 relative aspect-[5/2] rounded-lg overflow-hidden">
             <Image
-              alt={post.title}
-              src={`${post.banner}`}
+              alt={post.title || post.banner.altText}
+              src={`${post.banner.url}`}
               layout="fill"
               className="object-cover"
+              width={post.banner.metadata.dimensions.width}
+              height={post.banner.metadata.dimensions.height}
             />
           </div>
         )}

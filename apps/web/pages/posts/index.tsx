@@ -3,21 +3,33 @@ import { allPosts, Post } from "contentlayer/generated";
 import Container from "components/Container";
 import { useState } from "react";
 import BlogPost from "components/BlogPost";
+import { client } from "lib/sanity";
 
 export async function getStaticProps() {
-  const posts = allPosts
-    .filter((post) => !post.draft)
-    .sort((a, b) => {
-      return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
-    })
-    .map((post) => ({
-      slug: post.slug,
-      title: post.title,
-      banner: post.banner,
-      description: post.description,
-      readingTime: post.readingTime.text,
-      teaser: post.teaser,
-    }));
+  // const posts = allPosts
+  //   .filter((post) => !post.draft)
+  //   .sort((a, b) => {
+  //     return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+  //   })
+  //   .map((post) => ({
+  //     slug: post.slug,
+  //     title: post.title,
+  //     banner: post.banner,
+  //     description: post.description,
+  //     readingTime: post.readingTime.text,
+  //     teaser: post.teaser,
+  //   }));
+
+  const res = await client.fetch(
+    `*[_type == "post"]{slug, title, summary, 'mainImage': mainImage.asset->}`
+  );
+  const posts: any[] = res.map((post: any) => ({
+    slug: `posts/${post.slug.current}`,
+    title: post.title,
+    banner: post.mainImage,
+    description: post.summary,
+    teaser: post.summary,
+  }));
 
   return {
     props: {
