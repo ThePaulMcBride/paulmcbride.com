@@ -31,6 +31,7 @@ export default defineType({
         decorators: [
           { title: "Strong", value: "strong" },
           { title: "Emphasis", value: "em" },
+          { title: "Code", value: "code" },
         ],
 
         annotations: [
@@ -49,15 +50,18 @@ export default defineType({
         ],
       },
     }),
-    // You can add additional types here. Note that you can't use
-    // primitive types such as 'string' and 'number' in the same array
-    // as a block type.
     defineArrayMember({
       type: "image",
       options: { hotspot: true },
     }),
     defineArrayMember({
       type: "code",
+    }),
+    defineArrayMember({
+      type: "youtube",
+    }),
+    defineArrayMember({
+      type: "divider",
     }),
   ],
 });

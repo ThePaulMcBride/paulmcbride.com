@@ -9,7 +9,8 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "start": "turbo start",
-    "lint": "turbo lint"
+    "lint": "turbo lint",
+    "studio:deploy": "yarn workspace cms deploy"
   },
   "dependencies": {},
   "devDependencies": {

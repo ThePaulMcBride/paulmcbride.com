@@ -84,7 +84,7 @@ export default function Subscribe() {
   };
 
   return (
-    <div className="border border-grey-200 rounded-lg p-6 my-4 w-full dark:border-gray-800 bg-grey-50 dark:bg-grey-opaque">
+    <div className="border border-grey-200 rounded-lg p-6 my-4 w-full dark:border-gray-800 bg-grey-50 dark:bg-grey-opaque col-start-2">
       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100">
         Subscribe to my newsletter
       </p>

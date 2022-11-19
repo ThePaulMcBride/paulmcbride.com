@@ -1,5 +1,5 @@
 import type { GetStaticProps, NextPage } from "next";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import Container from "components/Container";
 import BlogPost from "components/BlogPost";

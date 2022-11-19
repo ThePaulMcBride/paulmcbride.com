@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { parseISO, format } from "date-fns";
 
 import Container from "components/Container";
@@ -45,8 +45,6 @@ export default function BlogLayout({
 
   const schemaOrgJSONLD = generateschemaOrgJSONLD(post);
 
-  console.log(post);
-
   return (
     <Container
       title={`${post.title} – Paul McBride`}
@@ -55,11 +53,11 @@ export default function BlogLayout({
       date={new Date(post.publishedAt).toISOString()}
       type="article"
     >
-      <article className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
+      <header className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-800 md:text-[70px] md:leading-[1.1] md:mt-4 dark:text-white font-serif lining-nums">
           {post.title}
         </h1>
-        <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
+        {/* <div className="flex flex-col items-start justify-between w-full mt-6 md:flex-row md:items-center">
           <div className="flex items-center">
             <Image
               alt="Paul McBride"
@@ -76,8 +74,8 @@ export default function BlogLayout({
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
             {post.estimatedReadingTime} min read
           </p>
-        </div>
-        {post.banner && (
+        </div> */}
+        {/* {post.banner && (
           <div className="flex flex-col items-start justify-center w-full mt-8 mb-4 relative aspect-[5/2] rounded-lg overflow-hidden">
             <Image
               alt={post.title || post.banner.altText}
@@ -88,14 +86,14 @@ export default function BlogLayout({
               height={post.banner.metadata.dimensions.height}
             />
           </div>
-        )}
-        <div className="w-full prose dark:prose-dark max-w-none">
-          {children}
-        </div>
-        <div className="mt-8">
-          <Subscribe />
-        </div>
-        <div className="text-sm text-gray-700 dark:text-gray-300">
+        )} */}
+      </header>
+      <article className="w-full mb-8 font-body prose prose-xl text-jumbo dark:prose-dark max-w-none grid grid-cols-main !col-start-1 !col-end-4 [&_*]:mt-0 [&_*]:col-start-2 [&_*]:col-end-3 [&_h2]:mt-6 prose-h2:font-serif [&_h3]:mt-6 [&_h3]:font-light prose-h3:font-sans lining-nums">
+        {children}
+      </article>
+      {/* <div className="grid grid-cols-main mb-16">
+        <Subscribe />
+        <div className="text-sm text-gray-700 dark:text-gray-300 col-start-2">
           <a
             href={discussUrl(post.slug)}
             target="_blank"
@@ -112,7 +110,8 @@ export default function BlogLayout({
             Edit on GitHub
           </a>
         </div>
-      </article>
+      </div> */}
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
