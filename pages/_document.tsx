@@ -23,6 +23,7 @@ const schemaOrgJSONLD = [
       "https://twitter.com/thepaulmcbride",
       "https://github.com/thepaulmcbride",
       "https://www.linkedin.com/in/thepaulmcbride/",
+      "https://indieweb.social/@ThePaulMcBride"
     ],
   },
 ];
@@ -67,6 +68,10 @@ export default function Document() {
         <link
           rel="pingback"
           href="https://webmention.io/paulmcbride.com/xmlrpc"
+        />
+        <link
+          rel="me"
+          href="https://indieweb.social/@ThePaulMcBride"
         />
       </Head>
       <body className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
