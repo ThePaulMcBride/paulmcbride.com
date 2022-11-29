@@ -7,7 +7,7 @@ export function Youtube(props) {
   const { url } = value;
   return (
     <>
-      <ReactPlayer url={url} />;
+      <ReactPlayer url={url} />
     </>
   );
 }

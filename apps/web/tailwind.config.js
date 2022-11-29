@@ -13,7 +13,7 @@ module.exports = {
         "emerald-opaque": "rgb(13 42 148 / 18%)",
       },
       fontFamily: {
-        body: ["Georgia", ...fontFamily.serif],
+        body: ["var(--font-lora)", ...fontFamily.serif],
         sans: ["IBM Plex Sans", ...fontFamily.sans],
         serif: ["var(--font-playfair-display)", ...fontFamily.serif],
       },

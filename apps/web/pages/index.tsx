@@ -74,7 +74,7 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight  text-black dark:text-white">
           About
         </h3>
-        <div className="w-full prose dark:prose-dark max-w-none mb-16">
+        <div className="w-full prose prose-xl dark:prose-dark max-w-none mb-16">
           <Component components={components} />
         </div>
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-black dark:text-white">

@@ -4,6 +4,7 @@ import Container from "components/Container";
 import { useState } from "react";
 import BlogPost from "components/BlogPost";
 import { client } from "lib/sanity";
+import groq from "groq";
 
 export async function getStaticProps() {
   // const posts = allPosts
@@ -21,7 +22,12 @@ export async function getStaticProps() {
   //   }));
 
   const res = await client.fetch(
-    `*[_type == "post"]{slug, title, summary, 'mainImage': mainImage.asset->}`
+    groq`*[_type == "post"] | order(publishedAt desc) {
+      slug,
+      title,
+      summary,
+      'mainImage': mainImage.asset->
+    }`
   );
   const posts: any[] = res.map((post: any) => ({
     slug: `posts/${post.slug.current}`,

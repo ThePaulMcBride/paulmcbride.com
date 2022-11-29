@@ -40,7 +40,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }: any) => {
   const slug = params.slug;
   const [result] = await client.fetch(
-    groq`*[_type == "post" && slug.current == "${slug}"]{
+    groq`*[_type == "post" && slug.current == "${slug}"] {
       slug,
       title,
       summary,
