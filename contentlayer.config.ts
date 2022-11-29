@@ -19,7 +19,7 @@ const computedFields: ComputedFields = {
   },
   bannerUrl: {
     type: "nested",
-    resolve: (doc) => doc.banner.filePath.replace("../../public", ""),
+    resolve: (doc) => doc.banner.filePath.replace("../public", ""),
   },
   wordCount: {
     type: "number",

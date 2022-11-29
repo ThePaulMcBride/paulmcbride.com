@@ -10,7 +10,7 @@ const schemaOrgJSONLD = [
   {
     "@context": "https://schema.org",
     "@type": "Person",
-    email: "hello@paulmcbride.net",
+    email: "hello@paulmcbride.com",
     image: "https://paulmcbride.com/avatar.jpeg",
     jobTitle: "Senior Software Engineer",
     name: "Paul McBride",

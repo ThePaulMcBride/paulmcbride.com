@@ -29,8 +29,6 @@ const components = MDXComponents;
 const Post: NextPage = (props: any) => {
   const Component = useMDXComponent(props.post.body.code);
 
-  console.log(props.post);
-
   return (
     <PostLayout post={props.post}>
       <Component components={components} />
