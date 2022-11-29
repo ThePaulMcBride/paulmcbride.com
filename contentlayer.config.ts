@@ -17,6 +17,10 @@ const computedFields: ComputedFields = {
     type: "json",
     resolve: (doc: any) => readingTime(doc.body.raw),
   },
+  bannerUrl: {
+    type: "nested",
+    resolve: (doc) => doc.banner.filePath.replace("../public", ""),
+  },
   wordCount: {
     type: "number",
     resolve: (doc: any) => doc.body.raw.split(/\s+/gu).length,
@@ -76,7 +80,7 @@ export const Post = defineDocumentType(() => ({
       required: true,
     },
     banner: {
-      type: "string",
+      type: "image",
       description: "The banner image of the post",
       required: true,
     },

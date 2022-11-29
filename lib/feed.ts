@@ -4,7 +4,7 @@ import { parseISO } from "date-fns";
 
 const author = {
   name: "Paul McBride",
-  email: "hello@paulmcbride.net",
+  email: "hello@paulmcbride.com",
   link: "https://paulmcbride.com",
 };
 
