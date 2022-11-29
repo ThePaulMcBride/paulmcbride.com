@@ -1,8 +1,4 @@
 import { useState, useRef } from "react";
-import Link from "next/link";
-// import { trackGoal } from "fathom-client";
-
-// import { Form, FormState, Subscribers } from "lib/types";
 import LoadingSpinner from "components/LoadingSpinner";
 
 function ErrorMessage({ children }: any) {

@@ -77,16 +77,18 @@ export default function BlogLayout({
             {post.readingTime.text}
           </p>
         </div>
-        {post.banner && (
-          <div className="flex flex-col items-start justify-center w-full mt-8 mb-4 relative aspect-[5/2] rounded-lg overflow-hidden">
-            <Image
-              alt={post.title}
-              src={`${post.banner}`}
-              layout="fill"
-              className="object-cover"
-            />
-          </div>
-        )}
+        {post.banner &&
+          post.bannerUrl(
+            <div className="flex flex-col items-start justify-center w-full mt-8 mb-4 relative aspect-[5/2] rounded-lg overflow-hidden">
+              <Image
+                alt={post.title}
+                src={post.bannerUrl}
+                className="object-cover"
+                width={post.banner.width}
+                height={post.banner.height}
+              />
+            </div>
+          )}
         <div className="w-full prose dark:prose-dark max-w-none">
           {children}
         </div>
