@@ -18,7 +18,7 @@ export default function BlogPost({
           </h4>
         </Link>
       </div>
-      <p className="text-gray-600 dark:text-gray-400">{teaser}</p>
+      <p className="text-gray-600 text-base dark:text-gray-400">{teaser}</p>
       <Link
         href={slug}
         title={title}

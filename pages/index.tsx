@@ -47,7 +47,7 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
 
   return (
     <Container>
-      <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pb-16">
+      <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 dark:border-gray-700 mx-auto pb-16 px-8">
         <div className="flex flex-col-reverse sm:flex-row items-start">
           <div className="flex flex-col pr-8 md:max-w-[80%]">
             <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-black dark:text-white">
@@ -74,7 +74,7 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight  text-black dark:text-white">
           About
         </h3>
-        <div className="w-full prose dark:prose-dark max-w-none mb-16">
+        <div className="w-full prose-xl dark:prose-dark max-w-none mb-16">
           <Component components={components} />
         </div>
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-black dark:text-white">

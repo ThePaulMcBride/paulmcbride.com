@@ -80,16 +80,16 @@ export default function Subscribe() {
   };
 
   return (
-    <div className="border border-grey-200 rounded-lg p-6 my-4 w-full dark:border-gray-800 bg-grey-50 dark:bg-grey-opaque">
+    <div className="border border-grey-200 rounded-lg p-6 my-4 w-full dark:border-gray-800 bg-white dark:bg-gray-700">
       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100">
         Subscribe to my newsletter
       </p>
-      <p className="my-1 text-gray-800 dark:text-gray-200">
+      <p className="my-1 text-base text-gray-800 dark:text-gray-200">
         I&apos;ll email you about tech, what I&apos;m working on, and other
         intersting things I find around the web. I&apos;ll never spam you and I
         won&apos;t share your email with anyone else.
       </p>
-      <form className="relative my-4" onSubmit={subscribe}>
+      <form className="relative my-4 text-base" onSubmit={subscribe}>
         <input
           ref={inputEl}
           aria-label="Email for newsletter"
@@ -97,7 +97,7 @@ export default function Subscribe() {
           type="email"
           autoComplete="email"
           required
-          className="px-4 py-2 mt-1 focus:ring-grey-500 focus:border-grey-500 block w-full border-gray-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 pr-32"
+          className="px-4 py-2 mt-1 focus:ring-grey-500 focus:border-grey-500 block w-full border-gray-200 border rounded-md bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-100 dark:border-none pr-32"
         />
         <button
           className="flex items-center justify-center absolute right-1 top-1 px-4 font-medium h-8 bg-emerald-500 dark:bg-gray-700 text-white dark:text-gray-100 rounded w-28"

@@ -7,13 +7,10 @@ import Container from "components/Container";
 import type { PropsWithChildren } from "react";
 import type { Post } from "contentlayer/generated";
 import Subscribe from "components/Subscribe";
+import classNames from "classnames";
 
 const editUrl = (slug: string) =>
   `https://github.com/ThePaulMcBride/paulmcbride.com/edit/main/data${slug}.mdx`;
-const discussUrl = (slug: string) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(
-    `https://paulmcbride.com${slug}`
-  )}`;
 
 function generateschemaOrgJSONLD(post: Post) {
   return {
@@ -37,6 +34,8 @@ function generateschemaOrgJSONLD(post: Post) {
   };
 }
 
+const headerColor = "bg-teal-50 bg-opacity-50";
+
 export default function BlogLayout({
   children,
   post,
@@ -54,11 +53,37 @@ export default function BlogLayout({
       image={image}
       date={new Date(post.date).toISOString()}
       type="article"
+      navClassName={headerColor}
     >
-      <article className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
+      <header
+        className={classNames(
+          "grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 pb-10 px-8",
+          headerColor
+        )}
+      >
+        <div>
+          <span className="px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-gray-700">
+            In Progress
+          </span>
+        </div>
+
+        <h1 className="text-3xl font-bold tracking-tight text-gray-800 md:text-[70px] md:leading-[1.1] md:mt-4 dark:text-white font-serif lining-nums">
           {post.title}
         </h1>
+        <hr className="mt-12 mb-4" />
+        {/* {post.tags && (
+          <div className="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm text-gray-600 dark:text-gray-400">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-2 py-1 bg-gray-100 rounded dark:bg-gray-800"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )} */}
+
         <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
           <div className="flex items-center">
             <Image
@@ -69,7 +94,7 @@ export default function BlogLayout({
               className="rounded-full"
             />
             <p className="ml-2 text-sm text-gray-700 dark:text-gray-300">
-              {"Paul McBride / "}
+              {"Paul McBride • Last updated "}
               {format(parseISO(post.date), "do MMMM yyyy")}
             </p>
           </div>
@@ -77,7 +102,7 @@ export default function BlogLayout({
             {post.readingTime.text}
           </p>
         </div>
-        {post.banner && post.bannerUrl && (
+        {/* {post.banner && post.bannerUrl && (
           <div className="flex flex-col items-start justify-center w-full mt-8 mb-4 relative aspect-[5/2] rounded-lg overflow-hidden">
             <Image
               alt={post.title}
@@ -89,31 +114,19 @@ export default function BlogLayout({
               blurDataURL={post.banner.blurhashDataUrl}
             />
           </div>
-        )}
-        <div className="w-full prose dark:prose-dark max-w-none">
-          {children}
-        </div>
-        <div className="mt-8">
-          <Subscribe />
-        </div>
-        <div className="text-sm text-gray-700 dark:text-gray-300">
-          <a
-            href={discussUrl(post.slug)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {"Discuss on Twitter"}
-          </a>
-          {` • `}
-          <a
-            href={editUrl(post.slug)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        )} */}
+      </header>
+      <article className="w-full mb-8 font-body prose prose-xl text-jumbo dark:prose-dark max-w-none grid grid-cols-main !col-start-1 !col-end-4 [&_*]:mt-0 [&_*]:col-start-2 [&_*]:col-end-3 [&_h2]:mt-6 prose-h2:font-serif [&_h3]:mt-6 [&_h3]:font-light prose-h3:font-sans lining-nums px-8">
+        {children}
+      </article>
+      <div className="grid grid-cols-main !col-start-1 !col-end-4 mb-16 [&_*]:col-start-2 [&_*]:col-end-3 px-8">
+        <Subscribe />
+        <div className="text-sm text-gray-700 dark:text-gray-300 col-start-2 ">
+          <a href={editUrl(post.slug)} target="_blank" rel="noreferrer">
             Edit on GitHub
           </a>
         </div>
-      </article>
+      </div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

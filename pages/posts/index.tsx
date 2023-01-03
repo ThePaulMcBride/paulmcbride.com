@@ -36,8 +36,9 @@ const Posts: NextPage = ({ posts }: any) => {
     <Container
       title="Posts – Paul McBride"
       description="Thoughts on the software industry, programming, tech, videography, music, and my personal life."
+      headerClassname="red-100"
     >
-      <div className="flex flex-col items-start justify-center max-w-2xl mx-auto mb-16">
+      <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 mx-auto mb-16 px-8">
         <h1 className="mb-8 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
           Posts
         </h1>

@@ -60,7 +60,7 @@ export default function Container(props: any) {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900">
+    <div className="bg-white dark:bg-gray-900">
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
@@ -88,12 +88,18 @@ export default function Container(props: any) {
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      <div className="flex flex-col justify-center px-8">
-        <nav className="flex items-center justify-between w-full relative border-gray-200 dark:border-gray-700 mx-auto pt-7 pb-8 sm:pb-16  text-gray-900 bg-gray-50  dark:bg-gray-900 bg-opacity-60 dark:text-gray-100">
+      <div
+        className={cn("flex flex-col justify-center px-8", props.navClassName)}
+      >
+        <nav
+          className={cn(
+            "flex items-center justify-between w-full relative mx-auto pt-8 pb-8 sm:pb-16 text-gray-900 dark:text-gray-100"
+          )}
+        >
           <a href="#skip" className="skip-nav">
             Skip to content
           </a>
-          <div className="ml-[-0.60rem]">
+          <div className="ml-[-0.60rem] text-base">
             <MobileMenu />
             <NavItem href="/" text="Home" />
             <NavItem href="/posts" text="Posts" />
@@ -140,11 +146,11 @@ export default function Container(props: any) {
       </div>
       <main
         id="skip"
-        className="flex flex-col justify-center px-8 bg-gray-50 dark:bg-gray-900"
+        className="flex flex-col justify-center bg-white dark:bg-gray-900"
       >
         {children}
-        <Footer />
       </main>
+      <Footer />
     </div>
   );
 }

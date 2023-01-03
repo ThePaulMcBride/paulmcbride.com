@@ -5,7 +5,7 @@ import Container from "components/Container";
 export default function NotFound() {
   return (
     <Container title="404 – Paul McBride">
-      <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
+      <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 mx-auto mb-16">
         <h1 className="font-bold text-2xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
           404 – Page Not Found
         </h1>
