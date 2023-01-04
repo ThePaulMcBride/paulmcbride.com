@@ -113,9 +113,27 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }));
 
+export const NowPost = defineDocumentType(() => ({
+  name: "NowPost",
+  filePathPattern: `now/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      description: "The title of the post",
+      required: true,
+    },
+    date: {
+      type: "date",
+      description: "The date of the post",
+      required: true,
+    },
+  },
+}));
+
 export default makeSource({
   contentDirPath: "data",
-  documentTypes: [Post, HomePage],
+  documentTypes: [Post, HomePage, NowPost],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
