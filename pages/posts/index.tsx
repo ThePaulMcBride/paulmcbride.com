@@ -39,14 +39,12 @@ const Posts: NextPage = ({ posts }: any) => {
       headerClassname="red-100"
     >
       <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 mx-auto mb-16 px-8">
-        <h1 className="mb-8 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
+        <h1 className="mb-8 text-3xl font-serif font-bold tracking-tight text-gray-800 md:text-5xl">
           Posts
         </h1>
 
         {!filteredBlogPosts.length && (
-          <p className="mb-4 text-gray-600 dark:text-gray-400">
-            No posts found.
-          </p>
+          <p className="mb-4 text-gray-600">No posts found.</p>
         )}
         {filteredBlogPosts.map((post: any) => (
           <BlogPost key={post.title} {...post} />

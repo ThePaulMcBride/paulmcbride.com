@@ -13,16 +13,16 @@ export default function BlogPost({
     <div className="w-full mb-12">
       <div className="flex flex-col md:flex-row md:items-center mb-4">
         <Link href={slug} className="w-full">
-          <h4 className="text-lg font-medium text-gray-900 md:text-2xl dark:text-gray-100">
+          <h4 className="text-lg font-medium font-serif text-gray-900 md:text-2xl">
             {title}
           </h4>
         </Link>
       </div>
-      <p className="text-gray-600 text-base dark:text-gray-400">{teaser}</p>
+      <p className="text-gray-600 text-base font-body">{teaser}</p>
       <Link
         href={slug}
         title={title}
-        className="mt-6 flex text-emerald-500 dark:text-emerald-400 leading-7 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-600 transition-all h-6 items-center"
+        className="mt-6 flex text-emerald-500 leading-7 rounded-lg hover:text-emerald-700 transition-all h-6 items-center text-base"
       >
         Read post
         <svg

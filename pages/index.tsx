@@ -47,16 +47,14 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
 
   return (
     <Container>
-      <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 dark:border-gray-700 mx-auto pb-16 px-8">
+      <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 mx-auto pb-16 px-8">
         <div className="flex flex-col-reverse sm:flex-row items-start">
           <div className="flex flex-col pr-8 md:max-w-[80%]">
-            <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-black dark:text-white">
+            <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-gray-900 font-serif">
               Paul McBride
             </h1>
-            <h2 className="text-gray-700 dark:text-gray-200 mb-4">
-              Senior JavaScript Developer
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-16">
+            <h2 className="text-gray-700 mb-4">Senior JavaScript Developer</h2>
+            <p className="text-gray-600 mb-16 font-body">
               Hey, I&apos;m Paul McBride. I make things with code and help
               others do the same!
             </p>
@@ -71,13 +69,13 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
             />
           </div>
         </div>
-        <h3 className="font-bold text-2xl md:text-4xl tracking-tight  text-black dark:text-white">
+        <h3 className="font-bold text-2xl md:text-4xl tracking-tight text-gray-900 font-serif mb-2">
           About
         </h3>
-        <div className="w-full prose-xl dark:prose-dark max-w-none mb-16">
+        <div className="w-full prose-xl max-w-none mb-16 font-body">
           <Component components={components} />
         </div>
-        <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-black dark:text-white">
+        <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-gray-900 font-serif">
           Featured Posts
         </h3>
         <div className="flex flex-col">
@@ -94,7 +92,7 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
         </div>
         <Link
           href="/posts"
-          className="flex my-8 text-emerald-500 dark:text-emerald-400 leading-7 rounded-lg hover:text-emerald-700 dark:hover:text-emerald-600 transition-all h-6 items-center"
+          className="flex my-8 text-emerald-500 leading-7 rounded-lg hover:text-emerald-700 transition-all h-6 items-center"
         >
           Read all posts
           <svg

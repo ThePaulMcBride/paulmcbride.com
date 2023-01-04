@@ -71,7 +71,7 @@ export default function Document() {
         />
         <link rel="me" href="https://indieweb.social/@ThePaulMcBride" />
       </Head>
-      <body className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-50 text-jumbo">
+      <body className="bg-white text-gray-900 text-jumbo">
         <Main />
         <NextScript />
       </body>

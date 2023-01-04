@@ -1,13 +1,12 @@
 import Image from "next/image";
 import { parseISO, format } from "date-fns";
-
+import * as Tooltip from "@radix-ui/react-tooltip";
 import Container from "components/Container";
-// import Subscribe from "components/Subscribe";
-// import ViewCounter from "components/ViewCounter";
 import type { PropsWithChildren } from "react";
 import type { Post } from "contentlayer/generated";
 import Subscribe from "components/Subscribe";
 import classNames from "classnames";
+import statuses from "@data/statuses";
 
 const editUrl = (slug: string) =>
   `https://github.com/ThePaulMcBride/paulmcbride.com/edit/main/data${slug}.mdx`;
@@ -34,7 +33,7 @@ function generateschemaOrgJSONLD(post: Post) {
   };
 }
 
-const headerColor = "bg-teal-50 bg-opacity-50";
+const headerColor = "bg-green-50 bg-opacity-50";
 
 export default function BlogLayout({
   children,
@@ -61,47 +60,62 @@ export default function BlogLayout({
           headerColor
         )}
       >
-        <div>
-          <span className="px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-gray-700">
-            In Progress
-          </span>
-        </div>
-
-        <h1 className="text-3xl font-bold tracking-tight text-gray-800 md:text-[70px] md:leading-[1.1] md:mt-4 dark:text-white font-serif lining-nums">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-800 md:text-[70px] md:leading-[1.1] md:mt-4 font-serif lining-nums">
           {post.title}
         </h1>
+        {post.subtitle && (
+          <h2 className="text-xl text-gray-800 opacity-60 tracking-wide md:text-[32px] md:mt-8 font-serif lining-nums">
+            {post.subtitle}
+          </h2>
+        )}
         <hr className="mt-12 mb-4" />
+        <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
+          <div className="flex items-center">
+            <p className="text-sm text-gray-700">
+              {"Last updated "}
+              {format(parseISO(post.date), "do MMMM yyyy")}
+              {post.status && (
+                <Tooltip.Provider delayDuration={0}>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <span className="px-2 py-0.5 uppercase font-bold rounded-full text-lg leading-5">
+                        <span className="sr-only">
+                          {statuses[post.status].title}
+                        </span>
+                        {statuses[post.status].icon}
+                      </span>
+                    </Tooltip.Trigger>
+                    <Tooltip.Portal>
+                      <Tooltip.Content
+                        className="TooltipContent transition-all"
+                        collisionPadding={10}
+                        sideOffset={12}
+                      >
+                        <div className="bg-white max-w-xs text-base p-4 rounded-lg shadow-lg transition-all">
+                          {statuses[post.status].description}
+                        </div>
+                        <Tooltip.Arrow className="TooltipArrow fill-white" />
+                      </Tooltip.Content>
+                    </Tooltip.Portal>
+                  </Tooltip.Root>
+                </Tooltip.Provider>
+              )}
+            </p>
+          </div>
+          <span className="text-sm text-gray-700">{post.readingTime.text}</span>
+        </div>
         {/* {post.tags && (
-          <div className="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm text-gray-600">
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-1 bg-gray-100 rounded dark:bg-gray-800"
+                className="px-3 py-0.5 bg-green-100 text-green-700 rounded-full"
               >
                 {tag}
               </span>
             ))}
           </div>
         )} */}
-
-        <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
-          <div className="flex items-center">
-            <Image
-              alt="Paul McBride"
-              height={24}
-              width={24}
-              src="/avatar.jpeg"
-              className="rounded-full"
-            />
-            <p className="ml-2 text-sm text-gray-700 dark:text-gray-300">
-              {"Paul McBride • Last updated "}
-              {format(parseISO(post.date), "do MMMM yyyy")}
-            </p>
-          </div>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
-            {post.readingTime.text}
-          </p>
-        </div>
         {/* {post.banner && post.bannerUrl && (
           <div className="flex flex-col items-start justify-center w-full mt-8 mb-4 relative aspect-[5/2] rounded-lg overflow-hidden">
             <Image
@@ -116,12 +130,12 @@ export default function BlogLayout({
           </div>
         )} */}
       </header>
-      <article className="w-full mb-8 font-body prose prose-xl text-jumbo dark:prose-dark max-w-none grid grid-cols-main !col-start-1 !col-end-4 [&_*]:mt-0 [&_*]:col-start-2 [&_*]:col-end-3 [&_h2]:mt-6 prose-h2:font-serif [&_h3]:mt-6 [&_h3]:font-light prose-h3:font-sans lining-nums px-8">
+      <article className="w-full mb-8 font-body prose prose-xl text-jumbo max-w-none grid grid-cols-main !col-start-1 !col-end-4 [&_*]:mt-0 [&_*]:col-start-2 [&_*]:col-end-3 [&_h2]:mt-6 prose-h2:font-serif [&_h3]:mt-6 [&_h3]:font-light prose-h3:font-sans lining-nums px-8">
         {children}
       </article>
       <div className="grid grid-cols-main !col-start-1 !col-end-4 mb-16 [&_*]:col-start-2 [&_*]:col-end-3 px-8">
         <Subscribe />
-        <div className="text-sm text-gray-700 dark:text-gray-300 col-start-2 ">
+        <div className="text-sm text-gray-700 col-start-2 ">
           <a href={editUrl(post.slug)} target="_blank" rel="noreferrer">
             Edit on GitHub
           </a>

@@ -120,9 +120,9 @@ export const RSS = () => {
 export default function Footer() {
   return (
     <footer className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 mb-8 px-8">
-      <hr className="w-full border-1 border-gray-200 dark:border-gray-800 mb-8" />
+      <hr className="w-full border-1 border-gray-200 mb-8" />
 
-      <div className="flex justify-between w-full text-base text-gray-600 dark:text-gray-400">
+      <div className="flex justify-between w-full text-base text-gray-600">
         <span>{`Paul McBride \u00A9 ${new Date().getFullYear()}`}</span>
         <span className="text-right flex gap-2">
           <Mastodon />

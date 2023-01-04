@@ -69,10 +69,21 @@ export const Post = defineDocumentType(() => ({
       description: "The title of the post",
       required: true,
     },
+    subtitle: {
+      type: "string",
+      description: "The subtitle of the post",
+      required: false,
+    },
     description: {
       type: "string",
       description: "Description of the post",
       required: true,
+    },
+    status: {
+      type: "enum",
+      description: "The status of the post",
+      required: false,
+      options: ["draft", "in progress", "published", "out of date", "archived"],
     },
     date: {
       type: "date",
