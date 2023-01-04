@@ -5,7 +5,6 @@ import Container from "components/Container";
 import { allNowPosts, homePage, NowPost } from ".contentlayer/generated";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import MDXComponents from "components/MDXComponents";
-import Subscribe from "components/Subscribe";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const posts = allNowPosts.sort((a, b) => {
@@ -35,7 +34,11 @@ const NowPostComponent = ({ post }: { post: NowPost }) => {
 
 const Home: NextPage = ({ posts, homePageContent }: any) => {
   return (
-    <Container>
+    <Container
+      title="Now – Paul McBride"
+      description="A chronological list of things I've been doing. It will
+      mostly be a monthly summary of how my work and life changes."
+    >
       <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 mx-auto px-8 w-full">
         <h1 className="font-bold text-3xl md:text-5xl tracking-tight text-gray-900 font-serif mb-8">
           Now

@@ -11,6 +11,8 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrism from "rehype-prism-plus";
 import { remark } from "remark";
 import strip from "remark-mdx-to-plain-text";
+import statuses from "./data/statuses";
+import tags from "./data/tags";
 
 const computedFields: ComputedFields = {
   readingTime: {
@@ -83,7 +85,7 @@ export const Post = defineDocumentType(() => ({
       type: "enum",
       description: "The status of the post",
       required: false,
-      options: ["draft", "in progress", "published", "out of date", "archived"],
+      options: Object.keys(statuses),
     },
     date: {
       type: "date",
@@ -100,7 +102,8 @@ export const Post = defineDocumentType(() => ({
       description: "The tags of the post",
       required: true,
       of: {
-        type: "string",
+        type: "enum",
+        options: Object.keys(tags),
       },
     },
     draft: {

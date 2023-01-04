@@ -7,6 +7,7 @@ import type { Post } from "contentlayer/generated";
 import Subscribe from "components/Subscribe";
 import classNames from "classnames";
 import statuses from "@data/statuses";
+import tags from "@data/tags";
 
 const editUrl = (slug: string) =>
   `https://github.com/ThePaulMcBride/paulmcbride.com/edit/main/data${slug}.mdx`;
@@ -133,6 +134,25 @@ export default function BlogLayout({
       <article className="w-full mb-8 font-body prose prose-xl text-jumbo max-w-none grid grid-cols-main !col-start-1 !col-end-4 [&_*]:mt-0 [&_*]:col-start-2 [&_*]:col-end-3 [&_h2]:mt-6 prose-h2:font-serif [&_h3]:mt-6 [&_h3]:font-light prose-h3:font-sans lining-nums px-8">
         {children}
       </article>
+      {post.tags && (
+        <div className="grid grid-cols-main !col-start-1 !col-end-4 mb-8 [&_*]:col-start-2 [&_*]:col-end-3 px-8">
+          <div className="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm text-gray-600">
+            {post.tags.map((tag) => {
+              const tagData = tags[tag];
+              if (!tagData) return null;
+              return (
+                <a
+                  key={tagData.slug}
+                  href={`/tags/${tagData.slug}`}
+                  className="px-3 py-0.5 bg-green-100 text-green-700 rounded-full"
+                >
+                  {tagData.title}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      )}
       <div className="grid grid-cols-main !col-start-1 !col-end-4 mb-16 [&_*]:col-start-2 [&_*]:col-end-3 px-8">
         <Subscribe />
         <div className="text-sm text-gray-700 col-start-2 ">
