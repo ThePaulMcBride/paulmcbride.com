@@ -6,7 +6,6 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./layouts/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -23,8 +22,11 @@ module.exports = {
       gridTemplateColumns: {
         main: "1fr min(58ch, 100%) 1fr",
       },
+      maxWidth: {
+        content: "58ch",
+      },
       typography: (theme) => ({
-        xl: {
+        DEFAULT: {
           css: {
             color: theme("colors.gray.700"),
             a: {
@@ -36,6 +38,7 @@ module.exports = {
             "h2,h3,h4": {
               "scroll-margin-top": spacing[32],
               color: theme("colors.gray.700"),
+              fontFamily: theme("var(--font-playfair-display)"),
             },
             thead: {
               borderBottomColor: theme("colors.gray.200"),

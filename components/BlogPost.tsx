@@ -18,11 +18,11 @@ export default function BlogPost({
           </h4>
         </Link>
       </div>
-      <p className="text-gray-600 font-body prose-xl">{teaser}</p>
+      <p className="text-gray-600 font-body prose md:prose-xl">{teaser}</p>
       <Link
         href={slug}
         title={title}
-        className="mt-6 flex text-emerald-500 leading-7 rounded-lg hover:text-emerald-700 transition-all h-6 items-center"
+        className="mt-6 flex text-base md:text-xl text-emerald-500 leading-7 rounded-lg hover:text-emerald-700 transition-all h-6 items-center"
       >
         Read post
         <svg

@@ -53,8 +53,10 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
             <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-gray-900 font-serif">
               Paul McBride
             </h1>
-            <h2 className="text-gray-700 mb-4">Senior JavaScript Developer</h2>
-            <p className="text-gray-600 mb-16 font-body">
+            <h2 className="text-gray-700 mb-4 text-xl md:text-2xl md:leading-relaxed">
+              Senior JavaScript Developer
+            </h2>
+            <p className="text-gray-600 mb-16 font-body text-xl leading-relaxed md:text-2xl md:leading-relaxed">
               Hey, I&apos;m Paul McBride. I make things with code and help
               others do the same!
             </p>
@@ -72,7 +74,7 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight text-gray-900 font-serif mb-2">
           About
         </h3>
-        <div className="w-full prose-xl max-w-none mb-16 font-body">
+        <div className="w-full prose prose-base md:prose-xl max-w-none mb-16 font-body">
           <Component components={components} />
         </div>
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-gray-900 font-serif">
