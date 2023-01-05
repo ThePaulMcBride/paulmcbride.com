@@ -1,7 +1,6 @@
 import "styles/globals.css";
 
 import type { AppProps } from "next/app";
-import { ThemeProvider } from "next-themes";
 import PlausibleProvider from "next-plausible";
 import { Playfair_Display, Lora } from "@next/font/google";
 
@@ -18,11 +17,9 @@ const lora = Lora({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <PlausibleProvider domain="paulmcbride.com">
-      <ThemeProvider attribute="class">
-        <div className={`${playfair.variable} ${lora.variable}`}>
-          <Component {...pageProps} />
-        </div>
-      </ThemeProvider>
+      <div className={`${playfair.variable} ${lora.variable}`}>
+        <Component {...pageProps} />
+      </div>
     </PlausibleProvider>
   );
 }

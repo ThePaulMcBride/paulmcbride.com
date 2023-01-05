@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import cn from "classnames";
+import { RSS } from "components/Footer";
 
 import Footer from "components/Footer";
 import MobileMenu from "components/MobileMenu";
@@ -106,9 +106,12 @@ export default function Container(props: any) {
               text="Lessons"
             />
           </div>
+          <span className="w-9 h-9 bg-white/50 rounded-lg flex items-center justify-center  hover:ring-2 ring-gray-200  transition-all">
+            <RSS />
+          </span>
         </nav>
       </div>
-      <main id="skip" className="flex flex-col justify-center bg-wfsdfsdfsdfs">
+      <main id="skip" className="flex flex-col justify-center">
         {children}
       </main>
       <Footer />
