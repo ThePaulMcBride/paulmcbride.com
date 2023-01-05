@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Mastodon = () => {
   return (
     <a
@@ -154,16 +156,117 @@ export default function Footer() {
   return (
     <footer className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 mb-8 px-8">
       <hr className="w-full border-1 border-gray-200 mb-8" />
+      <div className="grid sm:grid-cols-3 justify-between mb-8 space-y-3 sm:space-y-0">
+        <ul className="text-sm text-gray-600 list-none space-y-3">
+          <li>
+            <Link href="/" className="hover:text-emerald-500 transition-colors">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/posts"
+              className="hover:text-emerald-500 transition-colors"
+            >
+              Posts
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/now"
+              className="hover:text-emerald-500 transition-colors"
+            >
+              Now
+            </Link>
+          </li>
+          <li>
+            <a
+              href="/feed"
+              className="hover:text-emerald-500 transition-colors"
+              target="_blank"
+            >
+              Feed
+            </a>
+          </li>
+        </ul>
 
+        <ul className="text-sm text-gray-600 list-none space-y-3">
+          <li>
+            <a
+              href="https://indieweb.social/@ThePaulMcBride"
+              target="_blank"
+              rel="noopener noreferrer me"
+              aria-label="Follow me on Mastodon"
+              className="hover:text-emerald-500 transition-colors"
+            >
+              Mastodon
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/thepaulmcbride"
+              target="_blank"
+              rel="noopener noreferrer me"
+              aria-label="Visit my GitHub"
+              className="hover:text-emerald-500 transition-colors"
+            >
+              Github
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://youtube.com/@thepaulmcbride"
+              target="_blank"
+              rel="noopener noreferrer me"
+              aria-label="Visit my YouTube channel"
+              className="hover:text-emerald-500 transition-colors"
+            >
+              Youtube
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://twitter.com/thepaulmcbride"
+              target="_blank"
+              rel="noopener noreferrer me"
+              aria-label="Follow me on Twitter"
+              className="hover:text-emerald-500 transition-colors"
+            >
+              Twitter
+            </a>
+          </li>
+        </ul>
+        <ul className="text-sm text-gray-600 list-none space-y-3">
+          <li>
+            <a
+              className="hover:text-emerald-500 transition-colors"
+              href="https://egghead.io/q/resources-by-paul-mcbride?af=auhexg"
+              target="_blank"
+              rel="noopener noreferrer me"
+            >
+              Lessons
+            </a>
+          </li>
+          <li>
+            <a
+              className="hover:text-emerald-500 transition-colors"
+              href="mailto:hello@paulmcbride.com"
+            >
+              Email
+            </a>
+          </li>
+          <li>
+            <Link
+              className="hover:text-emerald-500 transition-colors"
+              href="/colophon"
+            >
+              Colophon
+            </Link>
+          </li>
+        </ul>
+      </div>
       <div className="flex justify-between w-full text-base text-gray-600">
         <span>{`Paul McBride \u00A9 ${new Date().getFullYear()}`}</span>
-        <span className="text-right flex gap-2">
-          <Mastodon />
-          <Twitter />
-          <GitHub />
-          <Youtube />
-          <RSS />
-        </span>
       </div>
     </footer>
   );
