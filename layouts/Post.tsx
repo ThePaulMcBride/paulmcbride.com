@@ -40,8 +40,8 @@ export default function BlogLayout({
   children,
   post,
 }: PropsWithChildren<{ post: Post }>) {
-  const image = post.banner
-    ? `https://paulmcbride.com${post.banner}`
+  const image = post.bannerUrl
+    ? `https://paulmcbride.com${post.bannerUrl}`
     : undefined;
 
   const schemaOrgJSONLD = generateschemaOrgJSONLD(post);
