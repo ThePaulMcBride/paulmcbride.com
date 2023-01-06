@@ -57,8 +57,8 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
               Senior JavaScript Developer
             </h2>
             <p className="text-gray-600 mb-16 font-body text-xl leading-relaxed md:text-2xl md:leading-relaxed">
-              Hey, I&apos;m Paul McBride. I make things with code and help
-              others do the same!
+              Hey, I&apos;m Paul. I&apos;m a software developer and instructor
+              who loves using code to solve problems and bring ideas to life!
             </p>
           </div>
           <div className="w-[80px] sm:w-[176px] relative mb-8 sm:mb-0 mr-auto">
