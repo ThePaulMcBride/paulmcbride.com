@@ -24,11 +24,19 @@ async function load() {
     },
     route: {
       "/": {
-        changefreq: "weekly",
+        changefreq: "monthly",
         priority: 1.0,
       },
       "/posts": {
         changefreq: "weekly",
+        priority: 1.0,
+      },
+      "/now": {
+        changefreq: "monthly",
+        priority: 1.0,
+      },
+      "/colophon": {
+        changefreq: "monthly",
         priority: 1.0,
       },
     },
@@ -36,14 +44,16 @@ async function load() {
 
   const posts = allPosts;
 
-  posts.filter(post => !post.draft).forEach((post: Post) => {
-    config.map[post.slug] = [];
-    config.route[post.slug] = {
-      lastmod: format(parse(post.date), "yyyy-MM-dd"),
-      changefreq: "monthly",
-      priority: 0.7,
-    };
-  });
+  posts
+    .filter((post) => !post.draft)
+    .forEach((post: Post) => {
+      config.map[post.slug] = [];
+      config.route[post.slug] = {
+        lastmod: format(parse(post.date), "yyyy-MM-dd"),
+        changefreq: "monthly",
+        priority: 0.7,
+      };
+    });
 
   return sitemap(config);
 }
