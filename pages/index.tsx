@@ -14,7 +14,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const posts = allPosts
     .filter((post) =>
       [
-        "/posts/var-let-const",
+        "/posts/personal-websites-are-important",
         "/posts/dont-trust-the-cascade",
         "/posts/what-programming-language-should-i-learn-first",
         "/posts/what-i-want-from-life",
