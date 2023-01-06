@@ -61,6 +61,14 @@ export const HomePage = defineDocumentType(() => ({
   fields: [],
 }));
 
+export const ColophonPage = defineDocumentType(() => ({
+  name: "ColophonPage",
+  filePathPattern: `colophon/content.mdx`,
+  contentType: "mdx",
+  isSingleton: true,
+  fields: [],
+}));
+
 export const Post = defineDocumentType(() => ({
   name: "Post",
   filePathPattern: `posts/*.mdx`,
@@ -136,7 +144,7 @@ export const NowPost = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "data",
-  documentTypes: [Post, HomePage, NowPost],
+  documentTypes: [Post, HomePage, NowPost, ColophonPage],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
