@@ -11,6 +11,8 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrism from "rehype-prism-plus";
 import { remark } from "remark";
 import strip from "remark-mdx-to-plain-text";
+import statuses from "./data/statuses";
+import tags from "./data/tags";
 
 const computedFields: ComputedFields = {
   readingTime: {
@@ -59,6 +61,14 @@ export const HomePage = defineDocumentType(() => ({
   fields: [],
 }));
 
+export const ColophonPage = defineDocumentType(() => ({
+  name: "ColophonPage",
+  filePathPattern: `colophon/content.mdx`,
+  contentType: "mdx",
+  isSingleton: true,
+  fields: [],
+}));
+
 export const Post = defineDocumentType(() => ({
   name: "Post",
   filePathPattern: `posts/*.mdx`,
@@ -69,10 +79,21 @@ export const Post = defineDocumentType(() => ({
       description: "The title of the post",
       required: true,
     },
+    subtitle: {
+      type: "string",
+      description: "The subtitle of the post",
+      required: false,
+    },
     description: {
       type: "string",
       description: "Description of the post",
       required: true,
+    },
+    status: {
+      type: "enum",
+      description: "The status of the post",
+      required: false,
+      options: Object.keys(statuses),
     },
     date: {
       type: "date",
@@ -89,7 +110,8 @@ export const Post = defineDocumentType(() => ({
       description: "The tags of the post",
       required: true,
       of: {
-        type: "string",
+        type: "enum",
+        options: Object.keys(tags),
       },
     },
     draft: {
@@ -102,9 +124,27 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }));
 
+export const NowPost = defineDocumentType(() => ({
+  name: "NowPost",
+  filePathPattern: `now/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      description: "The title of the post",
+      required: true,
+    },
+    date: {
+      type: "date",
+      description: "The date of the post",
+      required: true,
+    },
+  },
+}));
+
 export default makeSource({
   contentDirPath: "data",
-  documentTypes: [Post, HomePage],
+  documentTypes: [Post, HomePage, NowPost, ColophonPage],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

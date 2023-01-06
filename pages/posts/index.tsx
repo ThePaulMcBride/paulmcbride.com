@@ -37,15 +37,13 @@ const Posts: NextPage = ({ posts }: any) => {
       title="Posts – Paul McBride"
       description="Thoughts on the software industry, programming, tech, videography, music, and my personal life."
     >
-      <div className="flex flex-col items-start justify-center max-w-2xl mx-auto mb-16">
-        <h1 className="mb-8 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
+      <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 mx-auto mb-16 px-8">
+        <h1 className="mb-8 text-3xl font-serif font-bold tracking-tight text-gray-800 md:text-5xl">
           Posts
         </h1>
 
         {!filteredBlogPosts.length && (
-          <p className="mb-4 text-gray-600 dark:text-gray-400">
-            No posts found.
-          </p>
+          <p className="mb-4 text-gray-600">No posts found.</p>
         )}
         {filteredBlogPosts.map((post: any) => (
           <BlogPost key={post.title} {...post} />

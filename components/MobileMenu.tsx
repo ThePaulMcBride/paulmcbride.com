@@ -42,43 +42,53 @@ export default function MobileMenu() {
         <CrossIcon data-hide={!isMenuOpen} />
       </button>
       {isMenuMounted && (
-        <ul
-          className={cn(
-            styles.menu,
-            "flex flex-col absolute bg-gray-50 dark:bg-gray-900",
-            isMenuRendered && styles.menuRendered
-          )}
-        >
-          <li
-            className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
-            style={{ transitionDelay: "150ms" }}
+        <div className="bg-white px-8 fixed inset-0 z-10">
+          <ul
+            className={cn(
+              styles.menu,
+              "flex flex-col z-10 bg-white relative top-[5rem]",
+              isMenuRendered && styles.menuRendered
+            )}
           >
-            <Link href="/" className="flex w-auto pb-4">
-              Home
-            </Link>
-          </li>
-          <li
-            className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
-            style={{ transitionDelay: "175ms" }}
-          >
-            <Link href="/posts" className="flex w-auto pb-4">
-              Posts
-            </Link>
-          </li>
-          <li
-            className="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
-            style={{ transitionDelay: "200ms" }}
-          >
-            <a
-              href="https://egghead.io/q/resources-by-paul-mcbride?af=auhexg"
-              className="flex w-auto pb-4"
-              target="_blank"
-              rel="noopener noreferrer"
+            <li
+              className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
+              style={{ transitionDelay: "150ms" }}
             >
-              Lessons
-            </a>
-          </li>
-        </ul>
+              <Link href="/" className="flex w-auto pb-4">
+                Home
+              </Link>
+            </li>
+            <li
+              className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
+              style={{ transitionDelay: "175ms" }}
+            >
+              <Link href="/posts" className="flex w-auto pb-4">
+                Posts
+              </Link>
+            </li>
+            <li
+              className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
+              style={{ transitionDelay: "200ms" }}
+            >
+              <Link href="/now" className="flex w-auto pb-4">
+                Now
+              </Link>
+            </li>
+            <li
+              className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
+              style={{ transitionDelay: "225ms" }}
+            >
+              <a
+                href="https://egghead.io/q/resources-by-paul-mcbride?af=auhexg"
+                className="flex w-auto pb-4"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Lessons
+              </a>
+            </li>
+          </ul>
+        </div>
       )}
     </>
   );
@@ -87,7 +97,7 @@ export default function MobileMenu() {
 function MenuIcon(props: JSX.IntrinsicElements["svg"]) {
   return (
     <svg
-      className="h-5 w-5 absolute text-gray-900 dark:text-gray-100"
+      className="h-5 w-5 absolute text-gray-900 z-20"
       width="20"
       height="20"
       viewBox="0 0 20 20"
@@ -115,7 +125,7 @@ function MenuIcon(props: JSX.IntrinsicElements["svg"]) {
 function CrossIcon(props: JSX.IntrinsicElements["svg"]) {
   return (
     <svg
-      className="h-5 w-5 absolute text-gray-900 dark:text-gray-100"
+      className="h-5 w-5 absolute text-gray-900 z-20"
       viewBox="0 0 24 24"
       width="24"
       height="24"

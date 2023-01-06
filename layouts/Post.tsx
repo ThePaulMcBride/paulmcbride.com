@@ -1,19 +1,16 @@
 import Image from "next/image";
 import { parseISO, format } from "date-fns";
-
+import * as Tooltip from "@radix-ui/react-tooltip";
 import Container from "components/Container";
-// import Subscribe from "components/Subscribe";
-// import ViewCounter from "components/ViewCounter";
 import type { PropsWithChildren } from "react";
 import type { Post } from "contentlayer/generated";
 import Subscribe from "components/Subscribe";
+import classNames from "classnames";
+import statuses from "@data/statuses";
+import tags from "@data/tags";
 
 const editUrl = (slug: string) =>
   `https://github.com/ThePaulMcBride/paulmcbride.com/edit/main/data${slug}.mdx`;
-const discussUrl = (slug: string) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(
-    `https://paulmcbride.com${slug}`
-  )}`;
 
 function generateschemaOrgJSONLD(post: Post) {
   return {
@@ -37,6 +34,8 @@ function generateschemaOrgJSONLD(post: Post) {
   };
 }
 
+const headerColor = "bg-emerald-50 bg-opacity-50";
+
 export default function BlogLayout({
   children,
   post,
@@ -54,30 +53,61 @@ export default function BlogLayout({
       image={image}
       date={new Date(post.date).toISOString()}
       type="article"
+      navClassName={headerColor}
     >
-      <article className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
+      <header
+        className={classNames(
+          "grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 pb-10 px-8",
+          headerColor
+        )}
+      >
+        <h1 className="text-3xl font-bold tracking-tight text-gray-800 md:text-[70px] md:leading-[1.1] md:mt-4 font-serif lining-nums">
           {post.title}
         </h1>
-        <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
+        {post.subtitle && (
+          <h2 className="text-sm text-emerald-800 opacity-80 uppercase tracking-wide md:text-xl font-bold mt-2 md:mt-4 font-body lining-nums">
+            {post.subtitle}
+          </h2>
+        )}
+        <hr className="mt-8 md:mt-10 mb-4" />
+        <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center space-y-2 md:space-y-0">
           <div className="flex items-center">
-            <Image
-              alt="Paul McBride"
-              height={24}
-              width={24}
-              src="/avatar.jpeg"
-              className="rounded-full"
-            />
-            <p className="ml-2 text-sm text-gray-700 dark:text-gray-300">
-              {"Paul McBride / "}
+            <p className="text-sm text-emerald-800 opacity-80">
+              {"Last updated: "}
               {format(parseISO(post.date), "do MMMM yyyy")}
+              {post.status && (
+                <Tooltip.Provider delayDuration={0}>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <span className="px-2 py-0.5 uppercase font-bold rounded-full text-lg leading-5">
+                        <span className="sr-only">
+                          {statuses[post.status].title}
+                        </span>
+                        {statuses[post.status].icon}
+                      </span>
+                    </Tooltip.Trigger>
+                    <Tooltip.Portal>
+                      <Tooltip.Content
+                        className="TooltipContent transition-all"
+                        collisionPadding={10}
+                        sideOffset={12}
+                      >
+                        <div className="bg-white max-w-xs text-base p-4 rounded-lg shadow-lg transition-all">
+                          {statuses[post.status].description}
+                        </div>
+                        <Tooltip.Arrow className="TooltipArrow fill-white" />
+                      </Tooltip.Content>
+                    </Tooltip.Portal>
+                  </Tooltip.Root>
+                </Tooltip.Provider>
+              )}
             </p>
           </div>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
+          <span className="text-sm text-emerald-800 opacity-80">
             {post.readingTime.text}
-          </p>
+          </span>
         </div>
-        {post.banner && post.bannerUrl && (
+        {/* {post.banner && post.bannerUrl && (
           <div className="flex flex-col items-start justify-center w-full mt-8 mb-4 relative aspect-[5/2] rounded-lg overflow-hidden">
             <Image
               alt={post.title}
@@ -89,31 +119,40 @@ export default function BlogLayout({
               blurDataURL={post.banner.blurhashDataUrl}
             />
           </div>
-        )}
-        <div className="w-full prose dark:prose-dark max-w-none">
+        )} */}
+      </header>
+      <main className="px-8 mb-12">
+        <article className="w-full mt-8 mb-8 font-body prose prose-lg md:prose-xl md:text-jumbo max-w-none md:max-w-content mx-auto lining-nums">
           {children}
-        </div>
-        <div className="mt-8">
+        </article>
+        {post.tags && (
+          <div className="w-full max-w-none md:max-w-content mx-auto mb-8">
+            <div className="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm">
+              {post.tags.map((tag) => {
+                const tagData = tags[tag];
+                if (!tagData) return null;
+                return (
+                  <a
+                    key={tagData.slug}
+                    href={`/tags/${tagData.slug}`}
+                    className="px-3 py-0.5 bg-emerald-100 text-emerald-700 rounded-full"
+                  >
+                    {tagData.title}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        <div className="w-full max-w-none md:max-w-content mx-auto">
           <Subscribe />
+          <div className="text-sm text-gray-700 col-start-2 ">
+            <a href={editUrl(post.slug)} target="_blank" rel="noreferrer">
+              Edit on GitHub
+            </a>
+          </div>
         </div>
-        <div className="text-sm text-gray-700 dark:text-gray-300">
-          <a
-            href={discussUrl(post.slug)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {"Discuss on Twitter"}
-          </a>
-          {` • `}
-          <a
-            href={editUrl(post.slug)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Edit on GitHub
-          </a>
-        </div>
-      </article>
+      </main>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

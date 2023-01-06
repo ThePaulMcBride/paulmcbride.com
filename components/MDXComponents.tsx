@@ -29,10 +29,19 @@ const CustomImage = (props: any) => {
   // );
 };
 
+const BlockQuote = (props: any) => {
+  return (
+    <blockquote className="border-l-4 border-gray-200 pl-4 mb-4 [&_p]:mb-0">
+      {props.children}
+    </blockquote>
+  );
+};
+
 const MDXComponents = {
   a: CustomLink,
   Youtube: Youtube,
   img: CustomImage,
+  blockquote: BlockQuote,
 };
 
 export default MDXComponents;
