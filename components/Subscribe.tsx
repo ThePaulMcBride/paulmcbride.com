@@ -80,7 +80,7 @@ export default function Subscribe() {
   };
 
   return (
-    <div className="border border-grey-200 rounded-lg p-6 my-4 w-full bg-gray-50">
+    <div className="border border-emerald-200 rounded-lg p-6 my-4 w-full bg-emerald-50 bg-opacity-50">
       <p className="text-lg md:text-xl font-bold text-gray-900">
         Subscribe to my newsletter
       </p>
