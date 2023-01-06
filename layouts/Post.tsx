@@ -65,15 +65,15 @@ export default function BlogLayout({
           {post.title}
         </h1>
         {post.subtitle && (
-          <h2 className="text-xl text-gray-800 opacity-60 tracking-wide md:text-[32px] md:mt-8 font-serif lining-nums">
+          <h2 className="text-sm text-emerald-800 opacity-80 uppercase tracking-wide md:text-xl font-bold mt-2 md:mt-4 font-body lining-nums">
             {post.subtitle}
           </h2>
         )}
-        <hr className="mt-12 mb-4" />
-        <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
+        <hr className="mt-8 md:mt-10 mb-4" />
+        <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center space-y-2 md:space-y-0">
           <div className="flex items-center">
-            <p className="text-sm text-gray-700">
-              {"Last updated "}
+            <p className="text-sm text-emerald-800 opacity-80">
+              {"Last updated: "}
               {format(parseISO(post.date), "do MMMM yyyy")}
               {post.status && (
                 <Tooltip.Provider delayDuration={0}>
@@ -103,7 +103,9 @@ export default function BlogLayout({
               )}
             </p>
           </div>
-          <span className="text-sm text-gray-700">{post.readingTime.text}</span>
+          <span className="text-sm text-emerald-800 opacity-80">
+            {post.readingTime.text}
+          </span>
         </div>
         {/* {post.banner && post.bannerUrl && (
           <div className="flex flex-col items-start justify-center w-full mt-8 mb-4 relative aspect-[5/2] rounded-lg overflow-hidden">
@@ -125,7 +127,7 @@ export default function BlogLayout({
         </article>
         {post.tags && (
           <div className="w-full max-w-none md:max-w-content mx-auto mb-8">
-            <div className="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm text-gray-600">
+            <div className="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm">
               {post.tags.map((tag) => {
                 const tagData = tags[tag];
                 if (!tagData) return null;
