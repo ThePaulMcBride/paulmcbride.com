@@ -19,7 +19,7 @@ function generateschemaOrgJSONLD(post: Post) {
     headline: post.title,
     image: [`https://paulmcbride.com${post.banner}`],
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.lastUpdated || post.date,
     author: [
       {
         "@type": "Person",
@@ -51,7 +51,7 @@ export default function BlogLayout({
       title={`${post.title} – Paul McBride`}
       description={post.description}
       image={image}
-      date={new Date(post.date).toISOString()}
+      date={new Date(post.lastUpdated || post.date).toISOString()}
       type="article"
       navClassName={headerColor}
     >
@@ -74,7 +74,7 @@ export default function BlogLayout({
           <div className="flex items-center">
             <p className="text-sm text-emerald-800 opacity-80">
               {"Last updated: "}
-              {format(parseISO(post.date), "do MMMM yyyy")}
+              {format(parseISO(post.lastUpdated || post.date), "do MMMM yyyy")}
               {post.status && (
                 <Tooltip.Provider delayDuration={0}>
                   <Tooltip.Root>

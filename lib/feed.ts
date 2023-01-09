@@ -35,7 +35,7 @@ export const buildFeed = async () => {
         description: post.description,
         content: `<p>${post.teaser}</p><div style="margin-top: 50px; font-style: italic;"> <strong><a href="https://paulmcbride.com${post.slug}">Keep reading</a>.</strong> </div> <br /> <br />`,
         author: [author],
-        date: parseISO(post.date),
+        date: parseISO(post.lastUpdated || post.date),
         image: `https://paulmcbride.com${post.banner}`,
       });
     });
