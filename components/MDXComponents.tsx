@@ -37,11 +37,22 @@ const BlockQuote = (props: any) => {
   );
 };
 
+const Note = ({ note }: { note: String }) => {
+  return (
+    <div className="bg-gray-50 px-8 py-1 rounded-lg border border-gray-100">
+      <p className="text-gray-600 font-body text-lg leading-relaxed md:text-xl md:leading-relaxed">
+        <b>Note:</b> {note}
+      </p>
+    </div>
+  );
+};
+
 const MDXComponents = {
   a: CustomLink,
   Youtube: Youtube,
   img: CustomImage,
   blockquote: BlockQuote,
+  Note: Note,
 };
 
 export default MDXComponents;
