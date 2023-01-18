@@ -11,8 +11,25 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrism from "rehype-prism-plus";
 import { remark } from "remark";
 import strip from "remark-mdx-to-plain-text";
+import { bundleMDX } from "mdx-bundler";
+import * as ReactDOMServer from "react-dom/server";
+import { getMDXComponent } from "mdx-bundler/client/index.js";
 import statuses from "./data/statuses";
 import tags from "./data/tags";
+import * as React from "react";
+import Youtube from "components/Youtube";
+import MDXComponents from "./components/MDXComponents";
+
+const mdxToHtml = async (mdxSource: string) => {
+  const { code } = await bundleMDX({ source: mdxSource });
+  const MDXLayout = getMDXComponent(code);
+  console.log({ MDXLayout });
+  const element = MDXLayout({ components: MDXComponents })!;
+  console.log({ element });
+  const html = ReactDOMServer.renderToString(element);
+  console.log({ html });
+  return html;
+};
 
 const computedFields: ComputedFields = {
   readingTime: {
@@ -30,6 +47,10 @@ const computedFields: ComputedFields = {
   slug: {
     type: "string",
     resolve: (doc: any) => `/${doc._raw.flattenedPath}`,
+  },
+  mdxHtml: {
+    type: "string",
+    resolve: (doc) => mdxToHtml(doc.body.raw),
   },
   teaser: {
     type: "string",

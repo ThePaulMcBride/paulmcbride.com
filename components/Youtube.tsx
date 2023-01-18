@@ -1,6 +1,7 @@
 // import dynamic from "next/dynamic";
 // const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 // import ReactPlayer from "react-player";
+import React from "react";
 
 interface YoutubeProps {
   code: string;
