@@ -86,7 +86,7 @@ export default function Subscribe() {
       </p>
       <p className="my-1 text-base text-gray-800">
         I&apos;ll email you about tech, what I&apos;m working on, and other
-        intersting things I find around the web. I&apos;ll never spam you and I
+        interesting things I find around the web. I&apos;ll never spam you and I
         won&apos;t share your email with anyone else.
       </p>
       <form className="relative my-4 text-base" onSubmit={subscribe}>
