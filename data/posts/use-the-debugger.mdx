@@ -1,0 +1,31 @@
+---
+date: "2023-11-09"
+title: "Use the Debugger"
+description: "I recently started using the chrome debugger and I wish I'd started sooner. Learn what I was missing out on and how to get started."
+banner: "../../public/images/debugger.jpeg"
+tags: ["javascript", "tools"]
+---
+
+Recently I was working on a bug in my day job where a 3rd party dependency was misbehaving. Usually when something like this happens in code I have control over, I'd sprinkle in a few `console.logs` to find out what was going on. Most of the time this would help me close in on the problem. With this issue being inside a node module, it made things a little trickier.
+
+In a scenario like this you have a few options, you could dig into the node modules folder, find the (often minified) code and use `console.log` as you usually would. Or, you could use the built in JavaScript debugger.
+
+Caveat: All of what I'll be talking about in this article is specific to JavaScript and TypeScript that runs in the browser. Backend frameworks almost always support this too but you'll need to look up the docs specific to whatever you are using.
+
+## How I usually debug
+
+As mentioned above, until recently, my debugging strategy revolved around `console.log`. When a bug was reported, I'd figure out how to reproduce it, track down where the bug happens in the code and put console logs everywhere. Usually I'd log a label of some kind, for example the function name I was logging in and a list of any variables that were related to the issue. This is what I call cave man debugging. It is pretty rudimentary, but in my 10 years of working as a developer, it has yet to fail me.
+
+With that said, there is a better approach. One I wish I'd embraced years ago.
+
+## What is the debugger?
+
+The debugger is a tool that allows you to pause the executions of your code at runtime and inspect the values of any variables in that scope along with the call stack. It also allows you to step through the code line by line as the program runs and see those variables change over time. You could achieve a lot of this with a bunch of console logs too, but I've fund the debugger to be a lot less hassle.
+
+To get started, fire up which ever project you're working on and head to the browser. In this article I'll be using a Chrome based browser but this'll work in any browser. Next open up your project in your editor and insert the `debugger` keyword where you want the app to pause for inspection. Remember, this will only work for code running in the browser by default. You'll have a few more steps for server code. Finally, head back to the browser and interact with your app in a way that will get the piece of code with the `debugger` statement in it to run.
+
+You should see your app paused and the browser dev tools opening in the sources tab. This tab will have a bunch of information about the call stack, the values of relevant variables and controls to resume the execution of your code. You can skip the debugger and you code will carry on or you can step through the execution line by line and in and out of functions.
+
+## Conclusion
+
+I'm not going to tell you how to use the debugger. It'll depend on your project and the browser you are using. However, I am going to tell you that you should be using the debugger. It is way easier to use than you might think. It involves no setup for code running in the browser and it'll make you look clever to your colleagues.
