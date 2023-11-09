@@ -16,6 +16,7 @@
 		"@remix-run/react": "^2.2.0",
 		"@remix-run/serve": "^2.2.0",
 		"classnames": "^2.3.2",
+		"date-fns": "^2.30.0",
 		"front-matter": "^4.0.2",
 		"highlight.js": "^11.9.0",
 		"isbot": "^3.7.0",

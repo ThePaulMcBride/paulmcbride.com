@@ -2,7 +2,7 @@
 // import * as Tooltip from "@radix-ui/react-tooltip";
 import Subscribe from "~/components/Subscribe";
 import classNames from "classnames";
-import { PropsWithChildren } from "react";
+import { format, parseISO } from "date-fns";
 
 const editUrl = (slug: string) =>
 	`https://github.com/ThePaulMcBride/paulmcbride.com/edit/main/data${slug}.mdx`;
@@ -65,7 +65,7 @@ export default function BlogLayout({
 					<div className="flex items-center">
 						<p className="text-sm text-emerald-800 opacity-80">
 							{"Last updated: "}
-							{/* {format(parseISO(post.lastUpdated || post.date), "do MMMM yyyy")} */}
+							{format(parseISO(post.lastUpdated || post.date), "do MMMM yyyy")}
 							{/* {post.status && (
 								<Tooltip.Provider delayDuration={0}>
 									<Tooltip.Root>
