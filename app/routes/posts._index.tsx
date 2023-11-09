@@ -1,7 +1,18 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import BlogPost from "~/components/BlogPost";
 import { getPostList } from "~/services/posts";
+
+export const meta: MetaFunction = () => {
+	return [
+		{ title: "Posts – Paul McBride" },
+		{
+			name: "description",
+			content:
+				"Thoughts on the software industry, programming, tech, and my personal life.",
+		},
+	];
+};
 
 export async function loader() {
 	const posts = await getPostList();

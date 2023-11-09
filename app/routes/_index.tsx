@@ -1,5 +1,19 @@
+import { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import Subscribe from "~/components/Subscribe";
+
+export const meta: MetaFunction = () => {
+	return [
+		{
+			title: "Paul McBride - Developer, nerd, tech enthusiast.",
+		},
+		{
+			name: "description",
+			content:
+				"Hey, I'm Paul McBride. I make things with code and help others do the same!",
+		},
+	];
+};
 
 export default function HomePage() {
 	return (

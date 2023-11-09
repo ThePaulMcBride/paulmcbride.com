@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 
-export default function BlogPost({ title, slug, teaser }: any) {
+export default function BlogPost({ title, slug, description }: any) {
 	return (
 		<div className="w-full mb-12">
 			<div className="flex flex-col md:flex-row md:items-center mb-4">
@@ -10,7 +10,7 @@ export default function BlogPost({ title, slug, teaser }: any) {
 					</h4>
 				</Link>
 			</div>
-			<p className="text-gray-600 font-body prose md:prose-xl">{teaser}</p>
+			<p className="text-gray-600 font-body prose md:prose-xl">{description}</p>
 			<Link
 				to={slug}
 				title={title}

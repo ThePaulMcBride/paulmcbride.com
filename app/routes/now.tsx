@@ -1,3 +1,16 @@
+import { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+	return [
+		{ title: "Now – Paul McBride" },
+		{
+			name: "description",
+			content:
+				"A chronological list of things I've been doing. It will mostly be a monthly summary of how my work and life changes.",
+		},
+	];
+};
+
 export default function NowPage() {
 	return (
 		<div className="max-w-none md:max-w-content mx-auto w-full">

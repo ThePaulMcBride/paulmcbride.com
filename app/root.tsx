@@ -1,6 +1,6 @@
 import { Links, Meta, Outlet, Scripts } from "@remix-run/react";
 import faviconUrl from "../public/static/favicons/favicon.ico";
-import { LinksFunction } from "@remix-run/node";
+import { LinksFunction, MetaFunction } from "@remix-run/node";
 import cn from "classnames";
 import styles from "~/tailwind.css";
 import globalStyles from "~/global.css";
@@ -15,6 +15,23 @@ export const links: LinksFunction = () => {
 		{ rel: "stylesheet", href: styles },
 		{ rel: "stylesheet", href: globalStyles },
 		{ rel: "stylesheet", href: hightlightStyles },
+	];
+};
+
+export const meta: MetaFunction = () => {
+	return [
+		{
+			title: "Paul McBride - Developer, nerd, tech enthusiast.",
+		},
+		{
+			name: "description",
+			content:
+				"Hey, I'm Paul McBride. I make things with code and help others do the same!",
+		},
+		{
+			name: "viewport",
+			content: "width=device-width,initial-scale=1,viewport-fit=cover",
+		},
 	];
 };
 

@@ -1,3 +1,14 @@
+export const meta = () => [
+	{
+		title: "Colophon - Paul McBride",
+	},
+	{
+		name: "description",
+		content:
+			"A page about the tools I use to make this site and the other sites that inspire me.",
+	},
+];
+
 export default function ColophonPage() {
 	return (
 		<div className="max-w-none md:max-w-content mx-auto w-full">
