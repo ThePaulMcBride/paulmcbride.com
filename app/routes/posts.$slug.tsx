@@ -1,12 +1,11 @@
 import { MetaFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import PostLayout from "~/components/PostLayout";
-import { getPost } from "~/services/posts";
 
 export const meta: MetaFunction = ({ data, matches }: any) => {
 	const post = data.post;
-	const title = `${post.title} – Paul McBride`;
-	const description = post.description || matches[0].description;
+	const title = `${post.attributes.title} – Paul McBride`;
+	const description = post.attributes.description || matches[0].description;
 	return [
 		{
 			title,
@@ -20,11 +19,14 @@ export const meta: MetaFunction = ({ data, matches }: any) => {
 
 export const loader = async ({ params }: { params: { slug: string } }) => {
 	const fileName = `${params.slug}.mdx`;
-	const post = await getPost(fileName);
+	const post = await fetch(
+		`${process.env.SITE_URL}/api/data/posts/${fileName}`
+	).then((res) => res.json());
+
 	return json({ post });
 };
 
 export default function PostPage() {
 	const { post } = useLoaderData<typeof loader>();
-	return <PostLayout post={post}>{post.html}</PostLayout>;
+	return <PostLayout post={post.attributes}>{post.html}</PostLayout>;
 }
