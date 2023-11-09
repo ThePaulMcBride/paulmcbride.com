@@ -1,4 +1,10 @@
-import { Links, Meta, Outlet, Scripts } from "@remix-run/react";
+import {
+	Links,
+	Meta,
+	Outlet,
+	Scripts,
+	ScrollRestoration,
+} from "@remix-run/react";
 import faviconUrl from "../public/static/favicons/favicon.ico";
 import { LinksFunction, MetaFunction } from "@remix-run/node";
 import cn from "classnames";
@@ -79,6 +85,7 @@ export default function App() {
 					<Footer />
 				</div>
 				<Scripts />
+				<ScrollRestoration />
 			</body>
 		</html>
 	);
