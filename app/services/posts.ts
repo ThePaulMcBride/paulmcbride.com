@@ -5,8 +5,11 @@ export async function getPostList() {
 	const filesPaths = await fs.readdir("./data/posts");
 	const files = await Promise.all(
 		filesPaths.map(async (fileName) => {
-			const file = await fs.readFile(`./data/posts/${fileName}`);
-			const { attributes, body } = parseFrontmatter(file.toString());
+			const file = await fs
+				.readFile(`./data/posts/${fileName}`)
+				.then((res) => res.toString());
+
+			const { attributes } = parseFrontmatter(file.toString());
 			if (!attributes) {
 				throw new Error("Post must have attributes");
 			}
@@ -30,8 +33,10 @@ export async function getPostList() {
 }
 
 export async function getPost(fileName: string) {
-	const file = await fs.readFile(`./data/posts/${fileName}`);
-	const { attributes, body } = parseFrontmatter(file.toString());
+	const url = `${process.env.SITE_URL}/api/data/posts/${fileName}`;
+	const file = await fetch(url).then((res) => res.text());
+
+	const { attributes, body } = parseFrontmatter(file);
 	if (!attributes) {
 		throw new Error("Post must have attributes");
 	}
