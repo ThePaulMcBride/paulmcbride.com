@@ -1,7 +1,7 @@
 ---
 date: "2017-09-14"
 title: "JavaScript Fetch API"
-description: "The fetch API is used for making network requests in the browser. In this article we'll learn how it works"
+description: "The fetch API is used for making network requests in the browser. In this article we'll learn how it works."
 banner: "../../public/images/fetch-api.jpg"
 tags: ["code", "javascript"]
 ---
@@ -15,11 +15,11 @@ Let's look at an example of each. We'll make a request to an API and parse the J
 ```javascript
 const myRequest = new XMLHttpRequest();
 myRequest.onload = () => {
-  const response = JSON.parse(myRequest.response);
-  console.log(response);
+	const response = JSON.parse(myRequest.response);
+	console.log(response);
 };
 myRequest.onerror = function (err) {
-  console.log("Fetch Error:", err);
+	console.log("Fetch Error:", err);
 };
 myRequest.open("get", "https://jsonplaceholder.typicode.com/posts/1");
 myRequest.send();
@@ -31,15 +31,15 @@ As you can see we have to define a callback for both the error and success respo
 
 ```javascript
 fetch("https://jsonplaceholder.typicode.com/posts/1")
-  .then((res) => {
-    if (!res.ok) {
-      throw new Error("Whoops!");
-    }
-    return res;
-  })
-  .then((res) => res.json())
-  .then((res) => console.log(res))
-  .catch((e) => console.log("Fetch Error:", err));
+	.then((res) => {
+		if (!res.ok) {
+			throw new Error("Whoops!");
+		}
+		return res;
+	})
+	.then((res) => res.json())
+	.then((res) => console.log(res))
+	.catch((e) => console.log("Fetch Error:", err));
 ```
 
 Isn't that better? Fetch returns a promise that when resolves containes the response. From here we can access the headers of the response etc.
@@ -54,12 +54,12 @@ As I mentioned, fetch resolves to a response which contains the response headers
 
 ```javascript
 fetch("https://jsonplaceholder.typicode.com/posts/1").then((res) => {
-  res.ok; // Returns true if response status code is 200 - 299
-  res.headers.get("Content-Type"); // Returns the content type header
-  res.status; // Response status code
-  response.statusText; // Returns the status text - eg. "Not Found"
-  response.type; // Response type - eg "cors"
-  response.url; // The url the request was made to
+	res.ok; // Returns true if response status code is 200 - 299
+	res.headers.get("Content-Type"); // Returns the content type header
+	res.status; // Response status code
+	response.statusText; // Returns the status text - eg. "Not Found"
+	response.type; // Response type - eg "cors"
+	response.url; // The url the request was made to
 });
 ```
 
