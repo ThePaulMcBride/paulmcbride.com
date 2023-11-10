@@ -32,11 +32,9 @@ export default function PostsPage() {
 			</h1>
 
 			{!posts.length && <p className="mb-4 text-gray-600">No posts found.</p>}
-			{posts.map(
-				(post: any) => (
-					console.log(post), (<BlogPost key={post.file} {...post} />)
-				)
-			)}
+			{posts.map((post: any) => (
+				<BlogPost key={post.slug} {...post} />
+			))}
 		</div>
 	);
 }

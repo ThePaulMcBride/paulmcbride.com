@@ -1,6 +1,6 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getFile } from "~/services/file";
+import { readfile } from "~/services/file";
 import { parseBody } from "~/services/markdown";
 
 export const meta = () => [
@@ -15,7 +15,7 @@ export const meta = () => [
 ];
 
 export async function loader() {
-	const file = await getFile("colophon/content.mdx");
+	const file = await readfile("colophon/content.mdx");
 	const content = await parseBody(file);
 
 	return json(

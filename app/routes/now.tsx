@@ -1,4 +1,9 @@
 import { MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { th } from "date-fns/locale";
+import { NowPost } from "~/components/NowPost";
+import { listFiles, readFiles } from "~/services/file";
+import { parseBody, parseFrontmatter } from "~/services/markdown";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -11,7 +16,31 @@ export const meta: MetaFunction = () => {
 	];
 };
 
+export async function loader() {
+	const files = await listFiles("now");
+	const filePaths = files.map((file) => file.path);
+	const fileContents = await readFiles(filePaths);
+	const postPromises = fileContents.map(async (file) => {
+		const { attributes, body } = parseFrontmatter(file);
+		if (!attributes) throw new Error("No attributes found");
+		return {
+			_id: crypto.randomUUID(),
+			...attributes,
+			content: await parseBody(body),
+		};
+	});
+
+	const unsortedPosts = await Promise.all(postPromises);
+	const posts = unsortedPosts.sort((a: any, b: any) => {
+		const aDate = new Date(a.date);
+		const bDate = new Date(b.date);
+		return bDate.getTime() - aDate.getTime();
+	});
+	return { posts };
+}
+
 export default function NowPage() {
+	const { posts } = useLoaderData<typeof loader>();
 	return (
 		<div className="max-w-none md:max-w-content mx-auto w-full">
 			<h1 className="font-bold text-3xl md:text-5xl tracking-tight text-gray-900 font-serif mb-8">
@@ -32,9 +61,9 @@ export default function NowPage() {
 				.
 			</p>
 			<div className="w-full prose prose-lg md:prose-xl max-w-none mb-16 font-body">
-				{/* {posts.map((post: NowPost) => (
-					<NowPostComponent key={post._id} post={post} />
-				))} */}
+				{posts.map((post) => (
+					<NowPost key={post._id} post={post} />
+				))}
 			</div>
 		</div>
 	);
