@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 
-export async function readfile(filePath: string) {
+export async function readFile(filePath: string) {
 	const file = await fs.readFile(`./data/${filePath}`);
 	return file.toString();
 }
@@ -9,7 +9,10 @@ export async function readFiles(filePaths: string[]) {
 	const files = await Promise.all(
 		filePaths.map(async (filePath) => {
 			const file = await fs.readFile(`./data/${filePath}`);
-			return file.toString();
+			return {
+				path: filePath,
+				file: file.toString(),
+			};
 		})
 	);
 

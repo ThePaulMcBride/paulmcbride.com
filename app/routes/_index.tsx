@@ -1,6 +1,9 @@
 import { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
+import BlogPost from "~/components/BlogPost";
 import Subscribe from "~/components/Subscribe";
+import { readFiles, readFile } from "~/services/file";
+import { parseBody, parseFrontmatter } from "~/services/markdown";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -15,7 +18,33 @@ export const meta: MetaFunction = () => {
 	];
 };
 
+export async function loader() {
+	const paths = [
+		"/posts/personal-websites-are-important.mdx",
+		"/posts/dont-trust-the-cascade.mdx",
+		"/posts/what-programming-language-should-i-learn-first.mdx",
+		"/posts/what-i-want-from-life.mdx",
+	];
+	const postFiles = await readFiles(paths);
+	const posts = postFiles.map((post) => {
+		const { attributes } = parseFrontmatter(post.file);
+		if (!attributes) throw new Error("No attributes found");
+
+		return {
+			path: post.path,
+			slug: post.path.replace(".mdx", ""),
+			...attributes,
+		};
+	});
+
+	const aboutFile = await readFile("/homepage/about.mdx");
+	const aboutContent = await parseBody(aboutFile);
+
+	return { posts, aboutContent };
+}
+
 export default function HomePage() {
+	const { posts, aboutContent } = useLoaderData<typeof loader>();
 	return (
 		<>
 			<div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 mx-auto pb-16 px-8 w-full">
@@ -45,23 +74,22 @@ export default function HomePage() {
 				<h3 className="font-bold text-2xl md:text-4xl tracking-tight text-gray-900 font-serif mb-2">
 					About
 				</h3>
-				<div className="w-full prose prose-base md:prose-xl max-w-none mb-16 font-body">
-					{/* <Component components={components} /> */}
-				</div>
+				<div
+					className="w-full prose prose-base md:prose-xl max-w-none mb-16 font-body"
+					dangerouslySetInnerHTML={{ __html: aboutContent }}
+				></div>
 				<h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-gray-900 font-serif">
 					Featured Posts
 				</h3>
 				<div className="flex flex-col">
-					{/* {posts.map((post: any) => (
-					<BlogPost
-						key={post.slug}
-						title={post.title}
-						slug={post.slug}
-						description={post.description}
-						readingTime={post.readingTime}
-						teaser={post.teaser}
-					/>
-				))} */}
+					{posts.map((post: any) => (
+						<BlogPost
+							key={post.slug}
+							title={post.title}
+							slug={post.slug}
+							description={post.description}
+						/>
+					))}
 				</div>
 				<Link
 					to="/posts"

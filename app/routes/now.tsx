@@ -21,7 +21,7 @@ export async function loader() {
 	const filePaths = files.map((file) => file.path);
 	const fileContents = await readFiles(filePaths);
 	const postPromises = fileContents.map(async (file) => {
-		const { attributes, body } = parseFrontmatter(file);
+		const { attributes, body } = parseFrontmatter(file.file);
 		if (!attributes) throw new Error("No attributes found");
 		return {
 			_id: crypto.randomUUID(),
