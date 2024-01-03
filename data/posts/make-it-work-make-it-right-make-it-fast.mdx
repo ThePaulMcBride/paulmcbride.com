@@ -1,0 +1,38 @@
+---
+date: "2024-01-16"
+title: "Make it work, Make it right, Make it fast"
+description: "Don't fall into the trap of premature optimisation. Before you spend time and money building the perfect app or feature, build a cheap prototype to make sure it is possible and people actually want it."
+banner: "../../public/images/make-it-work-make-it-right-make-it-fast.jpg"
+tags: ["software"]
+draft: true
+---
+
+Writing software is hard. One of the main reasons for this is that there are so many ways to achieve the same thing. Each implementation of a feature has tradeoffs. It is easy to fall into the trap of premature optimisation and waste a lot of time trying to build the perfect solution to a problem that might not exist.
+
+When starting a software project I recommend the following approach - **Make it work, make it right, then make it fast**.
+
+## Make it work
+
+The first step in any software project is coming up with a solution to a problem. It doesn't need to be perfect, it just needs to solve the problem. For example, if you have to build an admin panel for a website, don't worry about making sure the solution is pixel-perfect. It doesn't matter if it isn't responsive. It only matters that the end user can achieve what they need to. They'll likely have to jump through some hoops and it might only work under certain conditions, but that is fine.
+
+At this stage, you might want to ship what you have. It depends on the culture of your company and the kind of project you are building. Personally, I tend to air on the side of caution here, but getting some user feedback at this stage can be very useful.
+
+During this first phase, you'll learn more about the problem. You'll figure out what the difficult parts are and what doesn't work. If you have the time, I would actually recommend deleting all of the code you just wrote before moving into the next step, but I'll cover that in another article.
+
+## Make it right
+
+You now know the problem can be solved and you even have a basic solution. Now is when we take that solution and make it more robust. Again we'll use the example of an admin dashboard. This is when you go back and make sure what you built actually matches the design, or, chat with the designer and find a better solution now that you know what is possible and what is not.
+
+This is also when you can handle all of the edge cases. You probably didn't test on all of the major browsers. Or it might be relying on data that some old accounts on the system don't have. Fix these issues and sure your tests are as comprehensive as they need to be.
+
+For many software projects, especially in the startup phase, this is where you stop. You have a solution to the problem that works and is robust. There are a million other features in the backlog, so ship it and move on. If however, you are at the stage where you expect this feature to get very heavy usage or you're building an e-commerce platform and every millisecond counts, then it's time to make it fast.
+
+## Make it fast
+
+You've solved the problem and everything is working, but time is money. It is time to go the extra mile and optimise what you've built. If you're running your code and any kind of scale, then spending some time making sure you have taken advantage of caching etc can reduce the load on your servers and save you money. Faster e-commerce websites also tend to convert better than a slower equivalent.
+
+A word of warning when it comes to optimisation. We waited until the end to optimise for a reason. Usually, when you spend time optimising some piece of software you make it harder to work with and harder to change. Premature optimisation can still be a problem at this stage. I recommend getting the feature in the hands of users before worrying too much about how fast it is. No one cares how fast your app doesn't do what they want.
+
+## Conclusion
+
+Before you spend time and money building the perfect app or feature, build a cheap prototype to make sure it is possible and people actually want it. As developers, we love to come up with clever, optimised solutions. That is great, but do the dumb easy version first.
