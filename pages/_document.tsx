@@ -69,6 +69,8 @@ export default function Document() {
           rel="pingback"
           href="https://webmention.io/paulmcbride.com/xmlrpc"
         />
+        <link href="https://indieauth.com/auth" rel="authorization_endpoint" />
+        <link href="https://tokens.indieauth.com/token" rel="token_endpoint" />
         <link rel="me" href="https://indieweb.social/@ThePaulMcBride" />
       </Head>
       <body className="bg-white text-gray-900 text-jumbo">
