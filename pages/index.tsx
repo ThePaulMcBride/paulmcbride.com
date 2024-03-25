@@ -16,7 +16,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       [
         "/posts/personal-websites-are-important",
         "/posts/dont-trust-the-cascade",
-        "/posts/what-programming-language-should-i-learn-first",
+        "/posts/inaction-is-a-slow-death",
         "/posts/what-i-want-from-life",
       ].includes(post.slug)
     )
