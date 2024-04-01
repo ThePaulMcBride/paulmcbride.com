@@ -6,8 +6,10 @@ const posts = defineCollection({
 	type: "content", // v2.5.0 and later
 	schema: z.object({
 		title: z.string(),
+		date: z.string(),
+		description: z.string(),
+		banner: z.string(),
 		tags: z.array(z.string()),
-		image: z.string().optional(),
 	}),
 });
 
