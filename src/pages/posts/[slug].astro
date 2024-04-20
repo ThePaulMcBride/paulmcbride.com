@@ -96,33 +96,34 @@ const { Content } = await post.render();
     <article
       class="w-full mt-8 mb-8 font-body prose prose-lg md:prose-xl md:text-jumbo max-w-none md:max-w-content mx-auto lining-nums"
     >
-      <Content />
-    </article>
-    {
-      post.data.tags && (
-        <div class="w-full max-w-none md:max-w-content mx-auto mb-8">
-          <div class="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm">
-            {post.data.tags.map((tag) => {
-              return (
-                <a
-                  href={`/tags/${tag}`}
-                  class="px-3 py-0.5 bg-emerald-100 text-emerald-700 rounded-full"
-                >
-                  {tag}
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      )
-    }
-    <div class="w-full max-w-none md:max-w-content mx-auto">
-      <Subscribe />
-      <div class="text-sm text-gray-700 col-start-2">
-        <!-- <a href={editUrl(post.slug)} target="_blank" rel="noreferrer">
+      <Content>
+        {
+          post.data.tags && (
+            <div class="w-full max-w-none md:max-w-content mx-auto mb-8">
+              <div class="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm">
+                {post.data.tags.map((tag) => {
+                  return (
+                    <a
+                      href={`/tags/${tag}`}
+                      class="px-3 py-0.5 bg-emerald-100 text-emerald-700 rounded-full"
+                    >
+                      {tag}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+        <div class="w-full max-w-none md:max-w-content mx-auto">
+          <Subscribe />
+          <div class="text-sm text-gray-700 col-start-2">
+            <!-- <a href={editUrl(post.slug)} target="_blank" rel="noreferrer">
           Edit on GitHub
         </a> -->
-      </div>
-    </div>
+          </div>
+        </div>
+      </Content>
+    </article>
   </main>
 </Layout>
