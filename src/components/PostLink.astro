@@ -1,0 +1,41 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  teaser: string;
+}
+
+const { slug, title, teaser } = Astro.props;
+---
+
+<div class="w-full mb-12">
+  <div class="flex flex-col md:flex-row md:items-center mb-4">
+    <a href={`/posts/${slug}`} class="w-full">
+      <h4 class="text-xl font-medium font-serif text-gray-900 md:text-3xl">
+        {title}
+      </h4>
+    </a>
+  </div>
+  <p class="text-gray-600 font-body prose md:prose-xl">{teaser}</p>
+  <a
+    href={`/posts/${slug}`}
+    title={title}
+    class="mt-6 flex text-base md:text-xl text-emerald-500 leading-7 rounded-lg hover:text-emerald-700 transition-all h-6 items-center"
+  >
+    Read post
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      class="h-6 w-6 ml-1"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width={2}
+        d="M17.5 12h-15m11.667-4l3.333 4-3.333-4zm3.333 4l-3.333 4 3.333-4z"
+      ></path>
+    </svg>
+  </a>
+</div>
