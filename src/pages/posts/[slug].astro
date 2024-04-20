@@ -1,6 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getEntry } from "astro:content";
+import classNames from "classnames";
+import { format, parseISO } from "date-fns";
+import Subscribe from "../../components/Subscribe.astro";
 
 const { slug } = Astro.params;
 
@@ -23,11 +26,103 @@ if (!post) {
 const { Content } = await post.render();
 ---
 
-<Layout title={post.data.title}>
-  <article>
-    <h1>{post.data.title}</h1>
-    <p>{post.data.date}</p>
-
-    <Content />
-  </article>
+<Layout title={`${post.data.title} – Paul McBride`}>
+  <header
+    class={classNames(
+      "grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 pb-10 px-8"
+    )}
+  >
+    <h1
+      class="text-3xl font-bold tracking-tight text-gray-800 md:text-[70px] md:leading-[1.1] md:mt-4 font-serif lining-nums"
+    >
+      {post.data.title}
+    </h1>
+    {
+      post.data.subtitle && (
+        <h2 class="text-sm text-emerald-800 opacity-80 uppercase tracking-wide md:text-xl font-bold mt-2 md:mt-4 font-body lining-nums">
+          {post.data.subtitle}
+        </h2>
+      )
+    }
+    <hr class="mt-8 md:mt-10 mb-4" />
+    <div
+      class="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center space-y-2 md:space-y-0"
+    >
+      <div class="flex items-center">
+        <p class="text-sm text-emerald-800 opacity-80">
+          {"Last updated: "}
+          {
+            format(
+              parseISO(post.data.lastUpdated || post.data.date),
+              "do MMMM yyyy"
+            )
+          }
+          <!-- {
+            post.status && (
+              <Tooltip.Provider delayDuration={0}>
+                <Tooltip.Root>
+                  <Tooltip.Trigger asChild>
+                    <span class="px-2 py-0.5 uppercase font-bold rounded-full text-lg leading-5">
+                      <span class="sr-only">
+                        {statuses[post.status].title}
+                      </span>
+                      {statuses[post.status].icon}
+                    </span>
+                  </Tooltip.Trigger>
+                  <Tooltip.Portal>
+                    <Tooltip.Content
+                      class="TooltipContent transition-all"
+                      collisionPadding={10}
+                      sideOffset={12}
+                    >
+                      <div class="bg-white max-w-xs text-base p-4 rounded-lg shadow-lg transition-all">
+                        {statuses[post.status].description}
+                      </div>
+                      <Tooltip.Arrow class="TooltipArrow fill-white" />
+                    </Tooltip.Content>
+                  </Tooltip.Portal>
+                </Tooltip.Root>
+              </Tooltip.Provider>
+            )
+          } -->
+        </p>
+      </div>
+      <!-- <span class="text-sm text-emerald-800 opacity-80">
+        {post.readingTime.text}
+      </span> -->
+    </div>
+  </header>
+  <main class="px-8 mb-12">
+    <article
+      class="w-full mt-8 mb-8 font-body prose prose-lg md:prose-xl md:text-jumbo max-w-none md:max-w-content mx-auto lining-nums"
+    >
+      <Content />
+    </article>
+    {
+      post.data.tags && (
+        <div class="w-full max-w-none md:max-w-content mx-auto mb-8">
+          <div class="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm">
+            {post.data.tags.map((tag) => {
+              return (
+                <a
+                  href={`/tags/${tag}`}
+                  class="px-3 py-0.5 bg-emerald-100 text-emerald-700 rounded-full"
+                >
+                  {tag}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      )
+    }
+    <div class="w-full max-w-none md:max-w-content mx-auto">
+      <Subscribe />
+      <div class="text-sm text-gray-700 col-start-2">
+        <!-- <a href={editUrl(post.slug)} target="_blank" rel="noreferrer">
+          Edit on GitHub
+        </a> -->
+      </div>
+    </div>
+  </main>
 </Layout>
