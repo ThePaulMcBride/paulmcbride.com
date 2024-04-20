@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Content as About } from "../content/about.md";
+import { Image } from "astro:assets";
 // import Card from "../components/Card.astro";
 // import { getCollection } from "astro:content";
 
@@ -29,7 +30,7 @@ import { Content as About } from "../content/about.md";
         </p>
       </div>
       <div class="w-[80px] sm:w-[176px] relative mb-8 sm:mb-0 mr-auto">
-        <img
+        <Image
           alt="Paul McBride"
           height={176}
           width={176}
