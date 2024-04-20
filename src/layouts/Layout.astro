@@ -1,51 +1,177 @@
 ---
+import cn from "classnames";
+import NavLink from "../components/NavLink.astro";
+import Footer from "../components/Footer.astro";
+import RSS from "../components/RSS.astro";
+
 interface Props {
-	title: string;
+  title: string;
+  navClassName?: string;
 }
 
-const { title } = Astro.props;
+const { title, navClassName } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+
+  <body>
+    <div class={cn("flex flex-col justify-center px-8", navClassName)}>
+      <nav
+        class={cn(
+          "flex items-center justify-between w-full relative mx-auto pt-8 pb-8 sm:pb-16 text-gray-900",
+        )}
+      >
+        <a href="#skip" class="skip-nav"> Skip to content </a>
+        <div class="ml-[-0.60rem] text-base">
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/posts">Posts</NavLink>
+          <NavLink href="/now">Now</NavLink>
+          <NavLink
+            href="https://egghead.io/q/resources-by-paul-mcbride?af=auhexg"
+            >Lessons</NavLink
+          >
+        </div>
+        <span
+          class="w-9 h-9 bg-white/50 rounded-lg flex items-center justify-center hover:ring-2 ring-gray-200 transition-all"
+        >
+          <RSS />
+        </span>
+      </nav>
+    </div>
+    <main id="skip" class="flex flex-col justify-center">
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>
+
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+  body {
+    font-size: 22px;
+  }
+
+  .grid-cols-main {
+    grid-template-columns: 1fr min(58ch, 100%) 1fr;
+  }
+
+  .skip-nav {
+    @apply absolute px-4 py-3 transition-transform duration-200 transform -translate-y-12 -left-1/4 focus:top-4 focus:translate-y-3 -top-8;
+  }
+
+  #skip {
+    scroll-margin-top: 1.125rem;
+  }
+
+  .prose pre {
+    @apply border border-gray-200 bg-white;
+  }
+
+  .prose code {
+    @apply px-1 py-0.5 border border-gray-100 rounded-lg bg-gray-100 font-normal;
+  }
+
+  .prose pre code {
+    @apply text-gray-800 p-0;
+    border: initial;
+  }
+
+  .prose > :first-child {
+    /* Override removing top margin, causing layout shift */
+    margin-top: 1.25em !important;
+    margin-bottom: 1.25em !important;
+  }
+
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    @apply text-gray-400;
+  }
+
+  .token.punctuation {
+    @apply text-gray-700;
+  }
+
+  .token.property,
+  .token.tag,
+  .token.boolean,
+  .token.number,
+  .token.constant,
+  .token.symbol,
+  .token.deleted {
+    @apply text-green-500;
+  }
+
+  .token.selector,
+  .token.attr-name,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted {
+    @apply text-purple-500;
+  }
+
+  .token.operator,
+  .token.entity,
+  .token.url,
+  .language-css .token.string,
+  .style .token.string {
+    @apply text-yellow-500;
+  }
+
+  .token.atrule,
+  .token.attr-value,
+  .token.keyword {
+    @apply text-blue-500;
+  }
+
+  .token.function,
+  .token.class-name {
+    @apply text-pink-500;
+  }
+
+  .token.regex,
+  .token.important,
+  .token.variable {
+    @apply text-yellow-500;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    @apply text-gray-800;
+  }
+
+  pre::-webkit-scrollbar {
+    display: none;
+  }
+
+  pre {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .rehype-code-title {
+    @apply px-5 py-3 font-mono text-sm font-bold text-gray-800 bg-gray-200 border border-b-0 border-gray-200 rounded-t-lg;
+  }
+
+  .rehype-code-title + pre {
+    @apply mt-0 rounded-t-none;
+  }
+
+  .code-line {
+    @apply bg-white;
+  }
+
+  .highlight-line {
+    @apply block px-4 -mx-4 bg-gray-100 border-l-4 border-blue-500;
+  }
 </style>

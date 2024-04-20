@@ -1,0 +1,40 @@
+---
+import cn from "classnames";
+
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const isActive = currentPath === href;
+const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
+---
+
+{
+  isInternalLink ? (
+    <a
+      href={href}
+      class={cn(
+        isActive ? "font-bold text-gray-800" : "font-normal text-gray-600",
+        "hidden md:inline-block p-1 sm:px-3 sm:py-2 rounded-lg hover:font-bold transition-all",
+      )}
+    >
+      <span class="capsize">
+        <slot />
+      </span>
+    </a>
+  ) : (
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href={href}
+      class="font-normal text-gray-600 hover:font-bold hidden md:inline-block p-1 sm:px-3 sm:py-2 rounded-lg transition-all"
+    >
+      <span class="capsize">
+        <slot />
+      </span>
+    </a>
+  )
+}
