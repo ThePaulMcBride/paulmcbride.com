@@ -1,0 +1,16 @@
+---
+interface Props {
+  note: string;
+}
+
+const { note } = Astro.props;
+---
+
+<div class="bg-emerald-50 px-8 py-1 rounded-lg border border-emerald-100">
+  <p
+    class="text-emerald-600 font-body text-lg leading-relaxed md:text-xl md:leading-relaxed"
+  >
+    <b>Note:</b>
+    {note}
+  </p>
+</div>
