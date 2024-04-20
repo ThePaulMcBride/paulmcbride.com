@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Content as About } from "../content/about.md";
 // import Card from "../components/Card.astro";
 // import { getCollection } from "astro:content";
 
@@ -36,6 +37,14 @@ import Layout from "../layouts/Layout.astro";
           class="rounded-full"
         />
       </div>
+    </div>
+    <h3
+      class="font-bold text-2xl md:text-4xl tracking-tight text-gray-900 font-serif mb-2"
+    >
+      About
+    </h3>
+    <div class="w-full prose prose-base md:prose-xl max-w-none mb-16 font-body">
+      <About />
     </div>
   </div>
 </Layout>
