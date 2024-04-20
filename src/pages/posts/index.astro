@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PostLink from "../../components/PostLink.astro";
+import { getCollection } from "astro:content";
+
+const unOrderedPosts = await getCollection("posts");
+const posts = unOrderedPosts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Layout title="Posts – Paul McBride">
+  <div
+    class="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 mx-auto mb-16 px-8"
+  >
+    <h1
+      class="mb-8 text-3xl font-serif font-bold tracking-tight text-gray-800 md:text-5xl"
+    >
+      Posts
+    </h1>
+    {
+      posts.map((post) => (
+        <PostLink
+          title={post.data.title}
+          teaser={post.data.description}
+          slug={post.slug}
+        />
+      ))
+    }
+  </div>
+</Layout>
