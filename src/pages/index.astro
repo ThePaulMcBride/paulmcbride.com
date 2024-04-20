@@ -12,8 +12,12 @@ const featuredSlugs = [
   "what-i-want-from-life",
 ];
 
-const allPosts = await getCollection("posts");
-const posts = allPosts.filter((post) => featuredSlugs.includes(post.slug));
+const unOrderedPosts = await getCollection("posts", (post) =>
+  featuredSlugs.includes(post.slug)
+);
+const posts = unOrderedPosts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 ---
 
 <Layout title="Paul McBride | Nerd and Developer">
