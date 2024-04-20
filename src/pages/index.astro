@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PostLink from "../components/PostLink.astro";
+import Subscribe from "../components/Subscribe.astro";
 import { Content as About } from "../content/about/about.md";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
@@ -95,5 +96,7 @@ const posts = unOrderedPosts.sort(
         ></path>
       </svg>
     </a>
+
+    <Subscribe />
   </div>
 </Layout>

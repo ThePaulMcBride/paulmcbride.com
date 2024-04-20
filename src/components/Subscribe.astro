@@ -1,0 +1,29 @@
+<div
+  class="border border-emerald-200 rounded-lg p-6 my-4 w-full bg-emerald-50 bg-opacity-50"
+>
+  <p class="text-lg md:text-xl font-bold text-gray-900">
+    Subscribe to my newsletter
+  </p>
+  <p class="my-1 text-base text-gray-800">
+    I&apos;ll email you about tech, what I&apos;m working on, and other
+    interesting things I find around the web. I&apos;ll never spam you and I
+    won&apos;t share your email with anyone else.
+  </p>
+  <form class="relative my-4 text-base" method="POST" action="/api/subscribe">
+    <input
+      aria-label="Email for newsletter"
+      placeholder="ann@example.com"
+      type="email"
+      autocomplete="email"
+      required
+      name="email"
+      class="px-4 py-2 mt-1 focus:ring-grey-500 focus:border-grey-500 block w-full rounded-md bg-white text-gray-500 pr-32"
+    />
+    <button
+      class="flex items-center justify-center absolute right-1 top-1 px-4 font-medium h-8 bg-emerald-500 text-white rounded w-28"
+      type="submit"
+    >
+      Subscribe
+    </button>
+  </form>
+</div>
