@@ -1,5 +1,7 @@
 ---
 import cn from "classnames";
+import "@fontsource-variable/lora";
+import "@fontsource-variable/playfair-display";
 import NavLink from "../components/NavLink.astro";
 import Footer from "../components/Footer.astro";
 import RSS from "../components/RSS.astro";
@@ -27,7 +29,7 @@ const { title, navClassName } = Astro.props;
     <div class={cn("flex flex-col justify-center px-8", navClassName)}>
       <nav
         class={cn(
-          "flex items-center justify-between w-full relative mx-auto pt-8 pb-8 sm:pb-16 text-gray-900",
+          "flex items-center justify-between w-full relative mx-auto pt-8 pb-8 sm:pb-16 text-gray-900"
         )}
       >
         <a href="#skip" class="skip-nav"> Skip to content </a>
