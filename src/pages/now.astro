@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { getCollection } from "astro:content";
+
+const unOrderedPosts = await getCollection("now");
+const rawPosts = unOrderedPosts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const postPromises = rawPosts.map(async (post) => {
+  const { Content } = await post.render();
+  return {
+    data: post.data,
+    Content,
+  };
+});
+
+const posts = await Promise.all(postPromises);
+---
+
+<Layout title="Now – Paul McBride">
+  <main
+    class="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 mx-auto pb-16 px-8"
+  >
+    <div class="max-w-none md:max-w-content mx-auto w-full">
+      <h1
+        class="font-bold text-3xl md:text-5xl tracking-tight text-gray-900 font-serif mb-8"
+      >
+        Now
+      </h1>
+      <p
+        class="text-gray-600 mb-16 font-body text-xl leading-relaxed md:text-2xl md:leading-relaxed"
+      >
+        This is a chronological list of things I&apos;ve been doing. It will
+        mostly be a monthly summary of how my work and life changes. It&apos;s
+        inspired by Maggie Appleton&apos;s{" "}
+        <a
+          href="https://maggieappleton.com/now"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-emerald-500 hover:text-emerald-600"
+        >
+          Now page
+        </a>
+        .
+      </p>
+      <div class="w-full prose prose-lg md:prose-xl max-w-none mb-16 font-body">
+        {
+          posts.map(({ data, Content }) => (
+            <section class="md:pl-16 md:border-l md:border-dashed border-gray-300 mb-16">
+              <h2 class="font-bold text-2xl md:text-3xl tracking-tight text-gray-900 font-serif mb-4">
+                {data.title}
+              </h2>
+              <Content />
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+</Layout>
