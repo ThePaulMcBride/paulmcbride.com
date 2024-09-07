@@ -14,14 +14,18 @@ const featuredSlugs = [
 ];
 
 const unOrderedPosts = await getCollection("posts", (post) =>
-  featuredSlugs.includes(post.slug)
+  featuredSlugs.includes(post.slug),
 );
 const posts = unOrderedPosts.sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 ---
 
-<Layout title="Paul McBride | Nerd and Developer">
+<Layout
+  seo={{
+    title: "Paul McBride | Nerd and Developer",
+  }}
+>
   <div
     class="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 mx-auto pb-16 px-8"
   >

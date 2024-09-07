@@ -23,10 +23,17 @@ if (!post) {
   });
 }
 
+const fullImagePath = `${Astro.url}/og.png`;
+console.log(fullImagePath);
 const { Content } = await post.render();
 ---
 
-<Layout title={`${post.data.title} – Paul McBride`}>
+<Layout
+  seo={{
+    title: `${post.data.title} – Paul McBride`,
+    image: fullImagePath,
+  }}
+>
   <header
     class={classNames(
       "grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 pb-10 px-8"

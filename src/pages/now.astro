@@ -18,7 +18,11 @@ const postPromises = rawPosts.map(async (post) => {
 const posts = await Promise.all(postPromises);
 ---
 
-<Layout title="Now – Paul McBride">
+<Layout
+  seo={{
+    title: "Now – Paul McBride",
+  }}
+>
   <main
     class="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 mx-auto pb-16 px-8"
   >

@@ -3,7 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import { Content } from "../content/colophon/colophon.mdx";
 ---
 
-<Layout title="Colophon – Paul McBride">
+<Layout
+  seo={{
+    title: "Colophon – Paul McBride",
+  }}
+>
   <main
     class="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 mx-auto pb-16 px-8"
   >

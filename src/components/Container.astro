@@ -9,36 +9,36 @@ import cn from "classnames";
 // import Footer from "components/Footer";
 // import MobileMenu from "components/MobileMenu";
 
-const { children } = Astro.props;
+const { children, navClassName } = Astro.props;
 ---
 
-<div className="">
-  <div className={cn("flex flex-col justify-center px-8", navClassName)}>
+<div>
+  <div class={cn("flex flex-col justify-center px-8", navClassName)}>
     <nav
-      className={cn(
+      class={cn(
         "flex items-center justify-between w-full relative mx-auto pt-8 pb-8 sm:pb-16 text-gray-900",
       )}
     >
-      <a href="#skip" className="skip-nav"> Skip to content </a>
-      <div className="ml-[-0.60rem] text-base">
-        <a href="/" className="text-gray-900 hover:text-gray-700">Home</a>
-        <a href="/posts" className="text-gray-900 hover:text-gray-700">Posts</a>
-        <a href="/now" className="text-gray-900 hover:text-gray-700">Now</a>
+      <a href="#skip" class="skip-nav"> Skip to content </a>
+      <div class="ml-[-0.60rem] text-base">
+        <a href="/" class="text-gray-900 hover:text-gray-700">Home</a>
+        <a href="/posts" class="text-gray-900 hover:text-gray-700">Posts</a>
+        <a href="/now" class="text-gray-900 hover:text-gray-700">Now</a>
         <a
           href="https://egghead.io/q/resources-by-paul-mcbride?af=auhexg"
-          className="text-gray-900 hover:text-gray-700"
+          class="text-gray-900 hover:text-gray-700"
         >
           Lessons
         </a>
       </div>
       <span
-        className="w-9 h-9 bg-white/50 rounded-lg flex items-center justify-center hover:ring-2 ring-gray-200 transition-all"
+        class="w-9 h-9 bg-white/50 rounded-lg flex items-center justify-center hover:ring-2 ring-gray-200 transition-all"
       >
         <!-- <RSS /> -->
       </span>
     </nav>
   </div>
-  <main id="skip" className="flex flex-col justify-center">
+  <main id="skip" class="flex flex-col justify-center">
     {children}
   </main>
   <!-- <Footer /> -->

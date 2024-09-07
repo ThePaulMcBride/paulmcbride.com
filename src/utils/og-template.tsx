@@ -13,7 +13,6 @@ const Template = (props: OgData) => (
       width: "100%",
       display: "flex",
       backgroundColor: "#1a202c",
-
       color: "white",
       fontFamily: "Lora",
     }}

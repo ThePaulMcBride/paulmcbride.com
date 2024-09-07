@@ -1,0 +1,27 @@
+---
+import { SEO, type Props as SEOProps } from "astro-seo";
+
+interface Props extends SEOProps {
+  image?: string;
+}
+
+const props = Astro.props;
+
+const title = props.title || "Paul McBride – Developer, nerd, tech enthusiast.";
+const description =
+  props.description ||
+  "Hey, I'm Paul McBride. I make things with code and help others do the same!";
+const type = "website";
+
+const openGraph = {
+  basic: {
+    title,
+    type,
+    image: props.image || "/images/og-image.jpg",
+  },
+};
+---
+
+<SEO title={title} description={description} openGraph={openGraph}>
+  {seo}
+</SEO>
