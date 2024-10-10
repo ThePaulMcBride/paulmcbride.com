@@ -32,7 +32,7 @@ function NavItem({ href, text }: { href: string; text: string }) {
       href={href}
       className={cn(
         isActive ? "font-bold text-gray-800 " : "font-normal text-gray-600",
-        "hidden md:inline-block p-1 sm:px-3 sm:py-2 rounded-lg hover:font-bold transition-all"
+        "hidden md:inline-block p-1 sm:px-3 sm:py-2 rounded-lg hover:font-bold transition-all",
       )}
     >
       <span className="capsize">{text}</span>
@@ -52,6 +52,7 @@ export default function Container(props: any) {
     title: "Paul McBride – Developer, nerd, tech enthusiast.",
     description: `Hey, I'm Paul McBride. I make things with code and help others do the same!`,
     image: "https://paulmcbride.com/static/banner.jpeg",
+
     type: "website",
     ...customMeta,
   };
@@ -81,6 +82,10 @@ export default function Container(props: any) {
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
         <meta name="summary_large_image" content={meta.image} />
+        <meta
+          name="fediverse:creator"
+          content="@ThePaulMcBride@indieweb.social"
+        />
         {meta.date && (
           <meta property="article:published_time" content={meta.date} />
         )}
@@ -90,7 +95,7 @@ export default function Container(props: any) {
       >
         <nav
           className={cn(
-            "flex items-center justify-between w-full relative mx-auto pt-8 pb-8 sm:pb-16 text-gray-900"
+            "flex items-center justify-between w-full relative mx-auto pt-8 pb-8 sm:pb-16 text-gray-900",
           )}
         >
           <a href="#skip" className="skip-nav">
