@@ -14,11 +14,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const posts = allPosts
     .filter((post) =>
       [
+        "/posts/what-is-the-fediverse",
         "/posts/personal-websites-are-important",
-        "/posts/dont-trust-the-cascade",
         "/posts/inaction-is-a-slow-death",
         "/posts/what-i-want-from-life",
-      ].includes(post.slug)
+      ].includes(post.slug),
     )
     .sort((a, b) => {
       return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
