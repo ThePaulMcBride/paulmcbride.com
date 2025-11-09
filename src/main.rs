@@ -1,11 +1,15 @@
 use actix_web::{App, HttpResponse, HttpServer, Responder, get};
+use tera::Tera;
 
 mod posts;
 mod tags;
 
 #[get("/")]
 async fn index() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
+    let tera = Tera::new("templates/**/*").unwrap();
+    let index_html = tera.render("index.html", &tera::Context::new()).unwrap();
+
+    HttpResponse::Ok().body(index_html)
 }
 
 #[get("/now")]
