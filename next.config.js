@@ -4,6 +4,7 @@ const { withPlausibleProxy } = require("next-plausible");
 /** @type {import('next').NextConfig} */
 const nextConfig = withPlausibleProxy()(
   withContentlayer({
+    output: "standalone",
     reactStrictMode: true,
     rewrites() {
       return [
