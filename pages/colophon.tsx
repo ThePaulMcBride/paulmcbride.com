@@ -1,11 +1,10 @@
 import type { GetStaticProps, NextPage } from "next";
 import Container from "components/Container";
-import { colophonPage } from ".contentlayer/generated";
-import { useMDXComponent } from "next-contentlayer/hooks";
-import MDXComponents from "components/MDXComponents";
+import MarkdownContent from "components/MarkdownContent";
+import { getPage, Page } from "lib/dataApi";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const colophon = colophonPage;
+  const colophon = await getPage("colophon");
 
   return {
     props: {
@@ -14,11 +13,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-const components = MDXComponents;
-
-const Home: NextPage = ({ colophon }: any) => {
-  const Component = useMDXComponent(colophon.body.code);
-
+const Home: NextPage<{ colophon: Page }> = ({ colophon }) => {
   return (
     <Container
       title="Colophon – Paul McBride"
@@ -35,7 +30,7 @@ const Home: NextPage = ({ colophon }: any) => {
             inspire me.
           </p>
           <div className="w-full prose prose-lg md:prose-xl max-w-none mb-16 font-body">
-            <Component components={components} />
+            <MarkdownContent content={colophon.body} />
           </div>
         </div>
       </main>

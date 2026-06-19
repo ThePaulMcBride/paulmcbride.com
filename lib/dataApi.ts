@@ -45,6 +45,18 @@ export type Post = ApiPost & {
   bannerUrl: string;
 };
 
+export type Page = {
+  slug: string;
+  body: string;
+};
+
+export type NowEntry = {
+  date: string;
+  title: string;
+  slug: string;
+  body: string;
+};
+
 async function fetchData<T>(path: string): Promise<T> {
   const url = `${trimTrailingSlash(DATA_API_URL)}${path}`;
   const response = await fetch(url);
@@ -115,4 +127,14 @@ export async function getPost(slug: string): Promise<Post> {
   const post = await fetchData<ApiPost>(`/posts/${postSlug(slug)}`);
 
   return postFromApi(post);
+}
+
+export async function getPage(slug: string): Promise<Page> {
+  return fetchData<Page>(`/pages/${slug}`);
+}
+
+export async function getNowEntries(): Promise<NowEntry[]> {
+  const data = await fetchData<{ entries: NowEntry[] }>("/now");
+
+  return data.entries;
 }

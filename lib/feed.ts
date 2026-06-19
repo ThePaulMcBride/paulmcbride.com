@@ -46,18 +46,6 @@ export const buildFeed = async () => {
     });
   });
 
-  // allNowPosts.forEach((post) => {
-  //   feed.addItem({
-  //     title: post.title,
-  //     id: post._id,
-  //     link: `https://paulmcbride.com/now`,
-  //     description: post.title,
-  //     content: `${post.body.code}`,
-  //     author: [author],
-  //     date: parseISO(post.date),
-  //   });
-  // });
-
   feed.addContributor(author);
 
   return feed;

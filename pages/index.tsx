@@ -3,14 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "components/Container";
 import BlogPost from "components/BlogPost";
-import { homePage } from ".contentlayer/generated";
-import { useMDXComponent } from "next-contentlayer/hooks";
-import MDXComponents from "components/MDXComponents";
 import Subscribe from "components/Subscribe";
-import { getAllPosts } from "lib/dataApi";
+import MarkdownContent from "components/MarkdownContent";
+import { getAllPosts, getPage } from "lib/dataApi";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const homePageContent = homePage;
+  const homePageContent = await getPage("homepage");
 
   const posts = (await getAllPosts())
     .filter((post) =>
@@ -25,16 +23,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       posts,
-      homePageContent: homePageContent.body.code,
+      homePageContent: homePageContent.body,
     },
   };
 };
 
-const components = MDXComponents;
-
 const Home: NextPage = ({ posts, homePageContent }: any) => {
-  const Component = useMDXComponent(homePageContent);
-
   return (
     <Container>
       <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 mx-auto pb-16 px-8">
@@ -65,7 +59,7 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
           About
         </h3>
         <div className="w-full prose prose-base md:prose-xl max-w-none mb-16 font-body">
-          <Component components={components} />
+          <MarkdownContent content={homePageContent} />
         </div>
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-gray-900 font-serif">
           Featured Posts
