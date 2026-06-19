@@ -70,13 +70,21 @@ export default function MobileMenu() {
               className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
               style={{ transitionDelay: "200ms" }}
             >
+              <Link href="/notes" className="flex w-auto pb-4">
+                Notes
+              </Link>
+            </li>
+            <li
+              className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
+              style={{ transitionDelay: "225ms" }}
+            >
               <Link href="/now" className="flex w-auto pb-4">
                 Now
               </Link>
             </li>
             <li
               className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
-              style={{ transitionDelay: "225ms" }}
+              style={{ transitionDelay: "250ms" }}
             >
               <a
                 href="https://egghead.io/q/resources-by-paul-mcbride?af=auhexg"

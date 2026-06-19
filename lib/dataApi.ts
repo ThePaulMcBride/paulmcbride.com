@@ -57,6 +57,33 @@ export type NowEntry = {
   body: string;
 };
 
+export type NoteMedia = {
+  url: string;
+  alt: string;
+};
+
+export type NoteSummary = {
+  date: string;
+  source: "manual" | "mastodon";
+  source_id: string;
+  source_url: string;
+  visibility: "public" | "unlisted" | "private" | "direct";
+  media?: NoteMedia[];
+  tags?: string[];
+  slug: string;
+  href: string;
+};
+
+export type Note = NoteSummary & {
+  body: string;
+};
+
+export type NotePage = {
+  notes: Note[];
+  nextCursor?: string;
+  previousCursor?: string;
+};
+
 async function fetchData<T>(path: string): Promise<T> {
   const url = `${trimTrailingSlash(DATA_API_URL)}${path}`;
   const response = await fetch(url);
@@ -70,6 +97,10 @@ async function fetchData<T>(path: string): Promise<T> {
 
 function postSlug(slug: string): string {
   return slug.replace(/^\/posts\//, "").replace(/^\//, "");
+}
+
+function noteSlug(slug: string): string {
+  return slug.replace(/^\/notes\//, "").replace(/^\//, "");
 }
 
 function plainText(markdown: string): string {
@@ -137,4 +168,73 @@ export async function getNowEntries(): Promise<NowEntry[]> {
   const data = await fetchData<{ entries: NowEntry[] }>("/now");
 
   return data.entries;
+}
+
+function noteSummaryFromApi(note: Omit<NoteSummary, "href">): NoteSummary {
+  const slug = noteSlug(note.slug);
+
+  return {
+    ...note,
+    slug,
+    href: `/notes/${slug}`,
+  };
+}
+
+function noteFromApi(note: Omit<Note, "href">): Note {
+  return {
+    ...noteSummaryFromApi(note),
+    body: note.body,
+  };
+}
+
+export async function getAllNoteSummaries(): Promise<NoteSummary[]> {
+  const data = await fetchData<{ notes: Omit<NoteSummary, "href">[] }>("/notes");
+
+  return data.notes.map(noteSummaryFromApi);
+}
+
+export async function getNote(slug: string): Promise<Note> {
+  const note = await fetchData<Omit<Note, "href">>(`/notes/${noteSlug(slug)}`);
+
+  return noteFromApi(note);
+}
+
+export async function getNotePage(
+  after?: string,
+  pageSize = 25
+): Promise<NotePage> {
+  const summaries = await getAllNoteSummaries();
+  const cursor = after ? noteSlug(after) : undefined;
+  const cursorIndex = cursor
+    ? summaries.findIndex((note) => note.slug === cursor)
+    : -1;
+  const startIndex = cursorIndex >= 0 ? cursorIndex + 1 : 0;
+  const pageSummaries = summaries.slice(startIndex, startIndex + pageSize);
+  const notes = await Promise.all(
+    pageSummaries.map((note) => getNote(note.slug))
+  );
+  const hasNextPage = startIndex + pageSize < summaries.length;
+  const previousPageStart = startIndex - pageSize;
+
+  return {
+    notes,
+    nextCursor: hasNextPage ? notes[notes.length - 1]?.slug : undefined,
+    previousCursor:
+      startIndex <= 0
+        ? undefined
+        : previousPageStart <= 0
+          ? ""
+          : summaries[previousPageStart - 1]?.slug,
+  };
+}
+
+export async function getNotePageCursors(pageSize = 25): Promise<string[]> {
+  const summaries = await getAllNoteSummaries();
+  const cursors: string[] = [];
+
+  for (let index = pageSize - 1; index < summaries.length - 1; index += pageSize) {
+    cursors.push(summaries[index].slug);
+  }
+
+  return cursors;
 }

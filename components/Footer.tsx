@@ -180,6 +180,14 @@ export default function Footer() {
             </Link>
           </li>
           <li>
+            <Link
+              href="/notes"
+              className="hover:text-emerald-500 transition-colors"
+            >
+              Notes
+            </Link>
+          </li>
+          <li>
             <a
               href="/feed"
               className="hover:text-emerald-500 transition-colors"

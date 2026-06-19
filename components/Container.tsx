@@ -105,6 +105,7 @@ export default function Container(props: any) {
             <MobileMenu />
             <NavItem href="/" text="Home" />
             <NavItem href="/posts" text="Posts" />
+            <NavItem href="/notes" text="Notes" />
             <NavItem href="/now" text="Now" />
             <NavItem
               href="https://egghead.io/q/resources-by-paul-mcbride?af=auhexg"
