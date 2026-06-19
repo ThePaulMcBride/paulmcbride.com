@@ -133,7 +133,7 @@ export const Twitch = () => {
 
 export const RSS = () => {
   return (
-    <a href="https://paulmcbride.com/feed" aria-label="Subscibe to my RSS feed">
+    <a href="/feed" aria-label="Subscribe to my RSS feed">
       <svg
         className="w-6 h-6"
         fill="none"
