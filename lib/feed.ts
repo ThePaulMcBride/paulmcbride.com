@@ -1,6 +1,10 @@
 import { Feed } from "feed";
 import { isValid, parseISO } from "date-fns";
-import { dataAssetUrl, getAllPosts } from "lib/dataApi";
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { dataAssetUrl, getAllPosts, getPost } from "lib/dataApi";
 
 const author = {
   name: "Paul McBride",
@@ -12,6 +16,37 @@ function validDate(value: string | undefined) {
   if (!value || !isValid(parseISO(value))) return undefined;
 
   return value;
+}
+
+function renderMarkdown(markdown: string): string {
+  return renderToStaticMarkup(
+    React.createElement(
+      ReactMarkdown as any,
+      {
+        remarkPlugins: [remarkGfm],
+        components: {
+          a: ({ href, children, ...props }: any) =>
+            React.createElement(
+              "a",
+              {
+                ...props,
+                href: href?.startsWith("/")
+                  ? `https://paulmcbride.com${href}`
+                  : href,
+              },
+              children
+            ),
+          img: ({ src, alt, ...props }: any) =>
+            React.createElement("img", {
+              ...props,
+              src: dataAssetUrl(src),
+              alt: alt || "",
+            }),
+        },
+      },
+      markdown
+    )
+  );
 }
 
 export const buildFeed = async () => {
@@ -31,15 +66,20 @@ export const buildFeed = async () => {
     author,
   });
 
-  const posts = await getAllPosts();
+  const postSummaries = await getAllPosts();
+  const posts = await Promise.all(
+    postSummaries.map((post) => getPost(post.slug))
+  );
 
   posts.forEach((post) => {
+    const postUrl = `https://paulmcbride.com${post.href}`;
+
     feed.addItem({
       title: post.title,
       id: post.href,
-      link: `https://paulmcbride.com${post.href}`,
+      link: postUrl,
       description: post.description,
-      content: `<p>${post.teaser}</p><div style="margin-top: 50px; font-style: italic;"> <strong><a href="https://paulmcbride.com${post.href}">Keep reading</a>.</strong> </div> <br /> <br />`,
+      content: `${renderMarkdown(post.body)}<div style="margin-top: 50px; font-style: italic;"><strong><a href="${postUrl}">Read on the website</a>.</strong></div>`,
       author: [author],
       date: parseISO(validDate(post.lastUpdated) || post.date),
       image: dataAssetUrl(post.banner),
