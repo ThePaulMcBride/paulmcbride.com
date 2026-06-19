@@ -1,7 +1,9 @@
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm";
 import { dataAssetUrl } from "lib/dataApi";
+import { remarkCustomDirectives, YouTubeEmbed } from "lib/markdownDirectives";
 
 const components = {
   a: ({ href, children, ...props }: any) => {
@@ -33,11 +35,15 @@ const components = {
       {children}
     </blockquote>
   ),
+  "youtube-embed": YouTubeEmbed,
 };
 
 export default function MarkdownContent({ content }: { content: string }) {
   return (
-    <ReactMarkdown components={components} remarkPlugins={[remarkGfm]}>
+    <ReactMarkdown
+      components={components}
+      remarkPlugins={[remarkGfm, remarkDirective, remarkCustomDirectives]}
+    >
       {content}
     </ReactMarkdown>
   );

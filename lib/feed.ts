@@ -3,8 +3,13 @@ import { isValid, parseISO } from "date-fns";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import ReactMarkdown from "react-markdown";
+import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm";
 import { dataAssetUrl, getAllPosts, getPost } from "lib/dataApi";
+import {
+  remarkCustomDirectives,
+  YouTubeFeedEmbed,
+} from "lib/markdownDirectives";
 
 const author = {
   name: "Paul McBride",
@@ -23,7 +28,7 @@ function renderMarkdown(markdown: string): string {
     React.createElement(
       ReactMarkdown as any,
       {
-        remarkPlugins: [remarkGfm],
+        remarkPlugins: [remarkGfm, remarkDirective, remarkCustomDirectives],
         components: {
           a: ({ href, children, ...props }: any) =>
             React.createElement(
@@ -42,6 +47,7 @@ function renderMarkdown(markdown: string): string {
               src: dataAssetUrl(src),
               alt: alt || "",
             }),
+          "youtube-embed": YouTubeFeedEmbed,
         },
       },
       markdown
