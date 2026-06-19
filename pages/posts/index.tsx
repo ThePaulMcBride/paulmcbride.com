@@ -3,6 +3,7 @@ import Container from "components/Container";
 import { useState } from "react";
 import BlogPost from "components/BlogPost";
 import { getAllPosts, PostSummary } from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
 
 export async function getStaticProps() {
   const posts = await getAllPosts();
@@ -11,6 +12,7 @@ export async function getStaticProps() {
     props: {
       posts,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 }
 

@@ -2,6 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Container from "components/Container";
 import MarkdownContent from "components/MarkdownContent";
 import { getNowEntries, NowEntry } from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const posts = await getNowEntries();
@@ -10,6 +11,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       posts,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 };
 

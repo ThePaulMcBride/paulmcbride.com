@@ -3,6 +3,7 @@ import BlogPost from "components/BlogPost";
 import Container from "components/Container";
 import { GetStaticProps } from "next";
 import { getAllPosts, PostSummary } from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
 
 export const getStaticPaths = async () => {
   const paths = Object.values(tags).map((tag) => ({
@@ -11,7 +12,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
@@ -38,6 +39,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       tag,
       posts,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 };
 

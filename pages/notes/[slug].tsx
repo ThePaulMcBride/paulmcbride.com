@@ -4,6 +4,7 @@ import Container from "components/Container";
 import MarkdownContent from "components/MarkdownContent";
 import NoteMedia from "components/NoteMedia";
 import { getAllNoteSummaries, getNote, Note } from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const notes = await getAllNoteSummaries();
@@ -11,7 +12,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
@@ -22,6 +23,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
     props: {
       note,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 };
 

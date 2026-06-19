@@ -1,6 +1,12 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import NotesPage from "components/NotesPage";
-import { getNotePage, getNotePageCursors, Note } from "lib/dataApi";
+import {
+  getAllNoteSummaries,
+  getNotePage,
+  getNotePageCursors,
+  Note,
+} from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const cursors = await getNotePageCursors();
@@ -8,11 +14,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+  const summaries = await getAllNoteSummaries();
+  if (!summaries.some((note) => note.slug === params.cursor)) {
+    return {
+      notFound: true,
+      revalidate: REVALIDATE_SECONDS,
+    };
+  }
+
   const page = await getNotePage(params.cursor);
 
   return {
@@ -23,6 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
         ? `/notes/after/${page.previousCursor}`
         : "/notes",
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 };
 

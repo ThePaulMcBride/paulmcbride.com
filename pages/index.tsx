@@ -6,6 +6,7 @@ import BlogPost from "components/BlogPost";
 import Subscribe from "components/Subscribe";
 import MarkdownContent from "components/MarkdownContent";
 import { getAllPosts, getPage } from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const homePageContent = await getPage("homepage");
@@ -25,6 +26,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       posts,
       homePageContent: homePageContent.body,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 };
 

@@ -2,6 +2,7 @@ import type { GetStaticPaths, GetStaticProps } from "next";
 import PostLayout from "layouts/Post";
 import MarkdownContent from "components/MarkdownContent";
 import { getAllPosts, getPost, Post } from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getAllPosts();
@@ -9,7 +10,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
@@ -20,6 +21,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
     props: {
       post,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 };
 
