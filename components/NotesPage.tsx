@@ -8,27 +8,13 @@ import type { Note } from "lib/dataApi";
 function NoteEntry({ note }: { note: Note }) {
   return (
     <section className="md:pl-16 md:border-l md:border-dashed border-gray-300 mb-16">
-      <time
-        dateTime={note.date}
-        className="block text-sm text-emerald-800 opacity-80 mb-4"
-      >
-        {format(parseISO(note.date), "do MMMM yyyy, HH:mm")}
-      </time>
-      <MarkdownContent content={note.body} />
+      <Link href={note.href} className="block text-sm text-emerald-800 opacity-80 mb-4 no-underline hover:text-emerald-700">
+        <time dateTime={note.date}>
+          {format(parseISO(note.date), "do MMMM yyyy, HH:mm")}
+        </time>
+      </Link>
+      <MarkdownContent content={note.body} linkHashtags />
       <NoteMedia note={note} />
-      <div className="mt-4 flex gap-4 text-sm">
-        <Link href={note.href} className="text-emerald-500 hover:text-emerald-700">
-          Permalink
-        </Link>
-        <a
-          href={note.source_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-emerald-500 hover:text-emerald-700"
-        >
-          Source
-        </a>
-      </div>
     </section>
   );
 }

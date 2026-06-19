@@ -27,6 +27,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
 
 const NotePage: NextPage<{ note: Note }> = ({ note }) => {
   const title = `Note from ${format(parseISO(note.date), "do MMMM yyyy")}`;
+  const sourceLabel = note.source === "mastodon" ? "Via Mastodon" : "View original source";
 
   return (
     <Container
@@ -43,13 +44,15 @@ const NotePage: NextPage<{ note: Note }> = ({ note }) => {
           >
             {format(parseISO(note.date), "do MMMM yyyy, HH:mm")}
           </time>
-          <MarkdownContent content={note.body} />
+          <MarkdownContent content={note.body} linkHashtags />
           <NoteMedia note={note} className="mt-8" />
-          <p className="mt-8 text-sm">
-            <a href={note.source_url} target="_blank" rel="noopener noreferrer">
-              View original source
-            </a>
-          </p>
+          {note.source_url && (
+            <p className="mt-8 text-sm">
+              <a href={note.source_url} target="_blank" rel="noopener noreferrer">
+                {sourceLabel}
+              </a>
+            </p>
+          )}
         </article>
       </main>
     </Container>

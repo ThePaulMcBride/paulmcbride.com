@@ -5,6 +5,14 @@ import remarkGfm from "remark-gfm";
 import { dataAssetUrl } from "lib/dataApi";
 import { remarkCustomDirectives, YouTubeEmbed } from "lib/markdownDirectives";
 
+function linkHashtags(content: string) {
+  return content.replace(
+    /(^|\s)#([\p{L}\p{N}_]+)/gu,
+    (_match, prefix, tag) =>
+      `${prefix}[#${tag}](https://indieweb.social/tags/${encodeURIComponent(tag)})`
+  );
+}
+
 const components = {
   a: ({ href, children, ...props }: any) => {
     const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
@@ -38,13 +46,19 @@ const components = {
   "youtube-embed": YouTubeEmbed,
 };
 
-export default function MarkdownContent({ content }: { content: string }) {
+export default function MarkdownContent({
+  content,
+  linkHashtags: shouldLinkHashtags = false,
+}: {
+  content: string;
+  linkHashtags?: boolean;
+}) {
   return (
     <ReactMarkdown
       components={components}
       remarkPlugins={[remarkGfm, remarkDirective, remarkCustomDirectives]}
     >
-      {content}
+      {shouldLinkHashtags ? linkHashtags(content) : content}
     </ReactMarkdown>
   );
 }
