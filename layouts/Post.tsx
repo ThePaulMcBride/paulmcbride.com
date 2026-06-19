@@ -1,25 +1,33 @@
 import Image from "next/image";
-import { parseISO, format } from "date-fns";
+import { parseISO, format, isValid } from "date-fns";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import Container from "components/Container";
 import type { PropsWithChildren } from "react";
-import type { Post } from "contentlayer/generated";
+import { dataAssetUrl, type Post } from "lib/dataApi";
 import Subscribe from "components/Subscribe";
 import classNames from "classnames";
 import statuses from "@data/statuses";
 import tags from "@data/tags";
 
 const editUrl = (slug: string) =>
-  `https://github.com/ThePaulMcBride/paulmcbride.com/edit/main/data${slug}.mdx`;
+  `https://github.com/ThePaulMcBride/data.paulmcbride.com/edit/main/content/posts/${slug}.md`;
+
+function validDate(value: string | undefined) {
+  if (!value || !isValid(parseISO(value))) return undefined;
+
+  return value;
+}
 
 function generateschemaOrgJSONLD(post: Post) {
+  const modifiedDate = validDate(post.lastUpdated) || post.date;
+
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    image: [`https://paulmcbride.com${post.banner}`],
+    image: [dataAssetUrl(post.banner)],
     datePublished: post.date,
-    dateModified: post.lastUpdated || post.date,
+    dateModified: modifiedDate,
     author: [
       {
         "@type": "Person",
@@ -40,9 +48,9 @@ export default function BlogLayout({
   children,
   post,
 }: PropsWithChildren<{ post: Post }>) {
-  const image = post.bannerUrl
-    ? `https://paulmcbride.com${post.bannerUrl}`
-    : undefined;
+  const image = dataAssetUrl(post.bannerUrl);
+  const displayDate = validDate(post.lastUpdated) || post.date;
+  const status = post.status && statuses[post.status as keyof typeof statuses];
 
   const schemaOrgJSONLD = generateschemaOrgJSONLD(post);
 
@@ -51,7 +59,7 @@ export default function BlogLayout({
       title={`${post.title} – Paul McBride`}
       description={post.description}
       image={image}
-      date={new Date(post.lastUpdated || post.date).toISOString()}
+      date={new Date(displayDate).toISOString()}
       type="article"
       navClassName={headerColor}
     >
@@ -74,16 +82,14 @@ export default function BlogLayout({
           <div className="flex items-center">
             <p className="text-sm text-emerald-800 opacity-80">
               {"Last updated: "}
-              {format(parseISO(post.lastUpdated || post.date), "do MMMM yyyy")}
-              {post.status && (
+              {format(parseISO(displayDate), "do MMMM yyyy")}
+              {status && (
                 <Tooltip.Provider delayDuration={0}>
                   <Tooltip.Root>
                     <Tooltip.Trigger asChild>
                       <span className="px-2 py-0.5 uppercase font-bold rounded-full text-lg leading-5">
-                        <span className="sr-only">
-                          {statuses[post.status].title}
-                        </span>
-                        {statuses[post.status].icon}
+                        <span className="sr-only">{status.title}</span>
+                        {status.icon}
                       </span>
                     </Tooltip.Trigger>
                     <Tooltip.Portal>
@@ -93,7 +99,7 @@ export default function BlogLayout({
                         sideOffset={12}
                       >
                         <div className="bg-white max-w-xs text-base p-4 rounded-lg shadow-lg transition-all">
-                          {statuses[post.status].description}
+                          {status.description}
                         </div>
                         <Tooltip.Arrow className="TooltipArrow fill-white" />
                       </Tooltip.Content>
@@ -129,7 +135,7 @@ export default function BlogLayout({
           <div className="w-full max-w-none md:max-w-content mx-auto mb-8">
             <div className="flex flex-wrap items-center justify-start mt-4 space-x-2 text-sm">
               {post.tags.map((tag) => {
-                const tagData = tags[tag];
+                const tagData = tags[tag as keyof typeof tags];
                 if (!tagData) return null;
                 return (
                   <a

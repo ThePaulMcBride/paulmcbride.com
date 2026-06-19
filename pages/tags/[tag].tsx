@@ -1,8 +1,8 @@
 import tags from "@data/tags";
 import BlogPost from "components/BlogPost";
 import Container from "components/Container";
-import { allPosts, Post } from "contentlayer/generated";
 import { GetStaticProps } from "next";
+import { getAllPosts, PostSummary } from "lib/dataApi";
 
 export const getStaticPaths = async () => {
   const paths = Object.values(tags).map((tag) => ({
@@ -29,12 +29,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
-  const posts = allPosts
-    .filter((post) => post.tags.includes(tag.slug as any))
-    .filter((post) => !post.draft)
-    .sort((a, b) => {
-      return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
-    });
+  const posts = (await getAllPosts()).filter((post) =>
+    post.tags?.includes(tag.slug)
+  );
 
   return {
     props: {
@@ -44,7 +41,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-function Tags(props: { tag: any; posts: Post[] }) {
+function Tags(props: { tag: any; posts: PostSummary[] }) {
   return (
     <Container
       title={`Posts tagged with ${props.tag.title} – Paul McBride`}

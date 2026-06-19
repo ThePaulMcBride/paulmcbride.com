@@ -1,18 +1,18 @@
 import Link from "next/link";
 
-import type { Post } from "contentlayer/generated";
+import type { PostSummary } from "lib/dataApi";
 
 export default function BlogPost({
   title,
   description,
   slug,
+  href,
   teaser,
-  readingTime,
-}: Pick<Post, "title" | "slug" | "description" | "readingTime" | "teaser">) {
+}: Pick<PostSummary, "title" | "slug" | "href" | "description" | "teaser">) {
   return (
     <div className="w-full mb-12">
       <div className="flex flex-col md:flex-row md:items-center mb-4">
-        <Link href={slug} className="w-full">
+        <Link href={href} className="w-full">
           <h4 className="text-xl font-medium font-serif text-gray-900 md:text-3xl">
             {title}
           </h4>
@@ -20,7 +20,7 @@ export default function BlogPost({
       </div>
       <p className="text-gray-600 font-body prose md:prose-xl">{teaser}</p>
       <Link
-        href={slug}
+        href={href}
         title={title}
         className="mt-6 flex text-base md:text-xl text-emerald-500 leading-7 rounded-lg hover:text-emerald-700 transition-all h-6 items-center"
       >

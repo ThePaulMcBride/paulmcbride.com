@@ -1,23 +1,11 @@
 import type { NextPage } from "next";
-import { allPosts, Post } from "contentlayer/generated";
 import Container from "components/Container";
 import { useState } from "react";
 import BlogPost from "components/BlogPost";
+import { getAllPosts, PostSummary } from "lib/dataApi";
 
 export async function getStaticProps() {
-  const posts = allPosts
-    .filter((post) => !post.draft)
-    .sort((a, b) => {
-      return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
-    })
-    .map((post) => ({
-      slug: post.slug,
-      title: post.title,
-      banner: post.banner,
-      description: post.description,
-      readingTime: post.readingTime.text,
-      teaser: post.teaser,
-    }));
+  const posts = await getAllPosts();
 
   return {
     props: {
@@ -28,7 +16,7 @@ export async function getStaticProps() {
 
 const Posts: NextPage = ({ posts }: any) => {
   const [searchValue, setSearchValue] = useState("");
-  const filteredBlogPosts = posts.filter((post: Post) =>
+  const filteredBlogPosts = posts.filter((post: PostSummary) =>
     post.title.toLowerCase().includes(searchValue.toLowerCase())
   );
 

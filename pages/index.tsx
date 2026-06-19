@@ -3,34 +3,24 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "components/Container";
 import BlogPost from "components/BlogPost";
-import { allPosts, homePage, Post } from ".contentlayer/generated";
+import { homePage } from ".contentlayer/generated";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import MDXComponents from "components/MDXComponents";
 import Subscribe from "components/Subscribe";
+import { getAllPosts } from "lib/dataApi";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const homePageContent = homePage;
 
-  const posts = allPosts
+  const posts = (await getAllPosts())
     .filter((post) =>
       [
-        "/posts/what-is-the-fediverse",
-        "/posts/personal-websites-are-important",
-        "/posts/inaction-is-a-slow-death",
-        "/posts/what-i-want-from-life",
-      ].includes(post.slug),
-    )
-    .sort((a, b) => {
-      return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
-    })
-    .map((post) => ({
-      slug: post.slug,
-      title: post.title,
-      banner: post.banner,
-      description: post.description,
-      readingTime: post.readingTime.text,
-      teaser: post.teaser,
-    }));
+        "what-is-the-fediverse",
+        "personal-websites-are-important",
+        "inaction-is-a-slow-death",
+        "what-i-want-from-life",
+      ].includes(post.slug)
+    );
 
   return {
     props: {
@@ -82,14 +72,7 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
         </h3>
         <div className="flex flex-col">
           {posts.map((post: any) => (
-            <BlogPost
-              key={post.slug}
-              title={post.title}
-              slug={post.slug}
-              description={post.description}
-              readingTime={post.readingTime}
-              teaser={post.teaser}
-            />
+            <BlogPost key={post.slug} {...post} />
           ))}
         </div>
         <Link

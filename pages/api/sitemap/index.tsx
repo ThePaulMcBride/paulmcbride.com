@@ -2,7 +2,7 @@ import sitemap from "express-sitemap";
 import format from "date-fns/format";
 import parse from "date-fns/parseISO";
 import { NextApiRequest, NextApiResponse } from "next";
-import { allPosts, Post } from "contentlayer/generated";
+import { getAllPosts } from "lib/dataApi";
 
 const handle = async function (req: NextApiRequest, res: NextApiResponse) {
   const sitemap = await load();
@@ -42,18 +42,16 @@ async function load() {
     },
   };
 
-  const posts = allPosts;
+  const posts = await getAllPosts();
 
-  posts
-    .filter((post) => !post.draft)
-    .forEach((post: Post) => {
-      config.map[post.slug] = [];
-      config.route[post.slug] = {
-        lastmod: format(parse(post.date), "yyyy-MM-dd"),
-        changefreq: "monthly",
-        priority: 0.7,
-      };
-    });
+  posts.forEach((post) => {
+    config.map[post.href] = [];
+    config.route[post.href] = {
+      lastmod: format(parse(post.date), "yyyy-MM-dd"),
+      changefreq: "monthly",
+      priority: 0.7,
+    };
+  });
 
   return sitemap(config);
 }

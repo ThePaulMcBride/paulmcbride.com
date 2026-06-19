@@ -1,12 +1,18 @@
 import { Feed } from "feed";
-import { allNowPosts, allPosts } from "contentlayer/generated";
-import { parseISO } from "date-fns";
+import { isValid, parseISO } from "date-fns";
+import { dataAssetUrl, getAllPosts } from "lib/dataApi";
 
 const author = {
   name: "Paul McBride",
   email: "hello@paulmcbride.com",
   link: "https://paulmcbride.com",
 };
+
+function validDate(value: string | undefined) {
+  if (!value || !isValid(parseISO(value))) return undefined;
+
+  return value;
+}
 
 export const buildFeed = async () => {
   const feed = new Feed({
@@ -25,20 +31,20 @@ export const buildFeed = async () => {
     author,
   });
 
-  allPosts
-    .filter((post) => !post.draft)
-    .forEach((post) => {
-      feed.addItem({
-        title: post.title,
-        id: post.slug,
-        link: `https://paulmcbride.com${post.slug}`,
-        description: post.description,
-        content: `<p>${post.teaser}</p><div style="margin-top: 50px; font-style: italic;"> <strong><a href="https://paulmcbride.com${post.slug}">Keep reading</a>.</strong> </div> <br /> <br />`,
-        author: [author],
-        date: parseISO(post.lastUpdated || post.date),
-        image: `https://paulmcbride.com${post.banner}`,
-      });
+  const posts = await getAllPosts();
+
+  posts.forEach((post) => {
+    feed.addItem({
+      title: post.title,
+      id: post.href,
+      link: `https://paulmcbride.com${post.href}`,
+      description: post.description,
+      content: `<p>${post.teaser}</p><div style="margin-top: 50px; font-style: italic;"> <strong><a href="https://paulmcbride.com${post.href}">Keep reading</a>.</strong> </div> <br /> <br />`,
+      author: [author],
+      date: parseISO(validDate(post.lastUpdated) || post.date),
+      image: dataAssetUrl(post.banner),
     });
+  });
 
   // allNowPosts.forEach((post) => {
   //   feed.addItem({
