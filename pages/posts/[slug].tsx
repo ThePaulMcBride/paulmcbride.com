@@ -1,37 +1,38 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
-import { allPosts, Post } from "contentlayer/generated";
-import { useMDXComponent } from "next-contentlayer/hooks";
-import MDXComponents from "components/MDXComponents";
 import PostLayout from "layouts/Post";
+import MarkdownContent from "components/MarkdownContent";
+import { getAllPosts, getPost, Post } from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
+import { renderMarkdownHtml } from "lib/markdownToHtml";
 
-export const getStaticPaths: GetStaticPaths = () => {
-  const paths: string[] = allPosts.map((post) => post.slug);
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getAllPosts();
+  const paths = posts.map((post) => ({ params: { slug: post.slug } }));
+
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }: any) => {
-  const post: Post = allPosts.find((post) => {
-    return post._raw.flattenedPath.replace("posts/", "") === params.slug;
-  }) as Post;
+  const post = await getPost(params.slug);
 
   return {
     props: {
-      post,
+      post: {
+        ...post,
+        body: await renderMarkdownHtml(post.body),
+      },
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 };
 
-const components = MDXComponents;
-
 const PostComponent = (props: { post: Post }) => {
-  const Component = useMDXComponent(props.post.body.code);
-
   return (
     <PostLayout post={props.post}>
-      <Component components={components} />
+      <MarkdownContent content={props.post.body} />
     </PostLayout>
   );
 };

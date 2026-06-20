@@ -1,8 +1,9 @@
 import tags from "@data/tags";
 import BlogPost from "components/BlogPost";
 import Container from "components/Container";
-import { allPosts, Post } from "contentlayer/generated";
 import { GetStaticProps } from "next";
+import { getAllPosts, PostSummary } from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
 
 export const getStaticPaths = async () => {
   const paths = Object.values(tags).map((tag) => ({
@@ -11,7 +12,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
@@ -29,22 +30,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
-  const posts = allPosts
-    .filter((post) => post.tags.includes(tag.slug as any))
-    .filter((post) => !post.draft)
-    .sort((a, b) => {
-      return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
-    });
+  const posts = (await getAllPosts()).filter((post) =>
+    post.tags?.includes(tag.slug)
+  );
 
   return {
     props: {
       tag,
       posts,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 };
 
-function Tags(props: { tag: any; posts: Post[] }) {
+function Tags(props: { tag: any; posts: PostSummary[] }) {
   return (
     <Container
       title={`Posts tagged with ${props.tag.title} – Paul McBride`}

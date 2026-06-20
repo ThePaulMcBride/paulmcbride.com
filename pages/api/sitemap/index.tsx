@@ -2,7 +2,11 @@ import sitemap from "express-sitemap";
 import format from "date-fns/format";
 import parse from "date-fns/parseISO";
 import { NextApiRequest, NextApiResponse } from "next";
-import { allPosts, Post } from "contentlayer/generated";
+import {
+  getAllNoteSummaries,
+  getAllPosts,
+  getNotePageCursors,
+} from "lib/dataApi";
 
 const handle = async function (req: NextApiRequest, res: NextApiResponse) {
   const sitemap = await load();
@@ -21,6 +25,9 @@ async function load() {
     map: {
       "/": [],
       "/posts": [],
+      "/notes": [],
+      "/now": [],
+      "/colophon": [],
     },
     route: {
       "/": {
@@ -30,6 +37,10 @@ async function load() {
       "/posts": {
         changefreq: "weekly",
         priority: 1.0,
+      },
+      "/notes": {
+        changefreq: "daily",
+        priority: 0.9,
       },
       "/now": {
         changefreq: "monthly",
@@ -42,18 +53,51 @@ async function load() {
     },
   };
 
-  const posts = allPosts;
+  const [posts, notes, notePageCursors] = await Promise.all([
+    getAllPosts(),
+    getAllNoteSummaries(),
+    getNotePageCursors(),
+  ]);
 
-  posts
-    .filter((post) => !post.draft)
-    .forEach((post: Post) => {
-      config.map[post.slug] = [];
-      config.route[post.slug] = {
-        lastmod: format(parse(post.date), "yyyy-MM-dd"),
-        changefreq: "monthly",
-        priority: 0.7,
-      };
-    });
+  posts.forEach((post) => {
+    config.map[post.href] = [];
+    config.route[post.href] = {
+      lastmod: format(parse(post.date), "yyyy-MM-dd"),
+      changefreq: "monthly",
+      priority: 0.7,
+    };
+  });
+
+  const tags = new Set(posts.flatMap((post) => post.tags || []));
+
+  tags.forEach((tag) => {
+    const href = `/tags/${tag}`;
+
+    config.map[href] = [];
+    config.route[href] = {
+      changefreq: "weekly",
+      priority: 0.6,
+    };
+  });
+
+  notes.forEach((note) => {
+    config.map[note.href] = [];
+    config.route[note.href] = {
+      lastmod: format(parse(note.date), "yyyy-MM-dd"),
+      changefreq: "monthly",
+      priority: 0.5,
+    };
+  });
+
+  notePageCursors.forEach((cursor) => {
+    const href = `/notes/after/${cursor}`;
+
+    config.map[href] = [];
+    config.route[href] = {
+      changefreq: "daily",
+      priority: 0.6,
+    };
+  });
 
   return sitemap(config);
 }

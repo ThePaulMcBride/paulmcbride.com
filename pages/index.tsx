@@ -3,48 +3,35 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "components/Container";
 import BlogPost from "components/BlogPost";
-import { allPosts, homePage, Post } from ".contentlayer/generated";
-import { useMDXComponent } from "next-contentlayer/hooks";
-import MDXComponents from "components/MDXComponents";
 import Subscribe from "components/Subscribe";
+import MarkdownContent from "components/MarkdownContent";
+import { getAllPosts, getPage } from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
+import { renderMarkdownHtml } from "lib/markdownToHtml";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const homePageContent = homePage;
+  const homePageContent = await getPage("homepage");
 
-  const posts = allPosts
+  const posts = (await getAllPosts())
     .filter((post) =>
       [
-        "/posts/what-is-the-fediverse",
-        "/posts/personal-websites-are-important",
-        "/posts/inaction-is-a-slow-death",
-        "/posts/what-i-want-from-life",
-      ].includes(post.slug),
-    )
-    .sort((a, b) => {
-      return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
-    })
-    .map((post) => ({
-      slug: post.slug,
-      title: post.title,
-      banner: post.banner,
-      description: post.description,
-      readingTime: post.readingTime.text,
-      teaser: post.teaser,
-    }));
+        "what-is-the-fediverse",
+        "personal-websites-are-important",
+        "inaction-is-a-slow-death",
+        "what-i-want-from-life",
+      ].includes(post.slug)
+    );
 
   return {
     props: {
       posts,
-      homePageContent: homePageContent.body.code,
+      homePageContent: await renderMarkdownHtml(homePageContent.body),
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 };
 
-const components = MDXComponents;
-
 const Home: NextPage = ({ posts, homePageContent }: any) => {
-  const Component = useMDXComponent(homePageContent);
-
   return (
     <Container>
       <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 mx-auto pb-16 px-8">
@@ -75,21 +62,14 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
           About
         </h3>
         <div className="w-full prose prose-base md:prose-xl max-w-none mb-16 font-body">
-          <Component components={components} />
+          <MarkdownContent content={homePageContent} />
         </div>
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-gray-900 font-serif">
           Featured Posts
         </h3>
         <div className="flex flex-col">
           {posts.map((post: any) => (
-            <BlogPost
-              key={post.slug}
-              title={post.title}
-              slug={post.slug}
-              description={post.description}
-              readingTime={post.readingTime}
-              teaser={post.teaser}
-            />
+            <BlogPost key={post.slug} {...post} />
           ))}
         </div>
         <Link

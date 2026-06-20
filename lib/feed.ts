@@ -1,12 +1,19 @@
 import { Feed } from "feed";
-import { allNowPosts, allPosts } from "contentlayer/generated";
-import { parseISO } from "date-fns";
+import { isValid, parseISO } from "date-fns";
+import { dataAssetUrl, getAllPosts, getPost } from "lib/dataApi";
+import { renderMarkdownHtml } from "lib/markdownToHtml";
 
 const author = {
   name: "Paul McBride",
   email: "hello@paulmcbride.com",
   link: "https://paulmcbride.com",
 };
+
+function validDate(value: string | undefined) {
+  if (!value || !isValid(parseISO(value))) return undefined;
+
+  return value;
+}
 
 export const buildFeed = async () => {
   const feed = new Feed({
@@ -25,32 +32,29 @@ export const buildFeed = async () => {
     author,
   });
 
-  allPosts
-    .filter((post) => !post.draft)
-    .forEach((post) => {
-      feed.addItem({
-        title: post.title,
-        id: post.slug,
-        link: `https://paulmcbride.com${post.slug}`,
-        description: post.description,
-        content: `<p>${post.teaser}</p><div style="margin-top: 50px; font-style: italic;"> <strong><a href="https://paulmcbride.com${post.slug}">Keep reading</a>.</strong> </div> <br /> <br />`,
-        author: [author],
-        date: parseISO(post.lastUpdated || post.date),
-        image: `https://paulmcbride.com${post.banner}`,
-      });
+  const postSummaries = await getAllPosts();
+  const posts = await Promise.all(
+    postSummaries.map((post) => getPost(post.slug))
+  );
+
+  for (const post of posts) {
+    const postUrl = `https://paulmcbride.com${post.href}`;
+    const content = await renderMarkdownHtml(post.body, {
+      absolutizeInternalLinks: true,
+      renderYouTubeAsLink: true,
     });
 
-  // allNowPosts.forEach((post) => {
-  //   feed.addItem({
-  //     title: post.title,
-  //     id: post._id,
-  //     link: `https://paulmcbride.com/now`,
-  //     description: post.title,
-  //     content: `${post.body.code}`,
-  //     author: [author],
-  //     date: parseISO(post.date),
-  //   });
-  // });
+    feed.addItem({
+      title: post.title,
+      id: post.href,
+      link: postUrl,
+      description: post.description,
+      content: `${content}<div style="margin-top: 50px; font-style: italic;"><strong><a href="${postUrl}">Read on the website</a>.</strong></div>`,
+      author: [author],
+      date: parseISO(validDate(post.lastUpdated) || post.date),
+      image: dataAssetUrl(post.banner),
+    });
+  }
 
   feed.addContributor(author);
 

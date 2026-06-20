@@ -1,38 +1,38 @@
 import type { GetStaticProps, NextPage } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import Container from "components/Container";
-import { allNowPosts, homePage, NowPost } from ".contentlayer/generated";
-import { useMDXComponent } from "next-contentlayer/hooks";
-import MDXComponents from "components/MDXComponents";
+import MarkdownContent from "components/MarkdownContent";
+import { getNowEntries, NowEntry } from "lib/dataApi";
+import { REVALIDATE_SECONDS } from "lib/isr";
+import { renderMarkdownHtml } from "lib/markdownToHtml";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const posts = allNowPosts.sort((a, b) => {
-    return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
-  });
+  const posts = await Promise.all(
+    (await getNowEntries()).map(async (post) => ({
+      ...post,
+      body: await renderMarkdownHtml(post.body),
+    }))
+  );
 
   return {
     props: {
       posts,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 };
 
-const components = MDXComponents;
-
-const NowPostComponent = ({ post }: { post: NowPost }) => {
-  const Component = useMDXComponent(post.body.code);
+const NowPostComponent = ({ post }: { post: NowEntry }) => {
   return (
     <section className="md:pl-16 md:border-l md:border-dashed border-gray-300 mb-16">
       <h2 className="font-bold text-2xl md:text-3xl tracking-tight text-gray-900 font-serif mb-4">
         {post.title}
       </h2>
-      <Component components={components} />
+      <MarkdownContent content={post.body} />
     </section>
   );
 };
 
-const Home: NextPage = ({ posts, homePageContent }: any) => {
+const Home: NextPage<{ posts: NowEntry[] }> = ({ posts }) => {
   return (
     <Container
       title="Now – Paul McBride"
@@ -59,8 +59,8 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
             .
           </p>
           <div className="w-full prose prose-lg md:prose-xl max-w-none mb-16 font-body">
-            {posts.map((post: NowPost) => (
-              <NowPostComponent key={post._id} post={post} />
+            {posts.map((post) => (
+              <NowPostComponent key={post.slug} post={post} />
             ))}
           </div>
         </div>
