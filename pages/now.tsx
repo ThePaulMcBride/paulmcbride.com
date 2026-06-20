@@ -3,9 +3,15 @@ import Container from "components/Container";
 import MarkdownContent from "components/MarkdownContent";
 import { getNowEntries, NowEntry } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
+import { renderMarkdownHtml } from "lib/markdownToHtml";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const posts = await getNowEntries();
+  const posts = await Promise.all(
+    (await getNowEntries()).map(async (post) => ({
+      ...post,
+      body: await renderMarkdownHtml(post.body),
+    }))
+  );
 
   return {
     props: {

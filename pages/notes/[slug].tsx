@@ -5,6 +5,7 @@ import MarkdownContent from "components/MarkdownContent";
 import NoteMedia from "components/NoteMedia";
 import { getAllNoteSummaries, getNote, Note } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
+import { renderMarkdownHtml } from "lib/markdownToHtml";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const notes = await getAllNoteSummaries();
@@ -21,7 +22,10 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
 
   return {
     props: {
-      note,
+      note: {
+        ...note,
+        body: await renderMarkdownHtml(note.body, { linkHashtags: true }),
+      },
     },
     revalidate: REVALIDATE_SECONDS,
   };
@@ -46,7 +50,7 @@ const NotePage: NextPage<{ note: Note }> = ({ note }) => {
           >
             {format(parseISO(note.date), "do MMMM yyyy, HH:mm")}
           </time>
-          <MarkdownContent content={note.body} linkHashtags />
+          <MarkdownContent content={note.body} />
           <NoteMedia note={note} className="mt-8" />
           {note.source_url && (
             <p className="mt-8 text-sm">

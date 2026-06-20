@@ -13,7 +13,7 @@ function NoteEntry({ note }: { note: Note }) {
           {format(parseISO(note.date), "do MMMM yyyy, HH:mm")}
         </time>
       </Link>
-      <MarkdownContent content={note.body} linkHashtags />
+          <MarkdownContent content={note.body} />
       <NoteMedia note={note} />
     </section>
   );

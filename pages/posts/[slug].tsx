@@ -3,6 +3,7 @@ import PostLayout from "layouts/Post";
 import MarkdownContent from "components/MarkdownContent";
 import { getAllPosts, getPost, Post } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
+import { renderMarkdownHtml } from "lib/markdownToHtml";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getAllPosts();
@@ -19,7 +20,10 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
 
   return {
     props: {
-      post,
+      post: {
+        ...post,
+        body: await renderMarkdownHtml(post.body),
+      },
     },
     revalidate: REVALIDATE_SECONDS,
   };

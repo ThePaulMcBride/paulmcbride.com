@@ -7,6 +7,7 @@ import {
   Note,
 } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
+import { renderMarkdownHtml } from "lib/markdownToHtml";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const cursors = await getNotePageCursors();
@@ -31,7 +32,12 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
 
   return {
     props: {
-      notes: page.notes,
+      notes: await Promise.all(
+        page.notes.map(async (note) => ({
+          ...note,
+          body: await renderMarkdownHtml(note.body, { linkHashtags: true }),
+        }))
+      ),
       olderHref: page.nextCursor ? `/notes/after/${page.nextCursor}` : null,
       newerHref: page.previousCursor
         ? `/notes/after/${page.previousCursor}`
