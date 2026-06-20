@@ -18,6 +18,10 @@
   @apply px-1 py-0.5 border border-gray-100 rounded-lg bg-gray-100 font-normal;
 }
 
+.prose a {
+  overflow-wrap: anywhere;
+}
+
 .prose pre code {
   @apply text-gray-800 p-0;
   border: initial;
