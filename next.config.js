@@ -1,11 +1,17 @@
-const { withPlausibleProxy } = require("next-plausible");
-
 /** @type {import('next').NextConfig} */
-const nextConfig = withPlausibleProxy()({
+const nextConfig = {
   output: "standalone",
   reactStrictMode: true,
   rewrites() {
     return [
+      {
+        source: "/js/script.js",
+        destination: "https://plausible.io/js/script.js",
+      },
+      {
+        source: "/api/event",
+        destination: "https://plausible.io/api/event",
+      },
       {
         source: "/feed",
         destination: "/api/feed",
@@ -16,6 +22,6 @@ const nextConfig = withPlausibleProxy()({
       },
     ];
   },
-});
+};
 
 module.exports = nextConfig;
