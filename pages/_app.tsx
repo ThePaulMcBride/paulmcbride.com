@@ -23,8 +23,8 @@ const plausibleScriptProps = { "data-domain": "paulmcbride.com" } as unknown as 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <PlausibleProvider
-      src="/js/script.js"
-      init={{ endpoint: "/api/event" }}
+      src="/proxy/js/script.js"
+      init={{ endpoint: "/proxy/api/event" }}
       scriptProps={plausibleScriptProps}
     >
       <div className={`${playfair.variable} ${lora.variable}`}>
