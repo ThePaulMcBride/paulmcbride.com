@@ -8,11 +8,13 @@ import { Playfair_Display, Lora } from "next/font/google";
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair-display",
+  display: "swap",
 });
 
 const lora = Lora({
   subsets: ["latin"],
   variable: "--font-lora",
+  display: "swap",
 });
 
 const plausibleScriptProps = { "data-domain": "paulmcbride.com" } as unknown as DetailedHTMLProps<
