@@ -67,6 +67,8 @@ export type NoteSummary = {
   source: "manual" | "mastodon";
   source_id: string;
   source_url: string;
+  in_reply_to_id?: string;
+  in_reply_to_account_id?: string;
   visibility: "public" | "unlisted" | "private" | "direct";
   media?: NoteMedia[];
   tags?: string[];
@@ -78,8 +80,12 @@ export type Note = NoteSummary & {
   body: string;
 };
 
-export type NotePage = {
+export type NoteGroup = {
   notes: Note[];
+};
+
+export type NotePage = {
+  items: NoteGroup[];
   nextCursor?: string;
   previousCursor?: string;
 };
@@ -203,37 +209,31 @@ export async function getNotePage(
   after?: string,
   pageSize = 25
 ): Promise<NotePage> {
-  const summaries = await getAllNoteSummaries();
   const cursor = after ? noteSlug(after) : undefined;
-  const cursorIndex = cursor
-    ? summaries.findIndex((note) => note.slug === cursor)
-    : -1;
-  const startIndex = cursorIndex >= 0 ? cursorIndex + 1 : 0;
-  const pageSummaries = summaries.slice(startIndex, startIndex + pageSize);
-  const notes = await Promise.all(
-    pageSummaries.map((note) => getNote(note.slug))
-  );
-  const hasNextPage = startIndex + pageSize < summaries.length;
-  const previousPageStart = startIndex - pageSize;
+  const search = new URLSearchParams({ limit: String(pageSize) });
+  if (cursor) search.set("after", cursor);
+  const data = await fetchData<{
+    items: { notes: Omit<Note, "href">[] }[];
+    next_cursor?: string;
+    previous_cursor?: string;
+  }>(`/notes/page?${search.toString()}`);
 
   return {
-    notes,
-    nextCursor: hasNextPage ? notes[notes.length - 1]?.slug : undefined,
-    previousCursor:
-      startIndex <= 0
-        ? undefined
-        : previousPageStart <= 0
-          ? ""
-          : summaries[previousPageStart - 1]?.slug,
+    items: data.items.map((item) => ({
+      notes: item.notes.map(noteFromApi),
+    })),
+    nextCursor: data.next_cursor,
+    previousCursor: data.previous_cursor,
   };
 }
 
 export async function getNotePageCursors(pageSize = 25): Promise<string[]> {
-  const summaries = await getAllNoteSummaries();
   const cursors: string[] = [];
+  let page = await getNotePage(undefined, pageSize);
 
-  for (let index = pageSize - 1; index < summaries.length - 1; index += pageSize) {
-    cursors.push(summaries[index].slug);
+  while (page.nextCursor) {
+    cursors.push(page.nextCursor);
+    page = await getNotePage(page.nextCursor, pageSize);
   }
 
   return cursors;

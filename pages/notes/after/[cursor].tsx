@@ -4,7 +4,7 @@ import {
   getAllNoteSummaries,
   getNotePage,
   getNotePageCursors,
-  Note,
+  NoteGroup,
 } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
 import { renderMarkdownHtml } from "lib/markdownToHtml";
@@ -32,10 +32,14 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
 
   return {
     props: {
-      notes: await Promise.all(
-        page.notes.map(async (note) => ({
-          ...note,
-          body: await renderMarkdownHtml(note.body, { linkHashtags: true }),
+      items: await Promise.all(
+        page.items.map(async (item) => ({
+          notes: await Promise.all(
+            item.notes.map(async (note) => ({
+              ...note,
+              body: await renderMarkdownHtml(note.body, { linkHashtags: true }),
+            }))
+          ),
         }))
       ),
       olderHref: page.nextCursor ? `/notes/after/${page.nextCursor}` : null,
@@ -48,11 +52,11 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
 };
 
 const NotesAfterPage: NextPage<{
-  notes: Note[];
+  items: NoteGroup[];
   olderHref?: string;
   newerHref?: string;
-}> = ({ notes, olderHref, newerHref }) => {
-  return <NotesPage notes={notes} olderHref={olderHref} newerHref={newerHref} />;
+}> = ({ items, olderHref, newerHref }) => {
+  return <NotesPage items={items} olderHref={olderHref} newerHref={newerHref} />;
 };
 
 export default NotesAfterPage;

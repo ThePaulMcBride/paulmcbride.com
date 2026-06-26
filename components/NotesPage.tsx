@@ -3,28 +3,38 @@ import { format, parseISO } from "date-fns";
 import Container from "components/Container";
 import MarkdownContent from "components/MarkdownContent";
 import NoteMedia from "components/NoteMedia";
-import type { Note } from "lib/dataApi";
+import type { Note, NoteGroup as NoteGroupType } from "lib/dataApi";
 
 function NoteEntry({ note }: { note: Note }) {
   return (
-    <section className="md:pl-16 md:border-l md:border-dashed border-gray-300 mb-16">
+    <article className="flow-root">
       <Link href={note.href} className="block text-sm text-emerald-800 opacity-80 mb-4 no-underline hover:text-emerald-700">
         <time dateTime={note.date}>
           {format(parseISO(note.date), "do MMMM yyyy, HH:mm")}
         </time>
       </Link>
-          <MarkdownContent content={note.body} />
+      <MarkdownContent content={note.body} />
       <NoteMedia note={note} />
+    </article>
+  );
+}
+
+function NoteGroup({ item }: { item: NoteGroupType }) {
+  return (
+    <section className="space-y-12 md:pl-16 md:border-l md:border-dashed md:border-gray-300 transition-colors hover:border-emerald-500">
+      {item.notes.map((note) => (
+        <NoteEntry key={note.slug} note={note} />
+      ))}
     </section>
   );
 }
 
 export default function NotesPage({
-  notes,
+  items,
   olderHref,
   newerHref,
 }: {
-  notes: Note[];
+  items: NoteGroupType[];
   olderHref?: string;
   newerHref?: string;
 }) {
@@ -42,9 +52,9 @@ export default function NotesPage({
             Short updates, links, and thoughts that do not need to be full blog
             posts.
           </p>
-          <div className="w-full prose prose-lg md:prose-xl max-w-none mb-16 font-body">
-            {notes.map((note) => (
-              <NoteEntry key={note.slug} note={note} />
+          <div className="w-full prose prose-lg md:prose-xl max-w-none mb-16 font-body space-y-20 md:space-y-24">
+            {items.map((item) => (
+              <NoteGroup key={item.notes.map((note) => note.slug).join(":")} item={item} />
             ))}
           </div>
           <nav className="flex justify-between gap-4 mb-16 text-emerald-500">
