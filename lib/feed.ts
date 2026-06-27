@@ -1,6 +1,7 @@
 import { Feed } from "feed";
 import { isValid, parseISO } from "date-fns";
-import { dataAssetUrl, getAllPosts, getPost } from "lib/dataApi";
+import { dataAssetUrl } from "lib/dataAssets";
+import { getAllPosts, getPost } from "lib/dataApi";
 import { renderMarkdownHtml } from "lib/markdownToHtml";
 
 const author = {

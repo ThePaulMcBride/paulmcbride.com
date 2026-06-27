@@ -20,7 +20,7 @@ import type {
   PostSummary,
 } from "lib/dataApiTypes";
 
-export { dataAssetUrl } from "lib/dataApiClient";
+export { dataAssetUrl } from "lib/dataAssets";
 export type {
   ApiPost,
   ApiPostSummary,

@@ -6,7 +6,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
-import { dataAssetUrl } from "lib/dataApi";
+import { dataAssetUrl } from "lib/dataAssets";
 import { remarkCustomDirectives } from "lib/markdownDirectives";
 
 type ElementNode = {
