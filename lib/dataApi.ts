@@ -200,9 +200,19 @@ export async function getAllNoteSummaries(): Promise<NoteSummary[]> {
 }
 
 export async function getNote(slug: string): Promise<Note> {
-  const note = await fetchData<Omit<Note, "href">>(`/notes/${noteSlug(slug)}`);
+  const group = await getNoteGroup(slug);
 
-  return noteFromApi(note);
+  return group.notes[0];
+}
+
+export async function getNoteGroup(slug: string): Promise<NoteGroup> {
+  const group = await fetchData<{ notes: Omit<Note, "href">[] }>(
+    `/notes/${noteSlug(slug)}`
+  );
+
+  return {
+    notes: group.notes.map(noteFromApi),
+  };
 }
 
 export async function getNotePage(
@@ -237,4 +247,18 @@ export async function getNotePageCursors(pageSize = 25): Promise<string[]> {
   }
 
   return cursors;
+}
+
+export async function getAllNoteGroups(pageSize = 100): Promise<NoteGroup[]> {
+  const groups: NoteGroup[] = [];
+  let page = await getNotePage(undefined, pageSize);
+
+  groups.push(...page.items);
+
+  while (page.nextCursor) {
+    page = await getNotePage(page.nextCursor, pageSize);
+    groups.push(...page.items);
+  }
+
+  return groups;
 }
