@@ -7,6 +7,10 @@ import { getAllNoteGroups, getNoteGroup, Note, NoteGroup } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
 import { renderNoteGroup } from "lib/renderContent";
 
+type NoteParams = {
+  slug: string;
+};
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const groups = await getAllNoteGroups();
   const paths = groups.map((group) => ({
@@ -19,7 +23,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+export const getStaticProps: GetStaticProps<
+  { group: NoteGroup },
+  NoteParams
+> = async ({ params }) => {
+  if (!params) {
+    return {
+      notFound: true,
+      revalidate: REVALIDATE_SECONDS,
+    };
+  }
+
   const group = await getNoteGroup(params.slug);
   const rootNote = group.notes[0];
 

@@ -5,6 +5,10 @@ import { getAllPosts, getPost, Post } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
 import { renderPostContent } from "lib/renderContent";
 
+type PostParams = {
+  slug: string;
+};
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getAllPosts();
   const paths = posts.map((post) => ({ params: { slug: post.slug } }));
@@ -15,7 +19,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+export const getStaticProps: GetStaticProps<{ post: Post }, PostParams> = async ({
+  params,
+}) => {
+  if (!params) {
+    return {
+      notFound: true,
+      revalidate: REVALIDATE_SECONDS,
+    };
+  }
+
   const post = await getPost(params.slug);
 
   return {

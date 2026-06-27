@@ -4,6 +4,10 @@ import { getNotePage, getNotePageCursors, NoteGroup } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
 import { renderNotePage } from "lib/renderContent";
 
+type NotesAfterParams = {
+  cursor: string;
+};
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const cursors = await getNotePageCursors();
   const paths = cursors.map((cursor) => ({ params: { cursor } }));
@@ -14,7 +18,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+export const getStaticProps: GetStaticProps<
+  {
+    items: NoteGroup[];
+    olderHref?: string | null;
+    newerHref?: string;
+  },
+  NotesAfterParams
+> = async ({ params }) => {
+  if (!params) {
+    return {
+      notFound: true,
+      revalidate: REVALIDATE_SECONDS,
+    };
+  }
+
   const page = await renderNotePage(await getNotePage(params.cursor));
 
   if (page.previousCursor === undefined) {
