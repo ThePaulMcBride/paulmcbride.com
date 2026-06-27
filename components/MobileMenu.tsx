@@ -3,6 +3,11 @@ import Link from "next/link";
 import useDelayedRender from "use-delayed-render";
 import { useState, useEffect } from "react";
 import styles from "styles/mobile-menu.module.css";
+import { primaryNavLinks } from "lib/navigation";
+
+function isInternalLink(href: string) {
+  return href.startsWith("/") || href.startsWith("#");
+}
 
 export default function MobileMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,51 +55,28 @@ export default function MobileMenu() {
               isMenuRendered && styles.menuRendered
             )}
           >
-            <li
-              className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
-              style={{ transitionDelay: "150ms" }}
-            >
-              <Link href="/" className="flex w-auto pb-4">
-                Home
-              </Link>
-            </li>
-            <li
-              className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
-              style={{ transitionDelay: "175ms" }}
-            >
-              <Link href="/posts" className="flex w-auto pb-4">
-                Posts
-              </Link>
-            </li>
-            <li
-              className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
-              style={{ transitionDelay: "200ms" }}
-            >
-              <Link href="/notes" className="flex w-auto pb-4">
-                Notes
-              </Link>
-            </li>
-            <li
-              className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
-              style={{ transitionDelay: "225ms" }}
-            >
-              <Link href="/now" className="flex w-auto pb-4">
-                Now
-              </Link>
-            </li>
-            <li
-              className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
-              style={{ transitionDelay: "250ms" }}
-            >
-              <a
-                href="https://egghead.io/q/resources-by-paul-mcbride?af=auhexg"
-                className="flex w-auto pb-4"
-                target="_blank"
-                rel="noopener noreferrer"
+            {primaryNavLinks.map((link, index) => (
+              <li
+                key={link.href}
+                className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
+                style={{ transitionDelay: `${150 + index * 25}ms` }}
               >
-                Lessons
-              </a>
-            </li>
+                {isInternalLink(link.href) ? (
+                  <Link href={link.href} className="flex w-auto pb-4">
+                    {link.text}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="flex w-auto pb-4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.text}
+                  </a>
+                )}
+              </li>
+            ))}
           </ul>
         </div>
       )}

@@ -4,6 +4,7 @@ import { type ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
 import cn from "classnames";
 import { RSS } from "components/Footer";
+import { primaryNavLinks } from "lib/navigation";
 
 import Footer from "components/Footer";
 import MobileMenu from "components/MobileMenu";
@@ -113,14 +114,9 @@ export default function Container(props: ContainerProps) {
           </a>
           <div className="ml-[-0.60rem] text-base">
             <MobileMenu />
-            <NavItem href="/" text="Home" />
-            <NavItem href="/posts" text="Posts" />
-            <NavItem href="/notes" text="Notes" />
-            <NavItem href="/now" text="Now" />
-            <NavItem
-              href="https://egghead.io/q/resources-by-paul-mcbride?af=auhexg"
-              text="Lessons"
-            />
+            {primaryNavLinks.map((link) => (
+              <NavItem key={link.href} href={link.href} text={link.text} />
+            ))}
           </div>
           <span className="w-9 h-9 bg-white/50 rounded-lg flex items-center justify-center  hover:ring-2 ring-gray-200  transition-all">
             <RSS />
