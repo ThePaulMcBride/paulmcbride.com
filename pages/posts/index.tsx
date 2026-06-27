@@ -1,11 +1,15 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Container from "components/Container";
 import { useState } from "react";
 import BlogPost from "components/BlogPost";
 import { getAllPosts, PostSummary } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
 
-export async function getStaticProps() {
+type PostsProps = {
+  posts: PostSummary[];
+};
+
+export const getStaticProps: GetStaticProps<PostsProps> = async () => {
   const posts = await getAllPosts();
 
   return {
@@ -14,9 +18,9 @@ export async function getStaticProps() {
     },
     revalidate: REVALIDATE_SECONDS,
   };
-}
+};
 
-const Posts: NextPage = ({ posts }: any) => {
+const Posts: NextPage<PostsProps> = ({ posts }) => {
   const [searchValue, setSearchValue] = useState("");
   const filteredBlogPosts = posts.filter((post: PostSummary) =>
     post.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -35,7 +39,7 @@ const Posts: NextPage = ({ posts }: any) => {
         {!filteredBlogPosts.length && (
           <p className="mb-4 text-gray-600">No posts found.</p>
         )}
-        {filteredBlogPosts.map((post: any) => (
+        {filteredBlogPosts.map((post) => (
           <BlogPost key={post.title} {...post} />
         ))}
       </div>

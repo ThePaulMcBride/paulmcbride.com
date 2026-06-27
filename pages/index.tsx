@@ -5,11 +5,16 @@ import Container from "components/Container";
 import BlogPost from "components/BlogPost";
 import Subscribe from "components/Subscribe";
 import MarkdownContent from "components/MarkdownContent";
-import { getAllPosts, getPage } from "lib/dataApi";
+import { getAllPosts, getPage, PostSummary } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
 import { renderPageContent } from "lib/renderContent";
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+type HomeProps = {
+  posts: PostSummary[];
+  homePageContent: string;
+};
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const homePageContent = await renderPageContent(await getPage("homepage"));
 
   const posts = (await getAllPosts())
@@ -31,7 +36,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-const Home: NextPage = ({ posts, homePageContent }: any) => {
+const Home: NextPage<HomeProps> = ({ posts, homePageContent }) => {
   return (
     <Container>
       <div className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 border-gray-200 mx-auto pb-16 px-8">
@@ -68,7 +73,7 @@ const Home: NextPage = ({ posts, homePageContent }: any) => {
           Featured Posts
         </h3>
         <div className="flex flex-col">
-          {posts.map((post: any) => (
+          {posts.map((post) => (
             <BlogPost key={post.slug} {...post} />
           ))}
         </div>

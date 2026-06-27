@@ -1,9 +1,19 @@
 import tags from "@data/tags";
 import BlogPost from "components/BlogPost";
 import Container from "components/Container";
-import { GetStaticProps } from "next";
+import type { GetStaticProps } from "next";
 import { getAllPosts, PostSummary } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
+
+type Tag = {
+  slug: string;
+  title: string;
+};
+
+type TagProps = {
+  tag: Tag;
+  posts: PostSummary[];
+};
 
 export const getStaticPaths = async () => {
   const paths = Object.values(tags).map((tag) => ({
@@ -43,7 +53,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-function Tags(props: { tag: any; posts: PostSummary[] }) {
+function Tags(props: TagProps) {
   return (
     <Container
       title={`Posts tagged with ${props.tag.title} – Paul McBride`}
@@ -54,7 +64,7 @@ function Tags(props: { tag: any; posts: PostSummary[] }) {
           Posts tagged with {props.tag.title}
         </h1>
 
-        {props.posts.map((post: any) => (
+        {props.posts.map((post) => (
           <BlogPost key={post.title} {...post} />
         ))}
       </div>

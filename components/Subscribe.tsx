@@ -1,7 +1,7 @@
-import { useState, useRef } from "react";
+import { type FormEvent, type ReactNode, useState, useRef } from "react";
 import LoadingSpinner from "components/LoadingSpinner";
 
-function ErrorMessage({ children }: any) {
+function ErrorMessage({ children }: { children: ReactNode }) {
   return (
     <p className="flex items-center text-sm font-bold text-red-800">
       <svg
@@ -21,7 +21,7 @@ function ErrorMessage({ children }: any) {
   );
 }
 
-function SuccessMessage({ children }: any) {
+function SuccessMessage({ children }: { children: ReactNode }) {
   return (
     <p className="flex items-center text-sm font-bold text-grey-700">
       <svg
@@ -48,7 +48,7 @@ export default function Subscribe() {
   }>({ state: "initial" });
   const inputEl = useRef<HTMLInputElement>(null);
 
-  const subscribe = async (e: any) => {
+  const subscribe = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setForm({ state: "loading" });
 
