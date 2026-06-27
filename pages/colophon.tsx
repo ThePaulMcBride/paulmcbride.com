@@ -3,17 +3,14 @@ import Container from "components/Container";
 import MarkdownContent from "components/MarkdownContent";
 import { getPage, Page } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
-import { renderMarkdownHtml } from "lib/markdownToHtml";
+import { renderPageContent } from "lib/renderContent";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const colophon = await getPage("colophon");
+  const colophon = await renderPageContent(await getPage("colophon"));
 
   return {
     props: {
-      colophon: {
-        ...colophon,
-        body: await renderMarkdownHtml(colophon.body),
-      },
+      colophon,
     },
     revalidate: REVALIDATE_SECONDS,
   };

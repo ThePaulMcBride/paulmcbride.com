@@ -7,10 +7,10 @@ import Subscribe from "components/Subscribe";
 import MarkdownContent from "components/MarkdownContent";
 import { getAllPosts, getPage } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
-import { renderMarkdownHtml } from "lib/markdownToHtml";
+import { renderPageContent } from "lib/renderContent";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const homePageContent = await getPage("homepage");
+  const homePageContent = await renderPageContent(await getPage("homepage"));
 
   const posts = (await getAllPosts())
     .filter((post) =>
@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       posts,
-      homePageContent: await renderMarkdownHtml(homePageContent.body),
+      homePageContent: homePageContent.body,
     },
     revalidate: REVALIDATE_SECONDS,
   };

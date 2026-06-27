@@ -5,7 +5,7 @@ import MarkdownContent from "components/MarkdownContent";
 import NoteMedia from "components/NoteMedia";
 import { getAllNoteGroups, getNoteGroup, Note, NoteGroup } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
-import { renderMarkdownHtml } from "lib/markdownToHtml";
+import { renderNoteGroup } from "lib/renderContent";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const groups = await getAllNoteGroups();
@@ -35,14 +35,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
 
   return {
     props: {
-      group: {
-        notes: await Promise.all(
-          group.notes.map(async (note) => ({
-            ...note,
-            body: await renderMarkdownHtml(note.body, { linkHashtags: true }),
-          }))
-        ),
-      },
+      group: await renderNoteGroup(group),
     },
     revalidate: REVALIDATE_SECONDS,
   };

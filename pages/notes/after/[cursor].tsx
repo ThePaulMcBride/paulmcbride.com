@@ -7,7 +7,7 @@ import {
   NoteGroup,
 } from "lib/dataApi";
 import { REVALIDATE_SECONDS } from "lib/isr";
-import { renderMarkdownHtml } from "lib/markdownToHtml";
+import { renderNotePage } from "lib/renderContent";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const cursors = await getNotePageCursors();
@@ -28,20 +28,11 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
     };
   }
 
-  const page = await getNotePage(params.cursor);
+  const page = await renderNotePage(await getNotePage(params.cursor));
 
   return {
     props: {
-      items: await Promise.all(
-        page.items.map(async (item) => ({
-          notes: await Promise.all(
-            item.notes.map(async (note) => ({
-              ...note,
-              body: await renderMarkdownHtml(note.body, { linkHashtags: true }),
-            }))
-          ),
-        }))
-      ),
+      items: page.items,
       olderHref: page.nextCursor ? `/notes/after/${page.nextCursor}` : null,
       newerHref: page.previousCursor
         ? `/notes/after/${page.previousCursor}`
