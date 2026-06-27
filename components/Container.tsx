@@ -1,12 +1,22 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { type ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
 import cn from "classnames";
 import { RSS } from "components/Footer";
 
 import Footer from "components/Footer";
 import MobileMenu from "components/MobileMenu";
+
+type ContainerProps = {
+  children: ReactNode;
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  date?: string;
+  navClassName?: string;
+};
 
 function NavItem({ href, text }: { href: string; text: string }) {
   const router = useRouter();
@@ -40,7 +50,7 @@ function NavItem({ href, text }: { href: string; text: string }) {
   );
 }
 
-export default function Container(props: any) {
+export default function Container(props: ContainerProps) {
   const [mounted, setMounted] = useState(false);
 
   // After mounting, we have access to the theme
