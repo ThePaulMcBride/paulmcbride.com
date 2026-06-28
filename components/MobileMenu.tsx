@@ -1,9 +1,11 @@
 import cn from "classnames";
 import Link from "next/link";
 import useDelayedRender from "use-delayed-render";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "styles/mobile-menu.module.css";
 import { primaryNavLinks } from "lib/navigation";
+
+const MOBILE_NAV_ID = "mobile-navigation";
 
 function isInternalLink(href: string) {
   return href.startsWith("/") || href.startsWith("#");
@@ -11,6 +13,7 @@ function isInternalLink(href: string) {
 
 export default function MobileMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const { mounted: isMenuMounted, rendered: isMenuRendered } = useDelayedRender(
     isMenuOpen,
     {
@@ -19,65 +22,91 @@ export default function MobileMenu() {
     }
   );
 
+  function closeMenu({ returnFocus = false } = {}) {
+    setIsMenuOpen(false);
+    if (returnFocus) buttonRef.current?.focus();
+  }
+
   function toggleMenu() {
-    if (isMenuOpen) {
-      setIsMenuOpen(false);
-      document.body.style.overflow = "";
-    } else {
-      setIsMenuOpen(true);
-      document.body.style.overflow = "hidden";
-    }
+    setIsMenuOpen((open) => !open);
   }
 
   useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+
     return function cleanup() {
       document.body.style.overflow = "";
     };
-  }, []);
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") closeMenu({ returnFocus: true });
+    }
+
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [isMenuOpen]);
 
   return (
     <>
       <button
+        ref={buttonRef}
         className={cn(styles.burger, "visible md:hidden")}
-        aria-label="Toggle menu"
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        aria-controls={MOBILE_NAV_ID}
+        aria-expanded={isMenuOpen}
         type="button"
         onClick={toggleMenu}
       >
-        <MenuIcon data-hide={isMenuOpen} />
-        <CrossIcon data-hide={!isMenuOpen} />
+        <MenuIcon data-hide={isMenuOpen} aria-hidden="true" focusable="false" />
+        <CrossIcon
+          data-hide={!isMenuOpen}
+          aria-hidden="true"
+          focusable="false"
+        />
       </button>
       {isMenuMounted && (
         <div className="bg-white px-8 fixed inset-0 z-10">
-          <ul
-            className={cn(
-              styles.menu,
-              "flex flex-col z-10 bg-white relative top-[5rem]",
-              isMenuRendered && styles.menuRendered
-            )}
-          >
-            {primaryNavLinks.map((link, index) => (
-              <li
-                key={link.href}
-                className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
-                style={{ transitionDelay: `${150 + index * 25}ms` }}
-              >
-                {isInternalLink(link.href) ? (
-                  <Link href={link.href} className="flex w-auto pb-4">
-                    {link.text}
-                  </Link>
-                ) : (
-                  <a
-                    href={link.href}
-                    className="flex w-auto pb-4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {link.text}
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
+          <nav id={MOBILE_NAV_ID} aria-label="Mobile navigation">
+            <ul
+              className={cn(
+                styles.menu,
+                "flex flex-col z-10 bg-white relative top-[5rem]",
+                isMenuRendered && styles.menuRendered
+              )}
+            >
+              {primaryNavLinks.map((link, index) => (
+                <li
+                  key={link.href}
+                  className="border-b border-gray-300 text-gray-900 text-sm font-semibold"
+                  style={{ transitionDelay: `${150 + index * 25}ms` }}
+                >
+                  {isInternalLink(link.href) ? (
+                    <Link
+                      href={link.href}
+                      className="flex w-auto pb-4"
+                      onClick={() => closeMenu()}
+                    >
+                      {link.text}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="flex w-auto pb-4"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => closeMenu()}
+                    >
+                      {link.text}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       )}
     </>
