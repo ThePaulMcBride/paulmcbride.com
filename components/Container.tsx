@@ -105,6 +105,7 @@ export default function Container(props: ContainerProps) {
         className={cn("flex flex-col justify-center px-8", props.navClassName)}
       >
         <nav
+          aria-label="Primary navigation"
           className={cn(
             "flex items-center justify-between w-full relative mx-auto pt-8 pb-8 sm:pb-16 text-gray-900",
           )}

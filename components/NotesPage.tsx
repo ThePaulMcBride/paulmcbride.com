@@ -57,7 +57,10 @@ export default function NotesPage({
               <NoteGroup key={item.notes.map((note) => note.slug).join(":")} item={item} />
             ))}
           </div>
-          <nav className="flex justify-between gap-4 mb-16 text-emerald-500">
+          <nav
+            aria-label="Notes pagination"
+            className="flex justify-between gap-4 mb-16 text-emerald-500"
+          >
             {newerHref ? (
               <Link href={newerHref} className="hover:text-emerald-700">
                 Newer notes
