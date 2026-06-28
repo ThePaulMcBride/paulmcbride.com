@@ -15,6 +15,8 @@ function ErrorMessage({ children }: { children: ReactNode }) {
         viewBox="0 0 20 20"
         fill="currentColor"
         className="mr-2 h-4 w-4"
+        aria-hidden="true"
+        focusable="false"
       >
         <path
           fillRule="evenodd"
@@ -39,6 +41,8 @@ function SuccessMessage({ children }: { children: ReactNode }) {
         viewBox="0 0 20 20"
         fill="currentColor"
         className="mr-2 h-4 w-4"
+        aria-hidden="true"
+        focusable="false"
       >
         <path
           fillRule="evenodd"
