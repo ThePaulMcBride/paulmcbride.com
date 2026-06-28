@@ -117,8 +117,16 @@ export default function Subscribe() {
         <button
           className="flex items-center justify-center absolute right-1 top-1 px-4 font-medium h-8 bg-emerald-500 text-white rounded w-28"
           type="submit"
+          aria-busy={form.state === "loading"}
         >
-          {form.state === "loading" ? <LoadingSpinner /> : "Subscribe"}
+          {form.state === "loading" ? (
+            <>
+              <LoadingSpinner />
+              <span className="sr-only">Subscribing...</span>
+            </>
+          ) : (
+            "Subscribe"
+          )}
         </button>
       </form>
       {form.state === "error" ? (
