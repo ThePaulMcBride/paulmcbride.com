@@ -50,9 +50,9 @@ export default function Document() {
         <meta content="#ffffff" name="msapplication-TileColor" />
         <link
           key="rss-feed"
-          rel="alternative"
-          type="application/rss+xml"
-          title="RSS feed for paulmcbride.com"
+          rel="alternate"
+          type="application/atom+xml"
+          title="Atom feed for paulmcbride.com"
           href="/feed"
         />
         <script
