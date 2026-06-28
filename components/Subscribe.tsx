@@ -1,9 +1,15 @@
 import { type FormEvent, type ReactNode, useState, useRef } from "react";
 import LoadingSpinner from "components/LoadingSpinner";
 
+const SUBSCRIBE_MESSAGE_ID = "subscribe-message";
+
 function ErrorMessage({ children }: { children: ReactNode }) {
   return (
-    <p className="flex items-center text-sm font-bold text-red-800">
+    <p
+      id={SUBSCRIBE_MESSAGE_ID}
+      role="alert"
+      className="flex items-center text-sm font-bold text-red-800"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
@@ -23,7 +29,11 @@ function ErrorMessage({ children }: { children: ReactNode }) {
 
 function SuccessMessage({ children }: { children: ReactNode }) {
   return (
-    <p className="flex items-center text-sm font-bold text-grey-700">
+    <p
+      id={SUBSCRIBE_MESSAGE_ID}
+      role="status"
+      className="flex items-center text-sm font-bold text-grey-700"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
@@ -96,6 +106,11 @@ export default function Subscribe() {
           placeholder="ann@example.com"
           type="email"
           autoComplete="email"
+          aria-describedby={
+            form.state === "error" || form.state === "success"
+              ? SUBSCRIBE_MESSAGE_ID
+              : undefined
+          }
           required
           className="px-4 py-2 mt-1 focus:ring-grey-500 focus:border-grey-500 block w-full rounded-md bg-white text-gray-500 pr-32"
         />
