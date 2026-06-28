@@ -21,11 +21,11 @@ function NoteEntry({ note }: { note: Note }) {
 
 function NoteGroup({ item }: { item: NoteGroupType }) {
   return (
-    <section className="space-y-12 md:pl-16 md:border-l md:border-dashed md:border-gray-300 transition-colors hover:border-emerald-500">
+    <div className="space-y-12 md:pl-16 md:border-l md:border-dashed md:border-gray-300 transition-colors hover:border-emerald-500">
       {item.notes.map((note) => (
         <NoteEntry key={note.slug} note={note} />
       ))}
-    </section>
+    </div>
   );
 }
 
