@@ -1,9 +1,10 @@
 import cn from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import useDelayedRender from "use-delayed-render";
 import { useState, useEffect, useRef } from "react";
 import styles from "styles/mobile-menu.module.css";
-import { primaryNavLinks } from "lib/navigation";
+import { isActiveNavLink, primaryNavLinks } from "lib/navigation";
 
 const MOBILE_NAV_ID = "mobile-navigation";
 
@@ -12,6 +13,7 @@ function isInternalLink(href: string) {
 }
 
 export default function MobileMenu() {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { mounted: isMenuMounted, rendered: isMenuRendered } = useDelayedRender(
@@ -87,6 +89,11 @@ export default function MobileMenu() {
                   {isInternalLink(link.href) ? (
                     <Link
                       href={link.href}
+                      aria-current={
+                        isActiveNavLink(router.asPath, link.href)
+                          ? "page"
+                          : undefined
+                      }
                       className="flex w-auto pb-4"
                       onClick={() => closeMenu()}
                     >

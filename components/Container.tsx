@@ -4,7 +4,7 @@ import { type ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
 import cn from "classnames";
 import { RSS } from "components/Footer";
-import { primaryNavLinks } from "lib/navigation";
+import { isActiveNavLink, primaryNavLinks } from "lib/navigation";
 
 import Footer from "components/Footer";
 import MobileMenu from "components/MobileMenu";
@@ -21,7 +21,7 @@ type ContainerProps = {
 
 function NavItem({ href, text }: { href: string; text: string }) {
   const router = useRouter();
-  const isActive = router.asPath === href;
+  const isActive = isActiveNavLink(router.asPath, href);
 
   const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
 
@@ -41,6 +41,7 @@ function NavItem({ href, text }: { href: string; text: string }) {
   return (
     <Link
       href={href}
+      aria-current={isActive ? "page" : undefined}
       className={cn(
         isActive ? "font-bold text-gray-800 " : "font-normal text-gray-600",
         "hidden md:inline-block p-1 sm:px-3 sm:py-2 rounded-lg hover:font-bold transition-all",

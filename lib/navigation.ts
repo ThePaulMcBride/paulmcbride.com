@@ -13,3 +13,10 @@ export const primaryNavLinks: NavLink[] = [
     text: "Lessons",
   },
 ];
+
+export function isActiveNavLink(currentPath: string, href: string) {
+  if (!href.startsWith("/")) return false;
+  if (href === "/") return currentPath === href;
+
+  return currentPath === href || currentPath.startsWith(`${href}/`);
+}
