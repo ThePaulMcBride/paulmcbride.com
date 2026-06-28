@@ -27,6 +27,8 @@ export default function NoteMedia({
             aria-label={media.alt || "Video attachment"}
           />
         ) : (
+          // Note images come from the data API without intrinsic dimensions.
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             key={media.url}
             src={media.url}
