@@ -117,7 +117,7 @@ export const Twitch = () => {
 
 export const RSS = () => {
   return (
-    <a href="/feed" aria-label="Subscribe to my RSS feed">
+    <a href="/feed" aria-label="Subscribe to my feed">
       <svg
         className="w-6 h-6"
         fill="none"
