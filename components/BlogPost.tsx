@@ -25,11 +25,14 @@ export default function BlogPost({
         className="mt-6 flex text-base md:text-xl text-emerald-500 leading-7 rounded-lg hover:text-emerald-700 transition-all h-6 items-center"
       >
         Read post
+        <span className="sr-only">: {title}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           className="h-6 w-6 ml-1"
+          aria-hidden="true"
+          focusable="false"
         >
           <path
             stroke="currentColor"

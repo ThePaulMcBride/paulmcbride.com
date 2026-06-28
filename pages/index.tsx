@@ -87,6 +87,8 @@ const Home: NextPage<HomeProps> = ({ posts, homePageContent }) => {
             fill="none"
             viewBox="0 0 24 24"
             className="h-6 w-6 ml-1"
+            aria-hidden="true"
+            focusable="false"
           >
             <path
               stroke="currentColor"
