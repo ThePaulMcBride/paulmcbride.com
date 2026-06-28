@@ -87,6 +87,7 @@ function rehypeYouTube(options: RenderMarkdownOptions) {
       const properties = node.properties || {};
       const id = String(properties.videoid || properties.videoId || "");
       const title = String(properties.title || "YouTube video");
+      const videoUrl = `https://www.youtube.com/watch?v=${id}`;
 
       if (!id) {
         node.tagName = "div";
@@ -101,7 +102,7 @@ function rehypeYouTube(options: RenderMarkdownOptions) {
           {
             type: "element",
             tagName: "a",
-            properties: { href: `https://www.youtube.com/watch?v=${id}` },
+            properties: { href: videoUrl },
             children: [{ type: "text", value: `Watch: ${title}` }],
           },
         ];
@@ -110,24 +111,46 @@ function rehypeYouTube(options: RenderMarkdownOptions) {
 
       node.tagName = "div";
       node.properties = htmlAttributes({
-        className: "relative my-8 aspect-[16/9] overflow-hidden rounded-md",
+        className: "my-8",
       });
       node.children = [
         {
           type: "element",
-          tagName: "iframe",
+          tagName: "div",
           properties: htmlAttributes({
-            className: "absolute inset-0 z-0 h-full w-full",
-            src: `https://www.youtube.com/embed/${id}`,
-            title,
-            width: "100%",
-            height: "100%",
-            frameBorder: "0",
-            allow:
-              "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-            allowFullScreen: true,
+            className: "relative aspect-[16/9] overflow-hidden rounded-md",
           }),
-          children: [],
+          children: [
+            {
+              type: "element",
+              tagName: "iframe",
+              properties: htmlAttributes({
+                className: "absolute inset-0 z-0 h-full w-full",
+                src: `https://www.youtube.com/embed/${id}`,
+                title,
+                width: "100%",
+                height: "100%",
+                frameBorder: "0",
+                allow:
+                  "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+                allowFullScreen: true,
+              }),
+              children: [],
+            },
+          ],
+        },
+        {
+          type: "element",
+          tagName: "p",
+          properties: htmlAttributes({ className: "mt-3 text-sm" }),
+          children: [
+            {
+              type: "element",
+              tagName: "a",
+              properties: { href: videoUrl },
+              children: [{ type: "text", value: `Watch ${title} on YouTube` }],
+            },
+          ],
         },
       ];
     });
