@@ -16,6 +16,7 @@ export default function MobileMenu() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const navRef = useRef<HTMLElement>(null);
   const { mounted: isMenuMounted, rendered: isMenuRendered } = useDelayedRender(
     isMenuOpen,
     {
@@ -44,12 +45,35 @@ export default function MobileMenu() {
   useEffect(() => {
     if (!isMenuOpen) return;
 
-    function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") closeMenu({ returnFocus: true });
+    function handleMenuKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        closeMenu({ returnFocus: true });
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const button = buttonRef.current;
+      const links = Array.from(
+        navRef.current?.querySelectorAll<HTMLAnchorElement>("a[href]") || []
+      );
+      const focusableItems = button ? [button, ...links] : links;
+      if (!focusableItems.length) return;
+
+      const firstItem = focusableItems[0];
+      const lastItem = focusableItems[focusableItems.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault();
+        lastItem.focus();
+      } else if (!event.shiftKey && document.activeElement === lastItem) {
+        event.preventDefault();
+        firstItem.focus();
+      }
     }
 
-    document.addEventListener("keydown", closeOnEscape);
-    return () => document.removeEventListener("keydown", closeOnEscape);
+    document.addEventListener("keydown", handleMenuKeyDown);
+    return () => document.removeEventListener("keydown", handleMenuKeyDown);
   }, [isMenuOpen]);
 
   return (
@@ -72,7 +96,11 @@ export default function MobileMenu() {
       </button>
       {isMenuMounted && (
         <div className="bg-white px-8 fixed inset-0 z-10">
-          <nav id={MOBILE_NAV_ID} aria-label="Mobile navigation">
+          <nav
+            ref={navRef}
+            id={MOBILE_NAV_ID}
+            aria-label="Mobile navigation"
+          >
             <ul
               className={cn(
                 styles.menu,
