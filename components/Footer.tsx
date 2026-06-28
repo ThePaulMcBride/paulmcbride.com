@@ -132,7 +132,10 @@ export default function Footer() {
   return (
     <footer className="grid grid-cols-main [&>*]:col-start-2 [&>*]:col-end-3 mb-8 px-8">
       <hr className="w-full border-1 border-gray-200 mb-8" />
-      <div className="grid sm:grid-cols-3 justify-between mb-8 space-y-3 sm:space-y-0">
+      <nav
+        aria-label="Footer navigation"
+        className="grid sm:grid-cols-3 justify-between mb-8 space-y-3 sm:space-y-0"
+      >
         <ul className="text-sm text-gray-600 list-none space-y-3">
           <li>
             <Link href="/" className="hover:text-emerald-500 transition-colors">
@@ -237,7 +240,7 @@ export default function Footer() {
             </Link>
           </li>
         </ul>
-      </div>
+      </nav>
       <div className="flex justify-between w-full text-base text-gray-600">
         <span>{`Paul McBride \u00A9 ${new Date().getFullYear()}`}</span>
       </div>
