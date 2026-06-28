@@ -45,9 +45,9 @@ const Home: NextPage<HomeProps> = ({ posts, homePageContent }) => {
             <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-gray-900 font-serif">
               Paul McBride
             </h1>
-            <h2 className="text-gray-700 mb-4 text-xl md:text-2xl md:leading-relaxed">
+            <p className="text-gray-700 mb-4 text-xl md:text-2xl md:leading-relaxed">
               Senior JavaScript Developer
-            </h2>
+            </p>
             <p className="text-gray-600 mb-16 font-body text-xl leading-relaxed md:text-2xl md:leading-relaxed">
               Hey, I&apos;m Paul. I&apos;m a software developer and instructor
               who loves using code to solve problems and bring ideas to life!
@@ -63,15 +63,15 @@ const Home: NextPage<HomeProps> = ({ posts, homePageContent }) => {
             />
           </div>
         </div>
-        <h3 className="font-bold text-2xl md:text-4xl tracking-tight text-gray-900 font-serif mb-2">
+        <h2 className="font-bold text-2xl md:text-4xl tracking-tight text-gray-900 font-serif mb-2">
           About
-        </h3>
+        </h2>
         <div className="w-full prose prose-base md:prose-xl max-w-none mb-16 font-body">
           <MarkdownContent content={homePageContent} />
         </div>
-        <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-gray-900 font-serif">
+        <h2 className="font-bold text-2xl md:text-4xl tracking-tight mb-8 text-gray-900 font-serif">
           Featured Posts
-        </h3>
+        </h2>
         <div className="flex flex-col">
           {posts.map((post) => (
             <BlogPost key={post.slug} {...post} />
