@@ -10,12 +10,12 @@ export default function BlogPost({
   teaser,
 }: Pick<PostSummary, "title" | "slug" | "href" | "description" | "teaser">) {
   return (
-    <div className="w-full mb-12">
+    <article className="w-full mb-12">
       <div className="flex flex-col md:flex-row md:items-center mb-4">
         <Link href={href} className="w-full">
-          <h4 className="text-xl font-medium font-serif text-gray-900 md:text-3xl">
+          <h2 className="text-xl font-medium font-serif text-gray-900 md:text-3xl">
             {title}
-          </h4>
+          </h2>
         </Link>
       </div>
       <p className="text-gray-600 font-body prose md:prose-xl">{teaser}</p>
@@ -40,6 +40,6 @@ export default function BlogPost({
           />
         </svg>
       </Link>
-    </div>
+    </article>
   );
 }
