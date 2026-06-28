@@ -43,7 +43,7 @@ export default function NotesPage({
       title="Notes – Paul McBride"
       description="Short notes, links, and social posts from Paul McBride."
     >
-      <main className="mx-8">
+      <div className="mx-8">
         <div className="max-w-none md:max-w-content mx-auto w-full">
           <h1 className="font-bold text-3xl md:text-5xl tracking-tight text-gray-900 font-serif mb-8">
             Notes
@@ -72,7 +72,7 @@ export default function NotesPage({
             )}
           </nav>
         </div>
-      </main>
+      </div>
     </Container>
   );
 }

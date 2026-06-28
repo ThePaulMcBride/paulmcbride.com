@@ -34,7 +34,7 @@ const Home: NextPage<{ posts: NowEntry[] }> = ({ posts }) => {
       description="A chronological list of things I've been doing. It will
       mostly be a monthly summary of how my work and life changes."
     >
-      <main className="mx-8">
+      <div className="mx-8">
         <div className="max-w-none md:max-w-content mx-auto w-full">
           <h1 className="font-bold text-3xl md:text-5xl tracking-tight text-gray-900 font-serif mb-8">
             Now
@@ -59,7 +59,7 @@ const Home: NextPage<{ posts: NowEntry[] }> = ({ posts }) => {
             ))}
           </div>
         </div>
-      </main>
+      </div>
     </Container>
   );
 };

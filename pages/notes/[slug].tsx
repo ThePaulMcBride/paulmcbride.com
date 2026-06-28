@@ -90,13 +90,13 @@ const NotePage: NextPage<{ group: NoteGroup }> = ({ group }) => {
       date={new Date(rootNote.date).toISOString()}
       type="article"
     >
-      <main className="mx-8">
+      <div className="mx-8">
         <div className="w-full mt-8 mb-8 font-body prose prose-lg md:prose-xl md:text-jumbo max-w-none md:max-w-content mx-auto lining-nums space-y-12">
           {group.notes.map((note) => (
             <NoteEntry key={note.slug} note={note} />
           ))}
         </div>
-      </main>
+      </div>
     </Container>
   );
 };

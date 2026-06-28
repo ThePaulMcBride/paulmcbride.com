@@ -22,7 +22,7 @@ const Home: NextPage<{ colophon: Page }> = ({ colophon }) => {
       title="Colophon – Paul McBride"
       description="A little page about the tools I use to make this site and the other sites that inspire me."
     >
-      <main className="mx-8">
+      <div className="mx-8">
         <div className="max-w-none md:max-w-content mx-auto w-full">
           <h1 className="font-bold text-3xl md:text-5xl tracking-tight text-gray-900 font-serif mb-8">
             Colophon
@@ -36,7 +36,7 @@ const Home: NextPage<{ colophon: Page }> = ({ colophon }) => {
             <MarkdownContent content={colophon.body} />
           </div>
         </div>
-      </main>
+      </div>
     </Container>
   );
 };

@@ -128,7 +128,7 @@ export default function BlogLayout({
           </div>
         )} */}
       </header>
-      <main className="px-8 mb-12">
+      <div className="px-8 mb-12">
         <article className="w-full mt-8 mb-8 font-body prose prose-lg md:prose-xl md:text-jumbo max-w-none md:max-w-content mx-auto lining-nums">
           {children}
         </article>
@@ -159,7 +159,7 @@ export default function BlogLayout({
             </a>
           </div>
         </div>
-      </main>
+      </div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
